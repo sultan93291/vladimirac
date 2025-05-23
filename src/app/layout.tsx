@@ -26,9 +26,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${jost.variable}`}>
-      <body className={` antialiased`}>
+      <body>
         <Navbar />
-        {children}
+        <div className="my-20">{children}</div>
         <Footer />
       </body>
     </html>
