@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Jost, Geist_Mono } from "next/font/google";
+import { Jost } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/Components/Shared/Navbar";
 import Footer from "@/Components/Shared/Footer";
