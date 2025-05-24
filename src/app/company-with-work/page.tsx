@@ -1,9 +1,8 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import React from "react";
 
-const page = () => {
+const Page = () => {
   const searchParams = useSearchParams();
   const sector = searchParams.get("sector");
 
@@ -17,4 +16,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
