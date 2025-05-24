@@ -1,19 +1,12 @@
-"use client";
+import { Suspense } from "react";
+import SectorPage from "./SectorPage";
 
-import { useSearchParams } from "next/navigation";
-
-const Page = () => {
-  const searchParams = useSearchParams();
-  const sector = searchParams.get("sector");
-
+export default function Page() {
   return (
-    <section className="py-20">
-      <h1 className="text-[48px] font-bold text-center text-white">
-        {sector ? `${sector}` : "Sector Details"}
-      </h1>
-      {/* You can now use `sector` to load specific data, show content, etc. */}
-    </section>
+    <Suspense
+      fallback={<div className="text-white text-center py-20">Loading...</div>}
+    >
+      <SectorPage />
+    </Suspense>
   );
-};
-
-export default Page;
+}
