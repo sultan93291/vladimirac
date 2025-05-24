@@ -21,7 +21,7 @@ const Navbar = () => {
     { label: "Company", href: "/company" },
     { label: "Resources", href: "/resources" },
     { label: "Budget", href: "/budget" },
-    { label: "About us", href: "/about" },
+    { label: "About us", href: "/about-us" },
     { label: "Contact Us", href: "/contact" },
   ];
 
@@ -98,7 +98,7 @@ const Navbar = () => {
                       <Link href="/careers">Careers</Link>
                     </li>
                     <li className="px-4 py-2 hover:bg-gray-100 text-black cursor-pointer">
-                      <Link href="/partners">Partners</Link>
+                      <Link href="/sector">Sectors</Link>
                     </li>
                     <li className="px-4 py-2 hover:bg-gray-100 text-black cursor-pointer">
                       <Link href="/legal">Legal</Link>
