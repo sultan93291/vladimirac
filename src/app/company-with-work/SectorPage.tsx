@@ -7,8 +7,8 @@ const SectorPage = () => {
   const sector = searchParams.get("sector");
 
   return (
-    <section className="py-20">
-      <h1 className="text-[48px] font-bold text-center text-white">
+    <section className="">
+      <h1 className="text-[64px] font-bold text-center font-arial text-white">
         {sector ? sector : "Sector Details"}
       </h1>
     </section>

@@ -1,83 +1,100 @@
 @import "tailwindcss";
 
 :root {
-  background-color: #13213C;
+  background-color: #13213c;
 }
 
 @font-face {
-  font-family: 'lucida';
-  src: url('/fonts/lucida_regular.ttf') format('truetype');
+  font-family: "lucida";
+  src: url("/fonts/lucida_regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'lucida';
-  src: url('/fonts/lucida_bold.ttf') format('truetype');
+  font-family: "lucida";
+  src: url("/fonts/lucida_bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'lucida';
-  src: url('/fonts/lucida_italic.ttf') format('truetype');
+  font-family: "lucida";
+  src: url("/fonts/lucida_italic.ttf") format("truetype");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'lucida';
-  src: url('/fonts/lucida_bolditalic.ttf') format('truetype');
+  font-family: "lucida";
+  src: url("/fonts/lucida_bolditalic.ttf") format("truetype");
   font-weight: 700;
   font-style: italic;
   font-display: swap;
 }
 
-
-
 @font-face {
-  font-family: 'arial';
-  src: url('/fonts/arial/arial-regular.ttf') format('truetype');
+  font-family: "arial";
+  src: url("/fonts/arial/arial-regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'arial';
-  src: url('/fonts/arial/arial-italic.ttf') format('truetype');
+  font-family: "arial";
+  src: url("/fonts/arial/arial-italic.ttf") format("truetype");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'arial';
-  src: url('/fonts/arial/arial-bold.ttf') format('truetype');
+  font-family: "arial";
+  src: url("/fonts/arial/arial-bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'arial';
-  src: url('/fonts/arial/arial-bolditalic.ttf') format('truetype');
+  font-family: "arial";
+  src: url("/fonts/arial/arial-bolditalic.ttf") format("truetype");
   font-weight: 700;
   font-style: italic;
   font-display: swap;
 }
 
-
-
-
-
-
-
-@theme  {
+@theme {
   --font-lucida: lucida, sans-serif;
   --font-arial: arial, sans-serif;
-  --font-jost : var(--font-jost);
+  --font-jost: var(--font-jost);
+}
+
+.swiper-pagination-bullet.custom-bullet {
+  background-color: #fff;
+  opacity: 1;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  width: 12px;
+  height: 12px;
+}
+
+.swiper-pagination-bullet.custom-bullet.swiper-pagination-bullet-active {
+  background-color: #B30052;
+  border-radius: 10px; 
+  width: 24px;  
+  height: 12px;
+  transform: scale(1.2);
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.teamSwiper .swiper-pagination {
+  bottom: -100px !important;
 }
