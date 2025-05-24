@@ -3,7 +3,6 @@ import React from "react";
 import Banner from "./components/Banner";
 import Team from "./components/Team";
 import Operations from "./components/Operations";
-import History from "./components/History";
 
 const page = () => {
   return (
