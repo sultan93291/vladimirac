@@ -84,9 +84,9 @@
 }
 
 .swiper-pagination-bullet.custom-bullet.swiper-pagination-bullet-active {
-  background-color: #B30052;
-  border-radius: 10px; 
-  width: 24px;  
+  background-color: #b30052;
+  border-radius: 10px;
+  width: 24px;
   height: 12px;
   transform: scale(1.2);
 }
@@ -98,3 +98,4 @@ body {
 .teamSwiper .swiper-pagination {
   bottom: -100px !important;
 }
+
