@@ -78,8 +78,6 @@ const TimelineSlider = () => {
       <h2 className="text-3xl md:text-4xl text-center font-semibold mb-6">
         Our History
       </h2>
-
-      {/* Timeline bar with date/status/icons */}
       <div className="relative w-full px-4 md:px-20">
         <Swiper
           onSwiper={swiper => (timelineBarRef.current = swiper)}

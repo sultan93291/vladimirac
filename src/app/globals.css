@@ -72,6 +72,7 @@
   --font-lucida: lucida, sans-serif;
   --font-arial: arial, sans-serif;
   --font-jost: var(--font-jost);
+  --font-nunito: var(--font-nunito);
 }
 
 .swiper-pagination-bullet.custom-bullet {
@@ -98,4 +99,3 @@ body {
 .teamSwiper .swiper-pagination {
   bottom: -100px !important;
 }
-
