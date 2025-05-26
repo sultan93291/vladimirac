@@ -31,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${jost.variable}`}>
+    <html lang="en" className={`${jost.variable} ${nunito.variable}`}>
       <body>
         <Navbar />
         <div className="my-20">{children}</div>
