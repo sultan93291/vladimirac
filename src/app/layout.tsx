@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
-import { Jost } from "next/font/google";
+import { Jost, Nunito } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/Components/Shared/Navbar";
-import Footer from "@/Components/Shared/Footer";
+import LayoutWrapper from "@/Components/Shared/LayoutWrapper";
 
 const jost = Jost({
   variable: "--font-jost",
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  display: "swap",
+});
+const nunito = Nunito({
+  variable: "--font-nunito",
   subsets: ["latin"],
   weight: ["400", "500", "700"],
   display: "swap",
@@ -25,11 +30,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${jost.variable}`}>
-      <body>
-        <Navbar />
-        <div className="my-20">{children}</div>
-        <Footer />
+    <html lang="en" className={`${jost.variable} ${nunito.variable}`}>
+      <body className="bg-[#13213C]">
+        <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
   );
