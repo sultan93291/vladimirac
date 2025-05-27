@@ -79,7 +79,6 @@ const Page = () => {
           {/* Right side with details grid */}
           <div className="w-2/3 grid grid-cols-2 gap-x-4 gap-y-8">
             {detailEntries.map(([key, { icon, text }], idx, arr) => {
-              // Last card spans 2 cols if there are exactly 3 items or if only 1 item
               const isLast = arr.length === 3 && idx === arr.length - 1;
               const isSingle = arr.length === 1;
               const spanClass = isLast || isSingle ? "col-span-2" : "";

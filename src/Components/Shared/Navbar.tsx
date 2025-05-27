@@ -112,12 +112,16 @@ const Navbar = () => {
           {/* Language + Auth Buttons */}
           <div className="w-[30%] flex justify-end gap-x-6 items-center">
             <LanguageSelect />
+            <Link href="/sign-in">
             <button className="py-[10px] px-4 rounded-[12px] border border-[#FAA312] text-white font-arial text-[18px] transition duration-500 ease-in-out hover:bg-[linear-gradient(315deg,_#FAA312_-148.02%,_rgba(13,_13,_13,_0.00)_197.26%)] cursor-pointer">
               Log in
             </button>
+            </Link>
+            <Link href="/sign-up">
             <button className="py-[10px] px-4 rounded-[12px] border border-[#FAA312] text-white font-arial text-[18px] transition duration-500 ease-in-out hover:bg-[linear-gradient(315deg,_#FAA312_-148.02%,_rgba(13,_13,_13,_0.00)_197.26%)] cursor-pointer">
               Sign Up
             </button>
+            </Link>
           </div>
         </div>
       </Container>
