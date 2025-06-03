@@ -1,8 +1,7 @@
 import Workwithuscard from "@/Components/Reusable/Workwithuscard";
 import Container from "@/Components/Shared/Container";
 import React from "react";
-import { CiLocationOn } from "react-icons/ci";
-import { IoArrowForward } from "react-icons/io5";
+
 
 const page = () => {
   return (
