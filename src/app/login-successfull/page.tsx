@@ -1,8 +1,6 @@
-import Link from "next/link";
 import Authbanner from "@/Components/Reusable/Authbanner";
 import LanguageSelect from "@/Components/Reusable/LanguageSelect";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/Components/ui/tabs";
-import { Round1, Round2, Wish } from "@/Components/Shared/Icons";
+import {  Wish } from "@/Components/Shared/Icons";
 import { IoArrowForward } from "react-icons/io5";
 
 const Page = () => {
