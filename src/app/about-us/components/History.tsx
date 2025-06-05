@@ -70,15 +70,17 @@ const TimelineSlider = () => {
   const swiperRef = useRef<SwiperClass | null>(null);
 
   const slideTo = (index: number) => {
-    swiperRef.current?.slideToLoop(index); // loop-safe slide
+    swiperRef.current?.slideToLoop(index);
   };
 
   return (
-    <section className="text-white py-10 relative">
+    <section className="text-white mb-[128px] pt-10 relative">
       <h2 className="text-3xl md:text-4xl text-center font-semibold mb-6">
         Our History
       </h2>
-      <div className="relative w-full px-4 md:px-20">
+
+      {/* Timeline Dots Swiper */}
+      <div className="relative w-full overflow-hidden px-4 md:px-20">
         <Swiper
           onSwiper={swiper => (timelineBarRef.current = swiper)}
           slidesPerView={3}
@@ -88,7 +90,7 @@ const TimelineSlider = () => {
           loopAdditionalSlides={3}
           allowTouchMove={false}
           initialSlide={1}
-          className="!overflow-visible z-10"
+          className="z-10"
         >
           {timelineData.map((item, index) => (
             <SwiperSlide key={index}>
@@ -113,61 +115,67 @@ const TimelineSlider = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-        <div className="absolute bottom-2 left-20 right-20 h-[2px] bg-white opacity-20 z-0" />
+
+        {/* Timeline Line */}
+        <div className="absolute bottom-2 left-4 md:left-20 right-4 md:right-20 h-[2px] bg-white opacity-20 z-0 pointer-events-none" />
       </div>
 
-      {/* Navigation Arrows */}
-      <div className="absolute top-[50%] left-4 z-10 swiper-button-prev cursor-pointer !text-white text-2xl md:text-3xl bg-[#C83C7C] p-2 rounded-full hover:bg-[#a02f64] transition">
-        <FaArrowLeftLong />
-      </div>
-      <div className="absolute top-[50%] right-4 z-10 swiper-button-next cursor-pointer !text-white text-2xl md:text-3xl bg-[#C83C7C] p-2 rounded-full hover:bg-[#a02f64] transition">
-        <FaArrowRightLong />
+      {/* Content Swiper */}
+      <div className="w-full px-4 md:px-20 mt-12">
+        <Swiper
+          onSwiper={swiper => (swiperRef.current = swiper)}
+          slidesPerView={3}
+          centeredSlides={true}
+          spaceBetween={30}
+          loop={true}
+          loopAdditionalSlides={3}
+          initialSlide={1}
+          onRealIndexChange={swiper => {
+            setActiveIndex(swiper.realIndex);
+            timelineBarRef.current?.slideToLoop(swiper.realIndex);
+          }}
+          navigation={{
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          }}
+          modules={[Navigation]}
+          className="timelineSwiper"
+        >
+          {timelineData.map((item, index) => (
+            <SwiperSlide
+              key={index}
+              className={`w-full rounded-xl overflow-hidden transition-all duration-300 ${
+                index === activeIndex
+                  ? "border-2 border-[#C83C7C] bg-[#3A2B3C]"
+                  : "border border-white/10 bg-[#3A2B3C]"
+              }`}
+            >
+              <div className="relative w-full h-[180px] px-6 py-8">
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="p-4">
+                <h3 className="text-lg font-semibold">{item.title}</h3>
+                <p className="text-sm mt-2">{item.description}</p>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
 
-      {/* Content Slides */}
-      <Swiper
-        onSwiper={swiper => (swiperRef.current = swiper)}
-        slidesPerView={3}
-        centeredSlides={true}
-        spaceBetween={30}
-        loop={true}
-        loopAdditionalSlides={3}
-        initialSlide={1}
-        onRealIndexChange={swiper => {
-          setActiveIndex(swiper.realIndex);
-          timelineBarRef.current?.slideToLoop(swiper.realIndex);
-        }}
-        navigation={{
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        }}
-        modules={[Navigation]}
-        className="timelineSwiper flex px-4 md:px-20 mt-12"
-      >
-        {timelineData.map((item, index) => (
-          <SwiperSlide
-            key={index}
-            className={`w-full rounded-xl overflow-hidden transition-all duration-300 ${
-              index === activeIndex
-                ? "border-2 border-[#C83C7C] bg-[#3A2B3C]"
-                : "border border-white/10 bg-[#3A2B3C]"
-            }`}
-          >
-            <div className="relative w-full h-[180px] px-6 py-8">
-              <Image
-                src={item.image}
-                alt={item.title}
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="p-4">
-              <h3 className="text-lg font-semibold">{item.title}</h3>
-              <p className="text-sm mt-2">{item.description}</p>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      {/* Bottom-Centered Navigation Buttons */}
+      <div className=" flex flex-row justify-between w-full gap-6 absolute bottom-[-50px]  z-20">
+        <div className="swiper-button-prev  justify-between cursor-pointer !text-white text-2xl md:text-3xl bg-[#C83C7C] p-3 rounded-full hover:bg-[#a02f64] transition">
+          <FaArrowLeftLong />
+        </div>
+        <div className="swiper-button-next cursor-pointer !text-white text-2xl md:text-3xl bg-[#C83C7C] p-3 rounded-full hover:bg-[#a02f64] transition">
+          <FaArrowRightLong />
+        </div>
+      </div>
     </section>
   );
 };

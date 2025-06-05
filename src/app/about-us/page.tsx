@@ -20,7 +20,9 @@ const page = () => {
         </div>
       </Container>
       <Operations />
+      <Container>
       <History />
+      </Container>
     </section>
   );
 };
