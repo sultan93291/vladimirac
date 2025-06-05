@@ -215,3 +215,6 @@ body {
     @apply bg-background text-foreground;
   }
 }
+.data-\[size\=default\]\:h-9[data-size="default"] {
+  color: white !important;
+}
