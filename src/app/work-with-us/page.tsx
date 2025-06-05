@@ -36,7 +36,7 @@ const page = () => {
             <Workwithuscard
               backgroundImage="/work.png"
               title="Forklift Operator"
-              subtitle=" Warehouse"
+              subtitle="Warehouse"
               location="Castellar del Vallès, Spain"
             />
           </div>
