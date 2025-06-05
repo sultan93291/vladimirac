@@ -78,13 +78,13 @@ const Page = () => {
           Resources
         </h2>
         <div className="flex gap-x-[70px] mt-[120px] px-20">
-          <div className="p-4 border border-[#C83C7C] rounded-[8px]">
+          <div className="p-4 border border-[#C83C7C] rounded-[8px] h-[360px]">
             <ul className="flex flex-col gap-y-2">
               {items.map(item => (
                 <li
                   key={item}
                   onClick={() => setActiveItem(item)}
-                  className={`w-[350px] py-2 px-4  rounded-[8px] font-lucida font-normal cursor-pointer transition-colors duration-200 ${
+                  className={`w-[350px] py-2 px-4  rounded-[8px] font-lucida font-normal cursor-pointer transition-colors  duration-200 ${
                     activeItem === item
                       ? "bg-[#C83C7C] text-white"
                       : "bg-transparent text-white hover:bg-[#C83C7C]"
@@ -95,9 +95,7 @@ const Page = () => {
               ))}
             </ul>
           </div>
-          <div className="flex-1 border border-[#C83C7C] rounded-[8px] p-6 min-h-[300px]">
-            {renderContent()}
-          </div>
+          <div className="flex-1">{renderContent()}</div>
         </div>
       </Container>
     </section>
