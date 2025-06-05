@@ -4,67 +4,59 @@ import Select from "react-select";
 import Image from "next/image";
 import { useState } from "react";
 
-const options = [
+interface LanguageSelectProps {
+  showLabel?: boolean;
+  showBorder?: boolean;
+}
+
+const flagOptions = [
   {
     value: "en",
-    label: (
-      <div className="flex items-center gap-3">
-        <Image
-          src="/flag.png"
-          alt="EN"
-          width={32}
-          height={32}
-          className="h-8 w-8 rounded-full object-cover"
-        />
-        <span className="text-[#F2F2F2] text-[16px] font-lucida font-normal">
-          English
-        </span>
-      </div>
-    ),
+    icon: "/flag.png",
+    name: "English",
   },
   {
     value: "ro",
-    label: (
-      <div className="flex items-center gap-2">
-        <Image
-          src="/romania.png"
-          alt="RO"
-          width={32}
-          height={32}
-          className="h-8 w-8 rounded-full object-cover"
-        />
-        <span className="text-[#F2F2F2] text-[16px] font-lucida font-normal">
-          Romania
-        </span>
-      </div>
-    ),
+    icon: "/romania.png",
+    name: "Romania",
   },
   {
     value: "es",
+    icon: "/spain.png",
+    name: "Spain",
+  },
+];
+
+const LanguageSelect = ({
+  showLabel = true,
+  showBorder = false,
+}: LanguageSelectProps) => {
+  const formattedOptions = flagOptions.map(option => ({
+    value: option.value,
     label: (
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2">
         <Image
-          src="/spain.png"
-          alt="ES"
+          src={option.icon}
+          alt={option.name}
           width={32}
           height={32}
           className="h-8 w-8 rounded-full object-cover"
         />
-        <span className="text-[#F2F2F2] text-[16px] font-lucida font-normal">
-          Spain
-        </span>
+        {showLabel && (
+          <span className="text-[#F2F2F2] text-[16px] font-lucida font-normal">
+            {option.name}
+          </span>
+        )}
       </div>
     ),
-  },
-];
+  }));
 
-const LanguageSelect = () => {
-  const [selectedOption, setSelectedOption] = useState(options[0]);
+  const [selectedOption, setSelectedOption] = useState(formattedOptions[0]);
 
   return (
     <div className="w-40">
       <Select
-        options={options}
+        options={formattedOptions}
         defaultValue={selectedOption}
         onChange={value => setSelectedOption(value!)}
         classNamePrefix="react-select"
@@ -72,7 +64,7 @@ const LanguageSelect = () => {
           control: base => ({
             ...base,
             backgroundColor: "transparent",
-            border: "none",
+            border: showBorder ? "1px solid #666" : "none",
             boxShadow: "none",
             cursor: "pointer",
           }),

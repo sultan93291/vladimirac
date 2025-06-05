@@ -4,7 +4,7 @@ interface CountdownProps {
   title: string;
   para: string;
   showBorder?: boolean;
-}
+};
 
 const CountdownReusable: React.FC<CountdownProps> = ({
   title,
