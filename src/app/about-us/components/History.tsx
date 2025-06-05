@@ -65,12 +65,12 @@ const timelineData = [
 ];
 
 const TimelineSlider = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(1);
   const timelineBarRef = useRef<SwiperClass | null>(null);
   const swiperRef = useRef<SwiperClass | null>(null);
 
   const slideTo = (index: number) => {
-    swiperRef.current?.slideTo(index);
+    swiperRef.current?.slideToLoop(index); // loop-safe slide
   };
 
   return (
@@ -79,20 +79,23 @@ const TimelineSlider = () => {
         Our History
       </h2>
 
-      {/* Timeline bar with date/status/icons */}
+      {/* Timeline Navigation Bar */}
       <div className="relative w-full px-4 md:px-20">
         <Swiper
           onSwiper={swiper => (timelineBarRef.current = swiper)}
-          slidesPerView={4}
+          slidesPerView={3}
           spaceBetween={30}
           centeredSlides={true}
+          loop={true}
+          loopAdditionalSlides={3}
           allowTouchMove={false}
+          initialSlide={1}
           className="!overflow-visible z-10"
         >
           {timelineData.map((item, index) => (
             <SwiperSlide key={index}>
               <div
-                className="flex flex-col items-center cursor-pointer"
+                className="flex flex-col items-center justify-center cursor-pointer"
                 onClick={() => slideTo(index)}
               >
                 <p className="text-lg font-semibold whitespace-nowrap mb-1">
@@ -115,7 +118,7 @@ const TimelineSlider = () => {
         <div className="absolute bottom-2 left-20 right-20 h-[2px] bg-white opacity-20 z-0" />
       </div>
 
-      {/* Navigation Buttons */}
+      {/* Navigation Arrows */}
       <div className="absolute top-[50%] left-4 z-10 swiper-button-prev cursor-pointer !text-white text-2xl md:text-3xl bg-[#C83C7C] p-2 rounded-full hover:bg-[#a02f64] transition">
         <FaArrowLeftLong />
       </div>
@@ -123,22 +126,25 @@ const TimelineSlider = () => {
         <FaArrowRightLong />
       </div>
 
-      {/* Timeline Content Slides */}
+      {/* Content Slides */}
       <Swiper
         onSwiper={swiper => (swiperRef.current = swiper)}
-        slidesPerView={4}
+        slidesPerView={3}
         centeredSlides={true}
         spaceBetween={30}
+        loop={true}
+        loopAdditionalSlides={3}
+        initialSlide={1}
         onRealIndexChange={swiper => {
           setActiveIndex(swiper.realIndex);
-          timelineBarRef.current?.slideTo(swiper.realIndex);
+          timelineBarRef.current?.slideToLoop(swiper.realIndex);
         }}
         navigation={{
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
         }}
         modules={[Navigation]}
-        className="timelineSwiper px-4 mt-12"
+        className="timelineSwiper flex px-4 md:px-20 mt-12"
       >
         {timelineData.map((item, index) => (
           <SwiperSlide
