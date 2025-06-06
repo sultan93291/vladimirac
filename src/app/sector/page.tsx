@@ -1,18 +1,9 @@
 "use client";
-
-import Sectorcard from "@/Components/Reusable/Sectorcard";
-import Container from "@/Components/Shared/Container";
-import {
-  Chemicals,
-  Consumption,
-  Energy,
-  Fairs,
-  Industrial,
-  Sectoricon,
-  Tech,
-} from "@/Components/Shared/Icons";
 import React from "react";
 import Link from "next/link";
+import Container from "@/Components/Shared/Container";
+import Sectorcard from "@/Components/Reusable/Sectorcard";
+import {Chemicals,Consumption,Energy,Fairs,Industrial,Sectoricon,Tech} from "@/Components/Shared/Icons";
 
 const sectors = [
   {

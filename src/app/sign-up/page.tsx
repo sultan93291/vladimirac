@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Authbanner from "@/Components/Reusable/Authbanner";
+import { Round1, Round2 } from "@/Components/Shared/Icons";
 import LanguageSelect from "@/Components/Reusable/LanguageSelect";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/Components/ui/tabs";
-import { Round1, Round2 } from "@/Components/Shared/Icons";
 
 const Page = () => {
   return (

@@ -1,20 +1,18 @@
 "use client";
-
 import { useState } from "react";
-import ServiceCard from "@/Components/Reusable/Servicecard";
-import Container from "@/Components/Shared/Container";
-import { IoArrowForward, IoArrowBack } from "react-icons/io5";
 import services from "@/Data/Data";
 import Countdown from "./_components/Countdown";
+import Container from "@/Components/Shared/Container";
+import ServiceCard from "@/Components/Reusable/Servicecard";
+import { IoArrowForward, IoArrowBack } from "react-icons/io5";
 
 const Page = () => {
   const [showAll, setShowAll] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
-
   const visibleServices = showAll ? services : services.slice(0, 4);
   const selectedService = services[selectedIndex];
 
-  // Get entries of details, excluding the heading since it's handled separately
+
   const detailEntries = Object.entries(selectedService.details).filter(
     ([key]) => key !== "heading"
   );
@@ -55,7 +53,6 @@ const Page = () => {
         </div>
 
         <div className="flex justify-between mt-[120px]">
-          {/* Left side with heading icon and text */}
           <div className="w-1/3">
             <div className="bg-[#32203C] w-[56px] h-[56px] rounded-full border-[10px] border-white flex justify-center items-center">
               {selectedService.details.heading.icon}
@@ -75,8 +72,6 @@ const Page = () => {
               <IoArrowForward className="text-[#FFF] group-hover:ml-2 duration-300 ease-in-out" />
             </button>
           </div>
-
-          {/* Right side with details grid */}
           <div className="w-2/3 grid grid-cols-2 gap-x-4 gap-y-8">
             {detailEntries.map(([key, { icon, text }], idx, arr) => {
               const isLast = arr.length === 3 && idx === arr.length - 1;
