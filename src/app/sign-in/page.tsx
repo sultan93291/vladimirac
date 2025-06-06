@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Authbanner from "@/Components/Reusable/Authbanner";
-import LanguageSelect from "@/Components/Reusable/LanguageSelect";
 import { Round1, Round2 } from "@/Components/Shared/Icons";
+import LanguageSelect from "@/Components/Reusable/LanguageSelect";
 
 const Page = () => {
   return (
@@ -28,7 +28,7 @@ const Page = () => {
               Sign In Your Account
             </h2>
 
-            <div className="relative z-50 border border-[#C83C7C] rounded-[12px] p-6 mt-8">
+            <div className="8relative z-50 border border-[#C83C7C] rounded-[12px] p-6 mt-8">
               <h3 className="font-arial text-[24px] text-white font-bold">
                 SignIn
               </h3>
@@ -58,15 +58,15 @@ const Page = () => {
                       className="py-3 px-4 font-nunito text-[16px] font-normal outline-0 bg-[#32203C] text-white w-full rounded-[8px] border border-[#C83C7C]"
                     />
                     <Link href="/forgot-password">
-                    <p className="text-[14px] font-lucida font-normal text-[#fff] pt-3 text-end">
-                      Forget Password
-                    </p>
+                      <p className="text-[14px] font-lucida font-normal text-[#fff] pt-3 text-end">
+                        Forget Password
+                      </p>
                     </Link>
                   </div>
                   <Link href="/login-successfull">
-                  <button className="w-full py-3 rounded-[12px] bg-[#C83C7C] text-white font-nunito text-[18px] cursor-pointer border border-[#C83C7C] hover:bg-white hover:text-black hover:border-black duration-500 ease-in-out">
-                    Login
-                  </button>
+                    <button className="w-full py-3 rounded-[12px] bg-[#C83C7C] text-white font-nunito text-[18px] cursor-pointer border border-[#C83C7C] hover:bg-white hover:text-black hover:border-black duration-500 ease-in-out">
+                      Login
+                    </button>
                   </Link>
 
                   <h3 className="text-center text-[14px] font-lucida font-normal text-white">

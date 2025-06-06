@@ -1,13 +1,13 @@
 "use client";
-import Container from "@/Components/Shared/Container";
 import { useState } from "react";
-import Holidays from "./Components/Holidays";
-import Restrictions from "./Components/Restrictions";
-import Regulations from "./Components/Regulations";
-import Boe from "./Components/Boe";
 import Cmr from "./Components/Cmr";
+import Boe from "./Components/Boe";
 import Terms from "./Components/Terms";
 import Privacy from "./Components/Privacy";
+import Holidays from "./Components/Holidays";
+import Container from "@/Components/Shared/Container";
+import Restrictions from "./Components/Restrictions";
+import Regulations from "./Components/Regulations";
 
 const Page = () => {
   const items: string[] = [
@@ -72,19 +72,19 @@ const Page = () => {
   };
 
   return (
-    <section className="pt-5">
+    <section className="pt-10">
       <Container>
         <h2 className="text-[64px] font-bold text-[#FFF] text-center">
           Resources
         </h2>
-        <div className="flex gap-x-[70px] mt-[120px] px-20">
-          <div className="p-4 border border-[#C83C7C] rounded-[8px]">
-            <ul className="flex flex-col gap-y-2">
+        <div className="flex gap-x-[70px] mt-[60px] ">
+          <div className="p-4 border border-[#C83C7C] rounded-[8px] h-[380px] bg-[#32203C]">
+            <ul className="flex flex-col gap-y-3">
               {items.map(item => (
                 <li
                   key={item}
                   onClick={() => setActiveItem(item)}
-                  className={`w-[350px] py-2 px-4  rounded-[8px] font-lucida font-normal cursor-pointer transition-colors duration-200 ${
+                  className={`w-[380px] py-2 px-4  rounded-[8px] font-lucida font-normal cursor-pointer transition-colors  duration-200 ${
                     activeItem === item
                       ? "bg-[#C83C7C] text-white"
                       : "bg-transparent text-white hover:bg-[#C83C7C]"
@@ -95,9 +95,7 @@ const Page = () => {
               ))}
             </ul>
           </div>
-          <div className="flex-1 border border-[#C83C7C] rounded-[8px] p-6 min-h-[300px]">
-            {renderContent()}
-          </div>
+          <div className="flex-1">{renderContent()}</div>
         </div>
       </Container>
     </section>

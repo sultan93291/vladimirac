@@ -1,8 +1,8 @@
-import Authbanner from "@/Components/Reusable/Authbanner";
-import LanguageSelect from "@/Components/Reusable/LanguageSelect";
-import { Wish1 } from "@/Components/Shared/Icons";
 import Link from "next/link";
 import { IoArrowForward } from "react-icons/io5";
+import { Wish1 } from "@/Components/Shared/Icons";
+import Authbanner from "@/Components/Reusable/Authbanner";
+import LanguageSelect from "@/Components/Reusable/LanguageSelect";
 
 const Page = () => {
   return (

@@ -20,6 +20,7 @@ interface CustomSelectProps {
   label?: string;
   onChange?: (value: string) => void;
   value?: string;
+  bordered?: boolean; // New optional prop
 }
 
 const CustomSelect: React.FC<CustomSelectProps> = ({
@@ -28,10 +29,15 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   label,
   onChange,
   value,
+  bordered = true, 
 }) => {
   return (
     <ShadSelect value={value} onValueChange={onChange}>
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger
+        className={`w-[180px] ${
+          bordered ? "border border-[#fff]" : "border-none"
+        }`}
+      >
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>

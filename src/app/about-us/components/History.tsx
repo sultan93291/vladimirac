@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperClass } from "swiper";
 import { Navigation } from "swiper/modules";
@@ -8,7 +8,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import Image from "next/image";
 import { MdAccessTime } from "react-icons/md";
-import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
+import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 
 const timelineData = [
   {
@@ -16,81 +16,93 @@ const timelineData = [
     status: "Beginnings",
     title: "SAVA LOGISTIC ROMANIA IS BORN",
     description:
-      "Alina and Sergiu Cioca founded SAVA LOGISTIC to address complex transport needs.",
-    image: "/timeline/romania2010.png",
+      "Alina and Sergio Cioca, after 10 years as drivers in express transport, founded SAVA LOGISTIC, merging their expertise into a family business named after its members: Sergio, Alina, Vlad, and Andrei. They started with their own fleet, now including trailers, rigid trucks, Mega trucks, and vans.",
+    image: "/testi.png",
   },
   {
-    date: "September 2013",
+    date: "February 2013",
     status: "Expansion",
     title: "SAVA LOGISTIC SPAIN IS BORN",
     description:
-      "A new center launched in Spain to manage EU logistics operations.",
-    image: "/timeline/spain2013.png",
+      "Alina and Sergio Cioca, after 10 years as drivers in express transport, founded SAVA LOGISTIC, merging their expertise into a family business named after its members: Sergio, Alina, Vlad, and Andrei. They started with their own fleet, now including trailers, rigid trucks, Mega trucks, and vans.",
+    image: "/testi1.png",
   },
   {
-    date: "October 2020",
-    title: "EOIR REGISTRATION",
+    date: "August 2018",
+    title: "EORI REGISTRATION",
     status: "Crossing borders",
-    description: "EOIR registration for EU customs and logistics efficiency.",
-    image: "/timeline/eoir.png",
+    description:
+      "Alina and Sergio Cioca, after 10 years as drivers in express transport, founded SAVA LOGISTIC, merging their expertise into a family business named after its members: Sergio, Alina, Vlad, and Andrei. They started with their own fleet, now including trailers, rigid trucks, Mega trucks, and vans.",
+    image: "/testi2.png",
   },
   {
     date: "November 2020",
-    title: "Terminal Established",
+    title: "SAVA LOGISTIC ROMANIA IS BORN",
     status: "Towards a digital age",
-    description: "Investment in terminal infrastructure for increased demand.",
-    image: "/timeline/terminal2020.png",
+    description:
+      "Alina and Sergio Cioca, after 10 years as drivers in express transport, founded SAVA LOGISTIC, merging their expertise into a family business named after its members: Sergio, Alina, Vlad, and Andrei. They started with their own fleet, now including trailers, rigid trucks, Mega trucks, and vans.",
+    image: "/testi.png",
   },
   {
     date: "December 2022",
     status: "Awards",
-    title: "TOP 1 AWARDED IN RO",
-    description: "Ranked top logistics company in Romania for efficiency.",
-    image: "/timeline/top1.png",
+    title: "SAVA LOGISTIC ROMANIA IS BORN",
+    description:
+      "Alina and Sergio Cioca, after 10 years as drivers in express transport, founded SAVA LOGISTIC, merging their expertise into a family business named after its members: Sergio, Alina, Vlad, and Andrei. They started with their own fleet, now including trailers, rigid trucks, Mega trucks, and vans.",
+    image: "/testi1.png",
   },
   {
     date: "January 2022",
-    title: "NEW SHIP ACQUISITION",
+    title: "SAVA LOGISTIC ROMANIA IS BORN",
     status: "Extension",
-    description: "Expansion of maritime capabilities with new ship.",
-    image: "/timeline/ship.png",
+    description:
+      "Alina and Sergio Cioca, after 10 years as drivers in express transport, founded SAVA LOGISTIC, merging their expertise into a family business named after its members: Sergio, Alina, Vlad, and Andrei. They started with their own fleet, now including trailers, rigid trucks, Mega trucks, and vans.",
+    image: "/testi2.png",
   },
   {
     date: "July 2023",
     status: "Awards",
-    title: "TOP 1 AGAIN",
-    description: "Reaffirmed as top logistics provider in Romania.",
-    image: "/timeline/top1.png",
+    title: "SAVA LOGISTIC ROMANIA IS BORN",
+    description:
+      "Alina and Sergio Cioca, after 10 years as drivers in express transport, founded SAVA LOGISTIC, merging their expertise into a family business named after its members: Sergio, Alina, Vlad, and Andrei. They started with their own fleet, now including trailers, rigid trucks, Mega trucks, and vans.",
+    image: "/authbg.png",
   },
 ];
 
 const TimelineSlider = () => {
-  const [activeIndex, setActiveIndex] = useState(1);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [maxHeight, setMaxHeight] = useState<number>(0);
   const timelineBarRef = useRef<SwiperClass | null>(null);
   const swiperRef = useRef<SwiperClass | null>(null);
+  const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const heights = slideRefs.current.map(ref => ref?.offsetHeight || 0);
+    setMaxHeight(Math.max(...heights));
+  }, [activeIndex]);
 
   const slideTo = (index: number) => {
     swiperRef.current?.slideToLoop(index);
+    timelineBarRef.current?.slideToLoop(index);
+    setActiveIndex(index);
   };
 
   return (
-    <section className="text-white mb-[128px] pt-10 relative">
+    <section className="text-white pt-10 pb-[128px] relative">
       <h2 className="text-3xl md:text-4xl text-center font-semibold mb-6">
         Our History
       </h2>
 
-      {/* Timeline Dots Swiper */}
+      {/* Timeline Dots */}
       <div className="relative w-full overflow-hidden px-4 md:px-20">
         <Swiper
           onSwiper={swiper => (timelineBarRef.current = swiper)}
           slidesPerView={3}
           spaceBetween={30}
-          centeredSlides={true}
-          loop={true}
-          loopAdditionalSlides={3}
+          centeredSlides
+          loop
           allowTouchMove={false}
-          initialSlide={1}
-          className="z-10"
+          initialSlide={activeIndex}
         >
           {timelineData.map((item, index) => (
             <SwiperSlide key={index}>
@@ -98,15 +110,15 @@ const TimelineSlider = () => {
                 className="flex flex-col items-center justify-center cursor-pointer"
                 onClick={() => slideTo(index)}
               >
-                <p className="text-lg font-semibold whitespace-nowrap mb-1">
+                <p className="text-lg font-semibold mb-1 whitespace-nowrap">
                   {item.date}
                 </p>
                 <p className="text-sm text-[#BCBCBC] mb-2">{item.status}</p>
                 <div
-                  className={`text-xl h-9 w-9 flex justify-center items-center rounded-full transition-all duration-300 ${
+                  className={`h-9 w-9 flex items-center justify-center rounded-full transition-all duration-300 ${
                     index === activeIndex
-                      ? "text-white bg-[#C83C7C]"
-                      : "text-[#C83C7C] bg-white"
+                      ? "bg-[#C83C7C] text-white"
+                      : "bg-white text-[#C83C7C]"
                   }`}
                 >
                   <MdAccessTime />
@@ -115,65 +127,75 @@ const TimelineSlider = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-
-        {/* Timeline Line */}
-        <div className="absolute bottom-2 left-4 md:left-20 right-4 md:right-20 h-[2px] bg-white opacity-20 z-0 pointer-events-none" />
+        <div className="absolute bottom-4 left-4 md:left-20 right-4 md:right-20 h-[2px] bg-white opacity-20 pointer-events-none" />
       </div>
 
       {/* Content Swiper */}
-      <div className="w-full px-4 md:px-20 mt-12">
+      <div className="w-full px-4 md:px-20 mt-12 relative">
         <Swiper
           onSwiper={swiper => (swiperRef.current = swiper)}
-          slidesPerView={3}
-          centeredSlides={true}
-          spaceBetween={30}
-          loop={true}
-          loopAdditionalSlides={3}
-          initialSlide={1}
-          onRealIndexChange={swiper => {
-            setActiveIndex(swiper.realIndex);
-            timelineBarRef.current?.slideToLoop(swiper.realIndex);
+          slidesPerView={1}
+          breakpoints={{
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
           }}
+          centeredSlides
+          spaceBetween={30}
+          loop
+          initialSlide={activeIndex}
           navigation={{
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
           }}
+          onRealIndexChange={swiper => {
+            const index = swiper.realIndex;
+            setActiveIndex(index);
+            timelineBarRef.current?.slideToLoop(index);
+          }}
           modules={[Navigation]}
-          className="timelineSwiper"
         >
           {timelineData.map((item, index) => (
             <SwiperSlide
               key={index}
-              className={`w-full rounded-xl overflow-hidden transition-all duration-300 ${
+              className={`p-6 rounded-xl transition-all duration-300 flex flex-col ${
                 index === activeIndex
-                  ? "border-2 border-[#C83C7C] bg-[#3A2B3C]"
-                  : "border border-white/10 bg-[#3A2B3C]"
-              }`}
+                  ? "border-2 border-[#C83C7C]"
+                  : "border border-white/10"
+              } bg-[#3A2B3C]`}
+              style={{ minHeight: `${maxHeight}px` }}
             >
-              <div className="relative w-full h-[180px] px-6 py-8">
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="p-4">
-                <h3 className="text-lg font-semibold">{item.title}</h3>
-                <p className="text-sm mt-2">{item.description}</p>
+              <div
+                ref={el => {
+                  slideRefs.current[index] = el;
+                }}
+                className="flex flex-col h-full"
+              >
+                <div className="relative w-full h-[300px] mb-4">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    className="object-cover rounded-xl"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                </div>
+                <div className="flex flex-col justify-between flex-1">
+                  <h3 className="text-lg font-semibold">{item.title}</h3>
+                  <p className="text-sm mt-2">{item.description}</p>
+                </div>
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
-      </div>
 
-      {/* Bottom-Centered Navigation Buttons */}
-      <div className=" flex flex-row justify-between w-full gap-6 absolute bottom-[-50px]  z-20">
-        <div className="swiper-button-prev  justify-between cursor-pointer !text-white text-2xl md:text-3xl bg-[#C83C7C] p-3 rounded-full hover:bg-[#a02f64] transition">
-          <FaArrowLeftLong />
-        </div>
-        <div className="swiper-button-next cursor-pointer !text-white text-2xl md:text-3xl bg-[#C83C7C] p-3 rounded-full hover:bg-[#a02f64] transition">
-          <FaArrowRightLong />
+        {/* Navigation Arrows */}
+        <div className="absolute -bottom-16 left-28 right-28 flex justify-between px-10 z-20">
+          <div className="swiper-button-prev text-white text-3xl cursor-pointer">
+            <FaArrowLeftLong />
+          </div>
+          <div className="swiper-button-next text-white text-3xl cursor-pointer">
+            <FaArrowRightLong />
+          </div>
         </div>
       </div>
     </section>

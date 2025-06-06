@@ -1,5 +1,4 @@
 "use client";
-
 import Select from "react-select";
 import Image from "next/image";
 import { useState } from "react";
@@ -64,7 +63,7 @@ const LanguageSelect = ({
           control: base => ({
             ...base,
             backgroundColor: "transparent",
-            border: showBorder ? "1px solid #666" : "none",
+            border: showBorder ? "1px solid #fff" : "none",
             boxShadow: "none",
             cursor: "pointer",
           }),
