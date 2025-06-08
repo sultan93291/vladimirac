@@ -1,6 +1,4 @@
 import React from "react";
-import { FaDownload } from "react-icons/fa";
-import { IoEyeSharp } from "react-icons/io5";
 import { HiOutlineNewspaper } from "react-icons/hi2";
 
 const boeNotices = [

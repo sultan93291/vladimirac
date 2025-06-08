@@ -24,7 +24,7 @@ const page = () => {
                 className=" rounded-lg p-4 text-white cursor-pointer w-[350px] hover:translate-y-2 transition-all duration-300"
               >
                 <div className="relative">
-                  <img
+                  <Image
                     src={cert.image}
                     alt={cert.title}
                     className="w-full h-[230px] object-cover rounded-t-lg"
