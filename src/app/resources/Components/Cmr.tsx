@@ -92,7 +92,7 @@ const Cmr = () => {
           )}
           {activeTab === "Sender Responsibilities" && (
             <div className="">
-              <h4 className="pb-4">The sender's responsibilities include:</h4>
+              <h4 className="pb-4">`The senders responsibilities include:`</h4>
               <ul className="list-disc pl-6 space-y-1">
                 <li>Date and place of completion</li>
                 <li>Name and address of sender, carrier, and consignee</li>
