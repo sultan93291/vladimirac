@@ -12,7 +12,6 @@ const Page = () => {
   const visibleServices = showAll ? services : services.slice(0, 4);
   const selectedService = services[selectedIndex];
 
-
   const detailEntries = Object.entries(selectedService.details).filter(
     ([key]) => key !== "heading"
   );
@@ -37,7 +36,6 @@ const Page = () => {
             )}
           </button>
         </div>
-
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-[60px]">
           {visibleServices.map((service, index) => (
             <div key={index} className="h-full">
@@ -97,7 +95,6 @@ const Page = () => {
             })}
           </div>
         </div>
-
         <div className="mt-[120px]">
           <Countdown />
         </div>
