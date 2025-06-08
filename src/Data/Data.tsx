@@ -27,6 +27,51 @@ interface Service {
   description: string;
   details: ServiceDetails;
 }
+type Certificate = {
+  title: string;
+  issuer: string;
+  image: string;
+  verified: boolean;
+  downloadLink: string;
+  viewLink: string;
+};
+
+
+export const certificates: Certificate[] = [
+  {
+    title: "ISO 9001 Certification",
+    issuer: "International Organization for Standardization",
+    image: "/certificate.png",
+    verified: true,
+    downloadLink: "/certificates/iso9001.pdf",
+    viewLink: "/certificates/iso9001.pdf",
+  },
+  {
+    title: "ADR Certificate",
+    issuer: "ADR - European Agreement for Transport of Dangerous Goods",
+    image: "/certificate.png",
+    verified: true,
+    downloadLink: "/certificates/adr.pdf",
+    viewLink: "/certificates/adr.pdf",
+  },
+  {
+    title: "UIECE Membership",
+    issuer: "National Union of Freight Forwarders (Romania)",
+    image: "/certificate.png",
+    verified: true,
+    downloadLink: "/certificates/uiece.pdf",
+    viewLink: "/certificates/uiece.pdf",
+  },
+  {
+    title: "EORI Registration",
+    issuer: "Economic Operators Registration and Identification",
+    image: "/certificate.png",
+    verified: true,
+    downloadLink: "/certificates/eori.pdf",
+    viewLink: "/certificates/eori.pdf",
+  },
+];
+
 
 const services: Service[] = [
   {
@@ -202,5 +247,8 @@ const services: Service[] = [
     },
   },
 ];
+
+
+
 
 export default services;
