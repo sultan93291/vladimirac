@@ -27,7 +27,7 @@ interface Service {
   description: string;
   details: ServiceDetails;
 }
-type Certificate = {
+export type Certificate = {
   title: string;
   issuer: string;
   image: string;
@@ -35,7 +35,6 @@ type Certificate = {
   downloadLink: string;
   viewLink: string;
 };
-
 
 export const certificates: Certificate[] = [
   {
@@ -71,6 +70,7 @@ export const certificates: Certificate[] = [
     viewLink: "/certificates/eori.pdf",
   },
 ];
+
 
 
 const services: Service[] = [

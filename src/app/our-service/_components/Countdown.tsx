@@ -3,7 +3,7 @@ import Countdownreusable from "@/Components/Reusable/Countdownreusable";
 
 const Countdown = () => {
   return (
-    <section className="flex justify-between">
+    <section className="lg:flex justify-between">
       <Countdownreusable title=" 98% " para="on-time delivery" />
       <Countdownreusable
         title="14 years"

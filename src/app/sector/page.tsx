@@ -3,7 +3,15 @@ import React from "react";
 import Link from "next/link";
 import Container from "@/Components/Shared/Container";
 import Sectorcard from "@/Components/Reusable/Sectorcard";
-import {Chemicals,Consumption,Energy,Fairs,Industrial,Sectoricon,Tech} from "@/Components/Shared/Icons";
+import {
+  Chemicals,
+  Consumption,
+  Energy,
+  Fairs,
+  Industrial,
+  Sectoricon,
+  Tech,
+} from "@/Components/Shared/Icons";
 
 const sectors = [
   {
@@ -50,12 +58,12 @@ const sectors = [
 
 const Page = () => {
   return (
-    <section className="py-20">
+    <section className="lg:py-20 py-8 2xl:px-0 px-5">
       <Container>
-        <h2 className="text-[64px] font-bold text-[#FFF] font-arial text-center">
+        <h2 className="text-[30px] md:text-[48px] lg:text-[64px] font-bold text-[#FFF] font-arial text-center leading-tight">
           Sectors We Serve
         </h2>
-        <div className="mt-[60px] grid grid-cols-4 gap-8">
+        <div className="mt-[60px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {sectors.map((sector, index) => (
             <Link
               key={index}

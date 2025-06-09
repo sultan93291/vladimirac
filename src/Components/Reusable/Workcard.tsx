@@ -15,7 +15,7 @@ const Workcard: React.FC<WorkcardProps> = ({
 }) => {
   return (
     <div className="bg-[#252442] rounded-[16px] px-[69px] py-[31px] cursor-pointer transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 flex justify-center items-center">
-      <Image src={imageSrc} alt={altText} height={height} width={width} />
+      <Image src={imageSrc} alt={altText} height={height} width={width} className="w-full h-full"/>
     </div>
   );
 };
