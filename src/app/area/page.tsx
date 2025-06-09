@@ -1,185 +1,90 @@
-import Container from "@/Components/Shared/Container";
-import { Download, Verified, View } from "@/Components/Shared/Icons";
-import { certificates } from "@/Data/Data";
-import Image from "next/image";
-import React from "react";
+"use client";
 
-const page = () => {
+const DestinationsMap = () => {
+  const destinations = [
+    { id: 1, name: "United Kingdom", x: 15, y: 35 },
+    { id: 2, name: "Norway", x: 45, y: 15 },
+    { id: 3, name: "Finland", x: 65, y: 12 },
+    { id: 4, name: "Germany", x: 45, y: 45 },
+    { id: 5, name: "Poland", x: 55, y: 40, highlighted: true },
+    { id: 6, name: "France", x: 25, y: 55 },
+    { id: 7, name: "Spain", x: 15, y: 70 },
+    { id: 8, name: "Italy", x: 45, y: 65 },
+    { id: 9, name: "Greece", x: 60, y: 75 },
+    { id: 10, name: "Romania", x: 65, y: 55 },
+  ];
+
   return (
-    <section className="pt-[160px] relative overflow-hidden">
-      <Container>
-        <div>
-          <h2 className="text-6xl font-bold text-pink-500 mb-4 font-arial text-center">
-            Certificates & Affiliations
-          </h2>
-          <p className="text-white font-lucida text-center max-w-[700px] mx-auto">
-            We are proud to be recognized for our commitment to safety, quality,
-            and professional excellence. Our certifications validate our
-            dedication to maintaining the highest industry standards.
-          </p>
-          <div className="flex gap-x-8 flex-wrap justify-between mt-10">
-            {certificates?.map((cert, index) => (
-              <div
-                key={index}
-                className=" rounded-lg p-4 text-white cursor-pointer w-[350px] hover:translate-y-2 transition-all duration-300"
-              >
-                <div className="relative">
-                  <Image
-                    src={cert.image}
-                    alt={cert.title}
-                    className="w-full h-[230px] object-cover rounded-t-lg"
-                  />
-                  {cert.verified && (
-                    <span className="absolute top-2 right-2 bg-pink-500 text-white text-xs px-2 py-1 rounded flex gap-x-2 items-center font-lucida">
-                      <Verified /> Verified
-                    </span>
-                  )}
-                </div>
-                <div className="bg-[#32203C] p-4 rounded-b-lg">
-                  <h3 className="font-semibold text-lg">{cert.title}</h3>
-                  <p className="text-sm text-gray-300 mb-4">
-                    Issued by: {cert.issuer}
-                  </p>
-                  <div className="flex gap-2">
-                    <a
-                      href={cert.downloadLink}
-                      download
-                      className="flex-1 text-center  text-[#C83C7C] border border-pink-500 rounded py-3 px-4 text-sm flex gap-x-4 items-center justify-center"
-                    >
-                      <Download />
-                      Download
-                    </a>
-                    <a
-                      href={cert.viewLink}
-                      target="_blank"
-                      className="flex-1 text-center  text-[#C83C7C] rounded py-3 px-4 text-sm border border-pink-500 flex gap-x-4 items-center justify-center"
-                    >
-                      <View />
-                      View
-                    </a>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+    <div className="w-full max-w-4xl mx-auto">
+      <h1 className="text-3xl font-bold text-pink-400 text-center mb-8">
+        Destinations covered
+      </h1>
 
-          <div className="pt-[120px]">
-            <h2 className="text-6xl font-bold text-pink-500 mb-4 font-arial text-center">
-              Awards & Recognition
-            </h2>
+      <div className="relative bg-slate-800 rounded-lg p-8">
+        <svg
+          viewBox="0 0 100 100"
+          className="w-full h-auto"
+          style={{ minHeight: "400px" }}
+        >
+          {/* Europe Map Outline - Simplified */}
+          <g fill="#9CA3AF" stroke="#6B7280" strokeWidth="0.2">
+            {/* United Kingdom */}
+            <path d="M8,25 L18,22 L20,28 L22,35 L18,38 L12,40 L8,35 Z" />
+            {/* Ireland */}
+            <path d="M2,30 L8,28 L10,35 L6,38 L2,35 Z" />
+            {/* Norway */}
+            <path d="M40,5 L48,8 L50,20 L45,25 L42,20 L40,12 Z" />
+            {/* Sweden */}
+            <path d="M45,8 L52,10 L55,25 L50,28 L45,25 Z" />
+            {/* Finland */}
+            <path d="M55,5 L65,8 L68,20 L62,25 L55,22 Z" />
+            {/* France */}
+            <path d="M20,45 L35,42 L38,55 L35,65 L25,68 L18,60 L20,50 Z" />
+            {/* Spain */}
+            <path d="M8,60 L25,58 L28,70 L25,78 L15,80 L8,75 Z" />
+            {/* Germany */}
+            <path d="M35,35 L50,32 L52,45 L48,50 L35,48 Z" />
+            {/* Poland - Highlighted */}
+            <path
+              d="M50,30 L65,28 L68,42 L62,48 L50,45 Z"
+              fill={
+                destinations.find(d => d.highlighted) ? "#EC4899" : "#9CA3AF"
+              }
+            />
+            {/* Italy */}
+            <path d="M40,55 L48,52 L52,70 L48,78 L42,75 L38,65 Z" />
+            {/* Greece */}
+            <path d="M55,65 L65,62 L68,75 L62,80 L55,78 Z" />
+            {/* Other European countries - simplified shapes */}
+            <path d="M65,35 L78,32 L82,45 L75,50 L65,48 Z" /> {/* Romania */}
+            <path d="M35,48 L50,45 L52,58 L45,62 L35,60 Z" />{" "}
+            {/* Austria/Czech */}
+            <path d="M20,38 L35,35 L38,48 L32,52 L20,50 Z" />{" "}
+            {/* Belgium/Netherlands */}
+          </g>
 
-            <div className="flex justify-center gap-8 flex-wrap my-[120px]">
-              <div className="relative w-[400px] h-[420px] flex items-end justify-center text-center">
-                <Image
-                  src="/cframe.png"
-                  alt="Frame Background"
-                  fill
-                  className="object-contain z-0 w-full"
-                />
-                <div className="absolute top-10 left-1/2 -translate-x-1/2">
-                  <div className="bg-white p-2 w-[280px] rounded-lg">
-                    <Image
-                      src="/certificate1.png"
-                      alt="Certificate"
-                      width={308}
-                      height={215}
-                      className="mx-auto rounded-md shadow-md"
-                    />
-                  </div>
-
-                  <div className="p-4 bg-[#FAA312]/20 rounded-b-sm mr-3">
-                    <div className="mt-4 text-white text-center">
-                      <div className="text-yellow-400 text-lg mb-1">
-                        🏆 2022
-                      </div>
-                      <div className="text-sm">Best Logistics Partner</div>
-                      <div className="font-bold">Mom Nadia</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="relative w-[400px] h-[420px] flex items-end justify-center text-center">
-                <Image
-                  src="/cframe.png"
-                  alt="Frame Background"
-                  fill
-                  className="object-contain z-0 w-full"
-                />
-                <div className="absolute top-10 left-1/2 -translate-x-1/2">
-                  <div className="bg-white p-2 w-[280px] rounded-lg">
-                    <Image
-                      src="/certificate1.png"
-                      alt="Certificate"
-                      width={308}
-                      height={215}
-                      className="mx-auto rounded-md shadow-md"
-                    />
-                  </div>
-
-                  <div className="p-4 bg-[#FAA312]/20 rounded-b-sm mr-3">
-                    <div className="mt-4 text-white text-center">
-                      <div className="text-yellow-400 text-lg mb-1">
-                        🏆 2022
-                      </div>
-                      <div className="text-sm">Best Logistics Partner</div>
-                      <div className="font-bold">Mom Nadia</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="relative w-[400px] h-[420px] flex items-end justify-center text-center">
-                <Image
-                  src="/cframe.png"
-                  alt="Frame Background"
-                  fill
-                  className="object-contain z-0 w-full"
-                />
-                <div className="absolute top-10 left-1/2 -translate-x-1/2">
-                  <div className="bg-white p-2 w-[280px] rounded-lg">
-                    <Image
-                      src="/certificate1.png"
-                      alt="Certificate"
-                      width={308}
-                      height={215}
-                      className="mx-auto rounded-md shadow-md"
-                    />
-                  </div>
-
-                  <div className="p-4 bg-[#FAA312]/20 rounded-b-sm mr-3">
-                    <div className="mt-4 text-white text-center">
-                      <div className="text-yellow-400 text-lg mb-1">
-                        🏆 2022
-                      </div>
-                      <div className="text-sm">Best Logistics Partner</div>
-                      <div className="font-bold">Mom Nadia</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Container>
-      <figure className="overflow-hidden">
-        <Image
-          src="/light.png"
-          alt="light"
-          width={800}
-          height={800}
-          className="absolute -bottom-52 -left-20 overflow-hidden"
-        />
-      </figure>
-      <figure className="overflow-hidden">
-        <Image
-          src="/light2.png"
-          alt="light"
-          width={800}
-          height={800}
-          className="absolute top-0 -right-20 overflow-hidden"
-        />
-      </figure>
-    </section>
+          {/* Destination Markers */}
+          {destinations.map(destination => (
+            <g key={destination.id}>
+              <circle
+                cx={destination.x}
+                cy={destination.y}
+                r="2"
+                fill="#EC4899"
+                className="cursor-pointer hover:fill-pink-300 transition-colors"
+              />
+              <circle
+                cx={destination.x}
+                cy={destination.y}
+                r="1"
+                fill="#1E293B"
+              />
+            </g>
+          ))}
+        </svg>
+      </div>
+    </div>
   );
 };
 
-export default page;
+export default DestinationsMap;

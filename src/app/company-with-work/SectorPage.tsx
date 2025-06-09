@@ -8,7 +8,7 @@ const SectorPage = () => {
 
   return (
     <section className="">
-      <h1 className="text-[64px] font-bold text-center font-arial text-white">
+      <h1 className="lg:text-[64px] text-[40px] font-bold text-center font-arial text-white">
         {sector ? sector : "Sector Details"}
       </h1>
     </section>
