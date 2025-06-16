@@ -18,7 +18,7 @@ export default function Page() {
           <Workcard imageSrc="/logo2.png" altText="Team Photo" height={180} width={280} />
           <Workcard imageSrc="/logo2.png" altText="Team Photo" height={180} width={280} />
           <Workcard imageSrc="/logo2.png" altText="Team Photo" height={180} width={280} />
-          <Workcard imageSrc="/logo5.png" altText="Team Photo" height={180} width={280} />
+          <Workcard imageSrc="/logo2.png" altText="Team Photo" height={180} width={280} />
           <Workcard imageSrc="/logo2.png" altText="Team Photo" height={180} width={280} />
           <Workcard imageSrc="/logo2.png" altText="Team Photo" height={180} width={280} />
           <Workcard imageSrc="/logo2.png" altText="Team Photo" height={180} width={280} />

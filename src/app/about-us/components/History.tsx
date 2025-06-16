@@ -16,7 +16,7 @@ const timelineData = [
     status: "Beginnings",
     title: "SAVA LOGISTIC ROMANIA IS BORN",
     description:
-      "Alina and Sergio Cioca, after 10 years as drivers in express transport, founded SAVA LOGISTIC, merging their expertise into a family business named after its members: Sergio, Alina, Vlad, and Andrei. They started with their own fleet, now including trailers, rigid trucks, Mega trucks, and vans.",
+      "Alina and Sergio Cioca founded SAVA LOGISTIC after a decade of experience in transport.",
     image: "/testi.png",
   },
   {
@@ -24,62 +24,55 @@ const timelineData = [
     status: "Expansion",
     title: "SAVA LOGISTIC SPAIN IS BORN",
     description:
-      "Alina and Sergio Cioca, after 10 years as drivers in express transport, founded SAVA LOGISTIC, merging their expertise into a family business named after its members: Sergio, Alina, Vlad, and Andrei. They started with their own fleet, now including trailers, rigid trucks, Mega trucks, and vans.",
+      "They expanded their services by opening a new branch in Spain, strengthening EU operations.",
     image: "/testi1.png",
   },
   {
     date: "August 2018",
-    title: "EORI REGISTRATION",
     status: "Crossing borders",
+    title: "EORI REGISTRATION",
     description:
-      "Alina and Sergio Cioca, after 10 years as drivers in express transport, founded SAVA LOGISTIC, merging their expertise into a family business named after its members: Sergio, Alina, Vlad, and Andrei. They started with their own fleet, now including trailers, rigid trucks, Mega trucks, and vans.",
+      "EORI registration enabled seamless cross-border logistics for SAVA throughout Europe.",
     image: "/testi2.png",
   },
   {
     date: "November 2020",
-    title: "SAVA LOGISTIC ROMANIA IS BORN",
-    status: "Towards a digital age",
+    status: "Digitization",
+    title: "Digital Era Integration",
     description:
-      "Alina and Sergio Cioca, after 10 years as drivers in express transport, founded SAVA LOGISTIC, merging their expertise into a family business named after its members: Sergio, Alina, Vlad, and Andrei. They started with their own fleet, now including trailers, rigid trucks, Mega trucks, and vans.",
+      "SAVA digitized all operations, bringing more transparency, efficiency, and customer satisfaction.",
     image: "/testi.png",
   },
   {
     date: "December 2022",
     status: "Awards",
-    title: "SAVA LOGISTIC ROMANIA IS BORN",
+    title: "Best Logistics Provider",
     description:
-      "Alina and Sergio Cioca, after 10 years as drivers in express transport, founded SAVA LOGISTIC, merging their expertise into a family business named after its members: Sergio, Alina, Vlad, and Andrei. They started with their own fleet, now including trailers, rigid trucks, Mega trucks, and vans.",
+      "SAVA was awarded 'Best EU Logistics Provider 2022' by the National Freight Union.",
     image: "/testi1.png",
   },
   {
     date: "January 2022",
-    title: "SAVA LOGISTIC ROMANIA IS BORN",
-    status: "Extension",
+    status: "Growth",
+    title: "New Logistic Hubs",
     description:
-      "Alina and Sergio Cioca, after 10 years as drivers in express transport, founded SAVA LOGISTIC, merging their expertise into a family business named after its members: Sergio, Alina, Vlad, and Andrei. They started with their own fleet, now including trailers, rigid trucks, Mega trucks, and vans.",
+      "Established new hubs in France and Germany, enhancing rapid delivery capacity.",
     image: "/testi2.png",
   },
   {
     date: "July 2023",
-    status: "Awards",
-    title: "SAVA LOGISTIC ROMANIA IS BORN",
+    status: "Milestone",
+    title: "Global Outreach",
     description:
-      "Alina and Sergio Cioca, after 10 years as drivers in express transport, founded SAVA LOGISTIC, merging their expertise into a family business named after its members: Sergio, Alina, Vlad, and Andrei. They started with their own fleet, now including trailers, rigid trucks, Mega trucks, and vans.",
+      "Reached new territories including the Middle East and expanded long-haul services.",
     image: "/authbg.png",
   },
 ];
 
 const TimelineSlider = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [maxHeight, setMaxHeight] = useState<number>(0);
   const timelineBarRef = useRef<SwiperClass | null>(null);
   const swiperRef = useRef<SwiperClass | null>(null);
-  const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    const heights = slideRefs.current.map(ref => ref?.offsetHeight || 0);
-    setMaxHeight(Math.max(...heights));
-  }, [activeIndex]);
 
   const slideTo = (index: number) => {
     swiperRef.current?.slideToLoop(index);
@@ -93,29 +86,35 @@ const TimelineSlider = () => {
         Our History
       </h2>
 
-      {/* Timeline Dots */}
-      <div className="relative w-full overflow-hidden px-4 md:px-20">
+      {/* Timeline Bar */}
+      <div className="relative w-full overflow-hidden px-4 md:px-20 mt-6">
         <Swiper
           onSwiper={swiper => (timelineBarRef.current = swiper)}
-          slidesPerView={3}
-          spaceBetween={30}
+          breakpoints={{
+            0: { slidesPerView: 1 },
+            640: { slidesPerView: 2.5 },
+            768: { slidesPerView: 3 },
+            1024: { slidesPerView: 4 },
+            1280: { slidesPerView: 5 },
+          }}
           centeredSlides
+          spaceBetween={30}
           loop
-          allowTouchMove={false}
+          allowTouchMove
           initialSlide={activeIndex}
         >
           {timelineData.map((item, index) => (
             <SwiperSlide key={index}>
               <div
-                className="flex flex-col items-center justify-center cursor-pointer"
+                className="flex flex-col items-center justify-center cursor-pointer relative z-20"
                 onClick={() => slideTo(index)}
               >
-                <p className="text-lg font-semibold mb-1 whitespace-nowrap">
+                <p className="text-sm md:text-base font-semibold mb-1 whitespace-nowrap">
                   {item.date}
                 </p>
-                <p className="text-sm text-[#BCBCBC] mb-2">{item.status}</p>
+                <p className="text-xs text-[#BCBCBC] mb-2">{item.status}</p>
                 <div
-                  className={`h-9 w-9 flex items-center justify-center rounded-full transition-all duration-300 ${
+                  className={`h-8 w-8 md:h-9 md:w-9 flex items-center justify-center rounded-full transition-all duration-300 ${
                     index === activeIndex
                       ? "bg-[#C83C7C] text-white"
                       : "bg-white text-[#C83C7C]"
@@ -127,15 +126,15 @@ const TimelineSlider = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-        <div className="absolute bottom-4 left-4 md:left-20 right-4 md:right-20 h-[2px] bg-white opacity-20 pointer-events-none" />
+        <div className="absolute md:top-18 top-16 left-0 right-0 h-[2px] bg-white opacity-20  z-10" />
       </div>
 
-      {/* Content Swiper */}
+      {/* Content Cards */}
       <div className="w-full px-4 md:px-20 mt-12 relative">
         <Swiper
           onSwiper={swiper => (swiperRef.current = swiper)}
-          slidesPerView={1}
           breakpoints={{
+            0: { slidesPerView: 1 },
             768: { slidesPerView: 2 },
             1024: { slidesPerView: 3 },
           }}
@@ -155,22 +154,15 @@ const TimelineSlider = () => {
           modules={[Navigation]}
         >
           {timelineData.map((item, index) => (
-            <SwiperSlide
-              key={index}
-              className={`p-6 rounded-xl transition-all duration-300 flex flex-col ${
-                index === activeIndex
-                  ? "border-2 border-[#C83C7C]"
-                  : "border border-white/10"
-              } bg-[#3A2B3C]`}
-              style={{ minHeight: `${maxHeight}px` }}
-            >
+            <SwiperSlide key={index}>
               <div
-                ref={el => {
-                  slideRefs.current[index] = el;
-                }}
-                className="flex flex-col h-full"
+                className={`p-6 rounded-xl transition-all duration-300 flex flex-col justify-between h-[480px] bg-[#3A2B3C] ${
+                  index === activeIndex
+                    ? "border-2 border-[#C83C7C]"
+                    : "border border-white/10"
+                }`}
               >
-                <div className="relative w-full h-[300px] mb-4">
+                <div className="relative w-full h-[220px] mb-4">
                   <Image
                     src={item.image}
                     alt={item.title}
@@ -179,7 +171,7 @@ const TimelineSlider = () => {
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
                 </div>
-                <div className="flex flex-col justify-between flex-1">
+                <div className="flex flex-col flex-1">
                   <h3 className="text-lg font-semibold">{item.title}</h3>
                   <p className="text-sm mt-2">{item.description}</p>
                 </div>
@@ -188,12 +180,12 @@ const TimelineSlider = () => {
           ))}
         </Swiper>
 
-        {/* Navigation Arrows */}
-        <div className="absolute -bottom-16 left-28 right-28 flex justify-between px-10 z-20">
-          <div className="swiper-button-prev text-white text-3xl cursor-pointer">
+        {/* Arrows */}
+        <div className="absolute -bottom-16 left-8 right-8 flex justify-between px-4 md:px-10 z-20">
+          <div className="swiper-button-prev text-white text-2xl md:text-3xl cursor-pointer">
             <FaArrowLeftLong />
           </div>
-          <div className="swiper-button-next text-white text-3xl cursor-pointer">
+          <div className="swiper-button-next text-white text-2xl md:text-3xl cursor-pointer">
             <FaArrowRightLong />
           </div>
         </div>

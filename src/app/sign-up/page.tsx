@@ -1,3 +1,5 @@
+// Page.tsx
+
 import Link from "next/link";
 import Authbanner from "@/Components/Reusable/Authbanner";
 import { Round1, Round2 } from "@/Components/Shared/Icons";
@@ -6,22 +8,25 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/Components/ui/tabs";
 
 const Page = () => {
   return (
-    <section>
-      <div className="flex">
-        <div className="w-1/2">
+    <section className="min-h-screen">
+      <div className="flex flex-col 2xl:flex-row">
+        {/* Banner Section - only visible on 2xl and up */}
+        <div className="hidden 2xl:block 2xl:w-1/2">
           <Authbanner />
         </div>
 
-        <div className="w-1/2 p-10">
+        {/* Form Section */}
+        <div className="w-full 2xl:w-1/2 p-6 sm:p-10">
           <div className="flex justify-end">
             <LanguageSelect />
           </div>
 
-          <div className="w-[500px] mx-auto pt-[100px] relative">
-            <div className="absolute top-16 -right-10 z-20">
+          <div className="w-full max-w-[500px] mx-auto pt-[60px] sm:pt-[100px] relative">
+            {/* Decorative Icons (only on md and up) */}
+            <div className="absolute top-16 -right-10 z-20 hidden sm:block">
               <Round1 />
             </div>
-            <div className="absolute -bottom-10 -left-10 z-10">
+            <div className="absolute -bottom-10 -left-10 z-10 hidden sm:block">
               <Round2 />
             </div>
 
@@ -35,12 +40,12 @@ const Page = () => {
 
               <div className="mt-6">
                 <Tabs defaultValue="User">
-                  <TabsList className="flex justify-between gap-x-6 w-full bg-transparent border border-[#C83C7C] py-6 px-4">
+                  <TabsList className="flex justify-between gap-x-4 w-full bg-transparent border border-[#C83C7C] py-4 px-2 sm:py-6 sm:px-4">
                     {["User", "Supplier", "Driver"].map(role => (
                       <TabsTrigger
                         key={role}
                         value={role}
-                        className="border border-[#C83C7C] text-[#C83C7C] cursor-pointer p-4 rounded-[12px] data-[state=active]:bg-[#C83C7C] data-[state=active]:text-white"
+                        className="border border-[#C83C7C] text-[#C83C7C] cursor-pointer p-3 sm:p-4 rounded-[12px] data-[state=active]:bg-[#C83C7C] data-[state=active]:text-white"
                       >
                         {role}
                       </TabsTrigger>

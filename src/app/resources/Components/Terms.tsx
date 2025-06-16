@@ -3,9 +3,9 @@ import React from "react";
 
 const Terms = () => {
   return (
-    <div className="bg-[#32203C] p-6 rounded-t-[8px] border border-[#C83C7C] border-b-0 text-white">
-      <div className="flex items-start gap-3 mb-4">
-        <div className="p-3 rounded-[8px] flex justify-center items-center bg-[#C83C7C]">
+    <div className="bg-[#32203C] p-6 rounded-t-[8px] border border-[#C83C7C] border-b-0 text-white w-full">
+      <div className="flex flex-col sm:flex-row items-start gap-3 mb-4">
+        <div className="p-3 rounded-[8px] flex justify-center items-center bg-[#C83C7C] w-fit">
           <Hand />
         </div>
         <div>
@@ -76,7 +76,7 @@ const Terms = () => {
               href="https://www.savaexpress.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-pink-400 underline"
+              className="text-pink-400 underline break-all"
             >
               www.savaexpress.com
             </a>

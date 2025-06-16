@@ -15,18 +15,18 @@ const DestinationsMap = () => {
   ];
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className="w-full max-w-4xl mx-auto lg:pt-20 pt-10 2xl:px-0 px-5">
       <h1 className="text-3xl font-bold text-pink-400 text-center mb-8">
         Destinations covered
       </h1>
 
-      <div className="relative bg-slate-800 rounded-lg p-8">
+      <div className="relative rounded-lg p-8">
         <svg
           viewBox="0 0 100 100"
           className="w-full h-auto"
           style={{ minHeight: "400px" }}
         >
-          {/* Europe Map Outline - Simplified */}
+    
           <g fill="#9CA3AF" stroke="#6B7280" strokeWidth="0.2">
             {/* United Kingdom */}
             <path d="M8,25 L18,22 L20,28 L22,35 L18,38 L12,40 L8,35 Z" />
@@ -55,8 +55,8 @@ const DestinationsMap = () => {
             <path d="M40,55 L48,52 L52,70 L48,78 L42,75 L38,65 Z" />
             {/* Greece */}
             <path d="M55,65 L65,62 L68,75 L62,80 L55,78 Z" />
-            {/* Other European countries - simplified shapes */}
-            <path d="M65,35 L78,32 L82,45 L75,50 L65,48 Z" /> {/* Romania */}
+      
+            <path d="M65,35 L78,32 L82,45 L75,50 L65,48 Z" /> 
             <path d="M35,48 L50,45 L52,58 L45,62 L35,60 Z" />{" "}
             {/* Austria/Czech */}
             <path d="M20,38 L35,35 L38,48 L32,52 L20,50 Z" />{" "}

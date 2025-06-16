@@ -42,7 +42,7 @@ const boeNotices = [
 
 const Boe = () => {
   return (
-    <div className="bg-[#32203C] p-6 rounded-[8px] border border-[#C83C7C] text-white">
+    <div className="bg-[#32203C] p-6 rounded-[8px] border border-[#C83C7C] text-white w-full">
       <div className="flex items-center gap-2 mb-2 text-[#fff]">
         <div className="p-3 rounded-[8px] flex justify-center items-center bg-[#C83C7C]">
           <HiOutlineNewspaper className="text-[22px]" />
@@ -66,10 +66,10 @@ const Boe = () => {
         Latest Transport-Related Notices
       </h4>
 
-      <div className="flex flex-col border-l-4 border border-[#C83C7C] rounded-[8px] roder-r-[8px] border-r-[#C83C7C]">
+      <div className="flex flex-col border-l-4 border border-[#C83C7C] rounded-[8px] border-r-[#C83C7C] w-full">
         {boeNotices.map((notice, index) => (
-          <div key={index} className=" p-4">
-            <div className="flex justify-between">
+          <div key={index} className="p-4 w-full">
+            <div className="flex flex-col sm:flex-row justify-between gap-2">
               <div>
                 <h5 className="text-[15px] font-semibold font-lucida">
                   {notice.title}
@@ -85,7 +85,7 @@ const Boe = () => {
                 {notice.date}
               </span>
             </div>
-            <div className="flex gap-2 justify-end">
+            <div className="flex gap-2 justify-end flex-wrap mt-2">
               <button className="text-white text-sm px-3 py-[5px] rounded-md cursor-pointer bg-[#C83C7C] hover:opacity-90 font-lucida">
                 Preview
               </button>
@@ -106,9 +106,11 @@ const Boe = () => {
       <div className="mb-[30px] bg-[#FAA312] rounded-[8px] p-4">
         <p className="text-[16px] font-lucida text-[#13213C] font-normal">
           For the most up-to-date official information, visit the{" "}
-          <span className="text-[#C83C7C] cursor-pointer">official BOE website</span>. Our
-          summary is provided as a convenience and may not include all relevant
-          notices.
+          <span className="text-[#C83C7C] cursor-pointer">
+            official BOE website
+          </span>
+          . Our summary is provided as a convenience and may not include all
+          relevant notices.
         </p>
       </div>
     </div>

@@ -26,10 +26,10 @@ const Page = () => {
   };
 
   return (
-    <section className="pt-[160px] relative z-0 overflow-hidden">
+    <section className="lg:pt-[160px] pt-10 relative z-0 overflow-hidden 2xl:px-0 px-5">
       <Container>
         <div>
-          <h2 className="text-6xl font-bold text-pink-500 mb-4 font-arial text-center">
+          <h2 className="lg:text-6xl md:text-4xl text-2xl font-bold text-pink-500 mb-4 font-arial text-center">
             Certificates & Affiliations
           </h2>
           <p className="text-white font-lucida text-center max-w-[700px] mx-auto">
@@ -38,11 +38,11 @@ const Page = () => {
             dedication to maintaining the highest industry standards.
           </p>
 
-          <div className="flex gap-x-8 flex-wrap justify-between mt-10 z-50 relative">
+          <div className="flex flex-wrap gap-6 justify-center mt-10 z-50 relative">
             {certificates.map((cert, index) => (
               <div
                 key={index}
-                className="rounded-lg p-4 text-white cursor-pointer w-[350px] hover:translate-y-2 transition-all duration-300"
+                className="rounded-lg p-4 text-white cursor-pointer w-full sm:w-[300px] md:w-[350px] hover:translate-y-2 transition-all duration-300"
               >
                 <div
                   className="relative w-full h-[230px]"
@@ -65,7 +65,7 @@ const Page = () => {
                   <p className="text-sm text-gray-300 mb-4">
                     Issued by: {cert.issuer}
                   </p>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 flex-col sm:flex-row">
                     <a
                       href={cert.downloadLink}
                       download
@@ -107,21 +107,21 @@ const Page = () => {
                   alt={selectedCert.title}
                   width={1000}
                   height={1000}
-                  className="w-full h-full rounded shadow-lg"
+                  className="w-full max-h-[80vh] object-contain rounded shadow-lg"
                 />
               </div>
             </div>
           )}
 
-          <div className="pt-[120px]">
-            <h2 className="text-6xl font-bold text-pink-500 mb-4 font-arial text-center">
+          <div className="lg:pt-[120px] pt-10 ">
+            <h2 className="lg:text-6xl md:text-4xl text-2xl font-bold text-pink-500 mb-4 font-arial text-center">
               Awards & Recognition
             </h2>
-            <div className="flex justify-center gap-8 flex-wrap my-[120px] relative z-20">
+            <div className="flex justify-center gap-6 flex-wrap lg:my-[60px] relative z-20">
               {[1, 2, 3].map((_, idx) => (
                 <div
                   key={idx}
-                  className="relative w-[400px] h-[420px] flex items-end justify-center text-center z-50 cursor-pointer"
+                  className="relative w-full sm:w-[320px] md:w-[380px] lg:w-[400px] h-[420px] flex items-end justify-center text-center z-50 cursor-pointer"
                   onClick={() => openAwardModal(idx)}
                 >
                   <Image
@@ -175,7 +175,7 @@ const Page = () => {
                   alt="Award Zoom"
                   width={1000}
                   height={800}
-                  className="w-full h-full rounded shadow-lg"
+                  className="w-full max-h-[80vh] object-contain rounded shadow-lg"
                 />
               </div>
             </div>

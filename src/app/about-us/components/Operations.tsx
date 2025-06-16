@@ -5,33 +5,42 @@ import React from "react";
 
 const Operations = () => {
   return (
-    <div className="relative w-full py-20">
+    <div className="relative w-full py-16 sm:py-20">
       <Container>
-        <Image
-          src="/operationbg.png"
-          alt="operation"
-          fill
-          style={{ objectFit: "cover" }}
-          priority
-        />
-        <div className="relative z-10">
-          <h4 className="relative text-white text-[48px] font-normal font-arial text-center z-10">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/operationbg.png"
+            alt="operation"
+            fill
+            style={{ objectFit: "cover" }}
+            priority
+          />
+          <div className="absolute inset-0  bg-opacity-40" />{" "}
+          {/* Optional dark overlay */}
+        </div>
+
+        {/* Foreground Content */}
+        <div className="relative z-10 text-white text-center">
+          <h4 className="text-3xl sm:text-4xl md:text-[48px] font-normal font-arial">
             Inside SAVA’s Operations
           </h4>
-          <div className="flex justify-between mt-10">
+
+          <div className="mt-10 flex flex-col sm:flex-row sm:justify-between gap-6 sm:gap-0">
             <CountdownReusable
               title="4,000+"
-              para="Office and  Logistic  Fecilities"
+              para="Office and Logistic Facilities"
             />
-            <CountdownReusable title="95+ " para="Countries Worldwide" />
+            <CountdownReusable title="95+" para="Countries Worldwide" />
             <CountdownReusable
-              title=" 230,000~"
-              para="Employes"
+              title="230,000~"
+              para="Employees"
               showBorder={false}
             />
           </div>
-          <div className="flex justify-center mt-[60px]">
-            <button className="px-5 py-3 bg-[#FAA312] rounded-[12px] text-[18px] font-lucida font-normal text-[#[13213C] cursor-pointer hover:bg-[#C83C7C] hover:text-white duration-300 ease-in-out">
+
+          <div className="flex justify-center mt-10 sm:mt-[60px]">
+            <button className="px-6 py-3 bg-[#FAA312] rounded-[12px] text-lg font-lucida font-normal text-[#13213C] cursor-pointer hover:bg-[#C83C7C] hover:text-white duration-300 ease-in-out">
               Discover Where SAVA Operates
             </button>
           </div>

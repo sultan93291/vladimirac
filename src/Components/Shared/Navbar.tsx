@@ -21,7 +21,7 @@ const Navbar = () => {
   const drawerRef = useRef<HTMLDivElement>(null);
   const navItems = [
     { label: "Our services", href: "/our-service" },
-    { label: "Company", href: "/company" },
+    { label: "Company", href: "/about-us" },
     { label: "Resources", href: "/resources" },
     { label: "Budget", href: "/budget" },
     { label: "About us", href: "/about-us" },

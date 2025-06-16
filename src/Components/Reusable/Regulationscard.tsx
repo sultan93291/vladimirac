@@ -13,7 +13,7 @@ const RegulationsCard: React.FC<RegulationsCardProps> = ({
   points,
 }) => {
   return (
-    <div className="p-6 bg-[#32203C] rounded-[8px] border border-[#C83C7C] text-white w-[357px]">
+    <div className="p-6 bg-[#32203C] rounded-[8px] border border-[#C83C7C] text-white xl:w-[357px] w-full">
       <div className="flex items-center gap-x-2 mb-4 text-[#fff]">
         <Icon className="text-[20px] text-[#C83C7C]" />
         <h3 className="text-[18px] font-lucida font-semibold">{title}</h3>

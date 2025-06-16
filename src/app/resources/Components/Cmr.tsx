@@ -11,8 +11,8 @@ const Cmr = () => {
   const [activeTab, setActiveTab] = useState("Overview");
 
   return (
-    <div className="bg-[#32203C] p-6 rounded-[8px] border border-[#C83C7C] text-white">
-      <div className="flex items-start gap-4 mb-4">
+    <div className="bg-[#32203C] p-6 rounded-[8px] border border-[#C83C7C] text-white w-full">
+      <div className="flex flex-col sm:flex-row items-start gap-4 mb-4">
         <div className="p-3 rounded-[8px] flex justify-center items-center bg-[#C83C7C]">
           <HiOutlineNewspaper className="text-[22px]" />
         </div>
@@ -53,15 +53,15 @@ const Cmr = () => {
 
       <h4>CMR Document Guide</h4>
 
-      <div className="flex gap-x-5 my-4 border border-[#C83C7C] rounded-[8px] p-4">
+      <div className="flex flex-col sm:flex-row gap-4 my-4 border border-[#C83C7C] rounded-[8px] p-4">
         {tabs.map(tab => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`w-full px-4 py-2 text-sm font-medium cursor-pointer border border-[#C83C7C] ${
+            className={`w-full sm:w-auto px-4 py-2 text-sm font-medium cursor-pointer border border-[#C83C7C] ${
               activeTab === tab
                 ? "bg-[#C83C7C] text-white rounded-[8px]"
-                : "bg-transparent hover:bg-[#C83C7C]/20 rounded-[8px] "
+                : "bg-transparent hover:bg-[#C83C7C]/20 rounded-[8px]"
             }`}
           >
             {tab}
@@ -72,7 +72,7 @@ const Cmr = () => {
       <div className="border border-[#C83C7C] rounded-[5px]">
         <div className="p-4 text-sm text-[#DADADA]">
           {activeTab === "Overview" && (
-            <div className="">
+            <div>
               <h4 className="pb-4">
                 A CMR consignment note must include the following information:
               </h4>
@@ -91,38 +91,24 @@ const Cmr = () => {
             </div>
           )}
           {activeTab === "Sender Responsibilities" && (
-            <div className="">
-              <h4 className="pb-4">`The senders responsibilities include:`</h4>
+            <div>
+              <h4 className="pb-4">The sender’s responsibilities include:</h4>
               <ul className="list-disc pl-6 space-y-1">
-                <li>Date and place of completion</li>
-                <li>Name and address of sender, carrier, and consignee</li>
-                <li>Place and date of collection and delivery</li>
-                <li>Description of goods and packaging method</li>
-                <li>Number of packages and weight</li>
-                <li>
-                  Costs related to carriage (freight charges, customs duties)
-                </li>
-                <li>Instructions for customs and other formalities</li>
-                <li>Statement that carriage is subject to CMR convention</li>
+                <li>Accurate consignment note details</li>
+                <li>Proper packaging and labeling of goods</li>
+                <li>Providing customs and regulatory documents</li>
+                <li>Ensuring goods are safe for transport</li>
               </ul>
             </div>
           )}
           {activeTab === "Carrier Responsibilities" && (
-            <div className="">
-              <h4 className="pb-4">
-                A CMR consignment note must include the following information:
-              </h4>
+            <div>
+              <h4 className="pb-4">Carrier’s obligations include:</h4>
               <ul className="list-disc pl-6 space-y-1">
-                <li>Date and place of completion</li>
-                <li>Name and address of sender, carrier, and consignee</li>
-                <li>Place and date of collection and delivery</li>
-                <li>Description of goods and packaging method</li>
-                <li>Number of packages and weight</li>
-                <li>
-                  Costs related to carriage (freight charges, customs duties)
-                </li>
-                <li>Instructions for customs and other formalities</li>
-                <li>Statement that carriage is subject to CMR convention</li>
+                <li>Safe and timely delivery of goods</li>
+                <li>Inspecting the consignment before transit</li>
+                <li>Following instructions listed in the CMR note</li>
+                <li>Assuming liability in case of loss or damage</li>
               </ul>
             </div>
           )}

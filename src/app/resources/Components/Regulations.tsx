@@ -13,14 +13,15 @@ const Regulations = () => {
   };
 
   return (
-    <div className="bg-[#32203C] p-6 rounded-[8px] border border-[#C83C7C]">
-      <h3 className="text-[24px] font-lucida font-normal text-white">
+    <div className="bg-[#32203C] p-6 rounded-[8px] border border-[#C83C7C] max-w-full mx-auto">
+      <h3 className="text-[24px] sm:text-[28px] font-lucida font-normal text-white">
         Transport Regulations
       </h3>
-      <p className="text-[18px] font-lucida text-[#BCBCBC] font-normal">
+      <p className="text-[16px] sm:text-[18px] font-lucida text-[#BCBCBC] font-normal mt-1 max-w-full">
         EU & country-specific transport laws and compliance rules
       </p>
-      <div className="mt-6 flex gap-x-6 justify-between">
+
+      <div className="mt-6 flex flex-col sm:flex-row gap-4 sm:gap-6 justify-between">
         <RegulationsCard
           title="Driving Time"
           icon={FaRegCalendarAlt}
@@ -52,11 +53,12 @@ const Regulations = () => {
           ]}
         />
       </div>
-      <div className="py-[60px]">
-        <h2 className="text-[20px] font-lucida text-white font-normal">
+
+      <div className="py-[40px] sm:py-[60px] max-w-full">
+        <h2 className="text-[18px] sm:text-[20px] font-lucida text-white font-normal">
           EU Logistics Compliance
         </h2>
-        <div className="flex flex-col gap-3 mt-6">
+        <div className="flex flex-col gap-3 mt-6 max-w-full">
           {[
             "Regulation (EC) No 561/2006 - Driver's Hours",
             "Directive 2002/15/EC - Working Time",
@@ -67,7 +69,7 @@ const Regulations = () => {
                 className="flex justify-between items-center py-3 border-b border-[#E2E8F0] cursor-pointer"
                 onClick={() => toggleCollapse(country)}
               >
-                <h4 className="text-white font-lucida text-[20px]">
+                <h4 className="text-white font-lucida text-[16px] sm:text-[20px]">
                   {country}
                 </h4>
                 {show === country ? (
@@ -77,13 +79,13 @@ const Regulations = () => {
                 )}
               </div>
               <div
-                className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                className={`transition-all duration-300 ease-in-out overflow-hidden ${
                   show === country
-                    ? "max-h-[150px] opacity-100 mt-3"
+                    ? "max-h-[500px] opacity-100 mt-3"
                     : "max-h-0 opacity-0"
                 }`}
               >
-                <p className="text-[18px] font-lucida text-[#BCBCBC] font-normal">
+                <p className="text-[14px] sm:text-[18px] font-lucida text-[#BCBCBC] font-normal">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Voluptatum, ipsum!
                 </p>
@@ -92,11 +94,12 @@ const Regulations = () => {
           ))}
         </div>
       </div>
-      <div className="mt-[30px] bg-[#FAA312] rounded-[8px] p-4">
-        <p className="text-[16px] font-lucida text-[#13213C] font-normal">
+
+      <div className="mt-[30px] bg-[#FAA312] rounded-[8px] p-4 max-w-full">
+        <p className="text-[14px] sm:text-[16px] font-lucida text-[#13213C] font-normal">
           Disclaimer: This information serves as general guidance only and
           should not be considered legal advice. Regulations change frequently,
-          and its the carriers responsibility to ensure compliance with
+          and it's the carrier's responsibility to ensure compliance with
           current laws.
         </p>
       </div>

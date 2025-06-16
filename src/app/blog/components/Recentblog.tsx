@@ -24,13 +24,13 @@ const Recentblog = () => {
   }, []);
 
   return (
-    <section className="pt-20">
+    <section className="lg:pt-20 pt-8">
       <Container>
-        <h2 className="text-[32px] font-arial font-bold text-white">
+        <h2 className="text-[32px] font-arial font-bold text-white lg:mx-[60px] mx-0 lg:text-start text-center">
           Recent Blog
         </h2>
 
-        <div className="relative mt-20 mx-[60px]">
+        <div className="relative mt-20 lg:mx-[60px] mx-0">
           {isReady && (
             <Swiper
               modules={[Navigation]}
@@ -45,6 +45,9 @@ const Recentblog = () => {
                   slidesPerView: 2,
                 },
                 1024: {
+                  slidesPerView: 2,
+                },
+                1200: {
                   slidesPerView: 3,
                 },
               }}
@@ -69,7 +72,7 @@ const Recentblog = () => {
                         SAVA Logistics: The Best Choice for Your Logistics Needs
                         in Spain?
                       </p>
-                      <div className="flex justify-between items-center">
+                      <div className="lg:flex justify-between items-center">
                         <div className="flex gap-x-3">
                           <div className="w-10 h-10 rounded-full border border-white flex justify-center items-center cursor-pointer hover:border-pink-400 duration-300 ease-in-out">
                             <FaFacebook className="text-white text-[24px]" />
@@ -79,7 +82,7 @@ const Recentblog = () => {
                           </div>
                         </div>
                         <button
-                          className="flex gap-x-3 justify-center items-center hover:border hover:border-transparent px-5 py-3 rounded-[12px] hover:bg-[#C83C7C] w-[240px] text-[18px] text-[#F9F9F9]
+                          className="flex lg:mt-0  mt-5 gap-x-3 justify-center items-center hover:border hover:border-transparent px-5 py-3 rounded-[12px] hover:bg-[#C83C7C] w-[240px] text-[18px] text-[#F9F9F9]
                         font-normal cursor-pointer bg-[#13213C] border border-[#C83C7C] font-lucida duration-300 ease-in-out group"
                         >
                           Discover More
@@ -96,13 +99,13 @@ const Recentblog = () => {
           {/* Navigation Buttons */}
           <button
             ref={prevRef}
-            className="absolute top-1/2 -left-20 z-10 transform -translate-y-1/2 border border-white hover:border-0 hover:bg-[#C83C7C] text-white w-10 h-10 rounded-full flex items-center justify-center shadow-md cursor-pointer transition"
+            className="absolute lg:top-1/2 lg:-left-20 -top-10 left-0 z-10 transform -translate-y-1/2 border border-white hover:border-0 hover:bg-[#C83C7C] text-white w-10 h-10 rounded-full flex items-center justify-center shadow-md cursor-pointer transition"
           >
             <IoIosArrowBack />
           </button>
           <button
             ref={nextRef}
-            className="absolute top-1/2 -right-20 z-10 transform -translate-y-1/2 border  border-white hover:border-0 hover:bg-[#C83C7C] text-white w-10 h-10 rounded-full flex items-center justify-center shadow-md cursor-pointer transition"
+            className="absolute lg:top-1/2 lg:-left-20 -top-10 right-0 z-10 transform -translate-y-1/2 border  border-white hover:border-0 hover:bg-[#C83C7C] text-white w-10 h-10 rounded-full flex items-center justify-center shadow-md cursor-pointer transition"
           >
             <IoIosArrowForward />
           </button>

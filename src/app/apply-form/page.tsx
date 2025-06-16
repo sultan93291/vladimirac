@@ -20,12 +20,12 @@ const Page = () => {
   };
 
   return (
-    <section className="pt-20">
-      <Container className="w-[800px] mx-auto">
-        <h2 className="text-[64px] font-bold text-white font-arial text-center">
+    <section className="lg:pt-20 pt-10 2xl:px-0 px-5">
+      <Container className="lg:w-[800px] w-full mx-auto">
+        <h2 className="lg:text-[64px] text-[30px] font-bold text-white font-arial text-center">
           Apply For Your Position
         </h2>
-        <form className="pt-[60px] px-[100px]">
+        <form className="lg:pt-[60px] pt-[30px]  lg:px-[100px] px-0">
           <div className="grid grid-cols-2 gap-8">
             {/* Form Fields */}
             {["First name", "Last name"].map((label, index) => (

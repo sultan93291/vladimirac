@@ -64,10 +64,10 @@ const teamMembers = [
 const Team = () => {
   return (
     <section className="px-4 relative z-10">
-      <h2 className="text-[48px] font-normal text-center font-arial text-white">
+      <h2 className="lg:text-[48px] text-[30px] font-normal text-center font-arial text-white">
         Our Awesome Team
       </h2>
-      <p className="text-[24px] font-normal text-[#BCBCBC] font-lucida pt-6 text-center">
+      <p className="lg:text-[24px] text-[18px] font-normal text-[#BCBCBC] font-lucida pt-6 text-center">
         We have created a new product that will help designers, developers and
         companies create websites for their startups quickly and easily.
       </p>
