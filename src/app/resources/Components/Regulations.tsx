@@ -99,7 +99,7 @@ const Regulations = () => {
         <p className="text-[14px] sm:text-[16px] font-lucida text-[#13213C] font-normal">
           Disclaimer: This information serves as general guidance only and
           should not be considered legal advice. Regulations change frequently,
-          and it's the carrier's responsibility to ensure compliance with
+          and its the carriers responsibility to ensure compliance with
           current laws.
         </p>
       </div>
