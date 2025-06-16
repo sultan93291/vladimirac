@@ -7,15 +7,15 @@ import History from "./components/History";
 
 const page = () => {
   return (
-    <section className="pt-20">
+    <section className="lg:pt-20 pt-10 2xl:px-0 px-5">
       <Container>
-        <h1 className="text-[64px] font-bold text-center font-arial text-white">
+        <h1 className="lg:text-[64px] text-[35px] font-bold text-center font-arial text-white">
           About Us
         </h1>
-        <div className="mt-[60px]">
+        <div className="lg:mt-[60px] mt-8">
           <Banner />
         </div>
-        <div className="py-[120px]">
+        <div className="lg:py-[120px] py-[50px]">
           <Team />
         </div>
       </Container>

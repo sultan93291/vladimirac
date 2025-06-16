@@ -3,9 +3,9 @@ import React from "react";
 
 const Privacy = () => {
   return (
-    <div className="bg-[#32203C] p-6 rounded-[8px] border border-[#C83C7C] text-white">
-      <div className="flex items-start gap-3 mb-4">
-        <div className="p-3 rounded-[8px] flex justify-center items-center bg-[#C83C7C]">
+    <div className="bg-[#32203C] p-6 rounded-[8px] border border-[#C83C7C] text-white w-full">
+      <div className="flex flex-col sm:flex-row items-start gap-3 mb-4">
+        <div className="p-3 rounded-[8px] flex justify-center items-center bg-[#C83C7C] w-fit">
           <Hand />
         </div>
         <div>

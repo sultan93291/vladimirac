@@ -12,7 +12,7 @@ const Banner = () => {
         sizes="100vw"
         style={{ width: "100%", height: "auto" }}
       />
-      <p className="text-[24px] font-lucida font-normal text-white pt-10 w-full">
+      <p className="lg:text-[24px] text-[18px] font-lucida font-normal text-white pt-10 w-full">
         At <span className="text-[#C83C7C]">SAVA Logistics</span>, we’re all
         about making transport easy and reliable across Europe. Our fantastic
         team is here to provide great service, helping businesses with smooth

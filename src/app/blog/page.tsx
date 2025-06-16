@@ -4,7 +4,7 @@ import Recentblog from "./components/Recentblog";
 
 const page = () => {
   return (
-    <section className="pt-20">
+    <section className="lg:pt-20 pt-10 2xl:px-0 px-5">
       <Container>
         <Aboutbanner />
         <Recentblog />

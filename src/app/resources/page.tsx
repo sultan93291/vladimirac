@@ -72,30 +72,64 @@ const Page = () => {
   };
 
   return (
-    <section className="pt-10">
+    <section className="lg:pt-20 pt-8 pb-10 2xl:px-0 px-5">
       <Container>
-        <h2 className="text-[64px] font-bold text-[#FFF] text-center">
+        <h2 className="text-[48px] sm:text-[64px] font-bold text-white text-center">
           Resources
         </h2>
-        <div className="flex gap-x-[70px] mt-[60px] ">
-          <div className="p-4 border border-[#C83C7C] rounded-[8px] h-[380px] bg-[#32203C]">
+        <div
+          className="
+            flex flex-col gap-y-6 mt-10
+            xl:flex-row sm:gap-x-[70px]
+          "
+        >
+          {/* Sidebar Menu */}
+          <div
+            className="
+              p-4 border border-[#C83C7C] rounded-[8px]
+              bg-[#32203C]
+              w-full xl:w-[380px] 
+              h-auto xl:h-[380px]
+         
+              max-h-[400px] sm:max-h-[380px]
+            "
+          >
             <ul className="flex flex-col gap-y-3">
               {items.map(item => (
                 <li
                   key={item}
                   onClick={() => setActiveItem(item)}
-                  className={`w-[380px] py-2 px-4  rounded-[8px] font-lucida font-normal cursor-pointer transition-colors  duration-200 ${
-                    activeItem === item
-                      ? "bg-[#C83C7C] text-white"
-                      : "bg-transparent text-white hover:bg-[#C83C7C]"
-                  }`}
+                  className={`
+                    w-full 
+                    py-2 px-4 rounded-[8px] 
+                    font-lucida font-normal 
+                    cursor-pointer transition-colors duration-200
+                    ${
+                      activeItem === item
+                        ? "bg-[#C83C7C] text-white"
+                        : "bg-transparent text-white hover:bg-[#C83C7C]"
+                    }
+                  `}
                 >
                   {item}
                 </li>
               ))}
             </ul>
           </div>
-          <div className="flex-1">{renderContent()}</div>
+
+          {/* Content Area */}
+          <div
+            className="
+              flex-1
+              text-white
+              max-w-full
+              overflow-auto
+              min-h-[380px]
+              sm:min-h-auto
+            "
+          >
+            {renderContent()}
+          </div>
         </div>
       </Container>
     </section>

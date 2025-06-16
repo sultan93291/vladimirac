@@ -7,9 +7,10 @@ import { BsFillShareFill } from "react-icons/bs";
 
 const page = () => {
   return (
-    <section className="pt-20">
+    <section className="lg:py-20 py-8 2xl:px-0 px-5">
       <Container>
         <div className="flex gap-x-8 lg:flex-row flex-col">
+          {/* Left Side */}
           <div className="w-full">
             <div className="relative w-full h-[600px]">
               <Image
@@ -49,7 +50,9 @@ const page = () => {
                 <li>Perform all other job-related duties as assigned.</li>
               </ul>
 
-              <h2 className="text-xl font-medium">**Operational Excellence**</h2>
+              <h2 className="text-xl font-medium">
+                **Operational Excellence**
+              </h2>
               <ul className="list-disc list-inside space-y-1 font-normal">
                 <li>
                   Identify and implement operational best practices, process
@@ -206,7 +209,8 @@ const page = () => {
             </div>
           </div>
 
-          <div className="w-full lg:w-[30%] h-fit bg-[#32203C] px-[60px] py-8 rounded-[12px] flex flex-col gap-6 cursor-pointer transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+          {/* Right Side */}
+          <div className="w-full lg:w-[30%] lg:mt-0 mt-5 bg-[#32203C] px-6 sm:px-10 py-8 rounded-[12px] flex flex-col gap-6 cursor-pointer transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 self-start">
             <h4 className="text-[24px] text-white font-arial font-normal">
               Road Export Coordinator
             </h4>
