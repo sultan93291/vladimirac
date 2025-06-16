@@ -27,7 +27,7 @@ const Page = () => {
               <Round2 />
             </div>
 
-            <h2 className="font-bold font-arial text-white text-center text-[32px] sm:text-[40px] relative z-10">
+            <h2 className="font-bold font-arial text-white text-center lg:text-[32px] text-[24px] relative z-10">
               Sign In Your Account
             </h2>
 

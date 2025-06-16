@@ -18,7 +18,7 @@ export default function Home() {
           </p>
           <div className="mt-10 rounded-lg overflow-hidden shadow-xl">
             <Image
-              src="/aboutbanner.png"
+              src="/car.png"
               alt="Courier Delivery"
               width={0}
               height={0}
@@ -29,7 +29,7 @@ export default function Home() {
         </section>
       </Container>
 
-      {/* Animated Cube Section */}
+    
       <Container>
         <section className="lg:py-16 py-8">
           <h2 className="lg:text-4xl text-3xl font-semibold text-center mb-6">
@@ -43,7 +43,6 @@ export default function Home() {
         </section>
       </Container>
 
-      {/* Our Services Section */}
       <Container>
         <section className="py-20 text-center">
           <h2 className="text-4xl font-bold mb-6">Our Services</h2>
@@ -81,9 +80,9 @@ export default function Home() {
         </section>
       </Container>
 
-      {/* Why Choose Us Section */}
+     
       <Container>
-        <section className="p-20 bg-[#0F172A] rounded-t-3xl">
+        <section className="lg:p-20 p-5 bg-[#0F172A] rounded-t-3xl">
           <h2 className="lg:text-4xl md:text-3xl text-2xl font-bold text-center mb-12">
             Why Choose Us
           </h2>
