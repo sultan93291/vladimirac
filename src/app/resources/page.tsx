@@ -7,6 +7,7 @@ import Privacy from "./Components/Privacy";
 import Container from "@/Components/Shared/Container";
 import Restrictions from "./Components/Restrictions";
 import Regulations from "./Components/Regulations";
+import Holidays from "./Components/Holidays";
 
 const Page = () => {
   const items: string[] = [
@@ -26,7 +27,7 @@ const Page = () => {
       case "Europe Holidays":
         return (
           <div className="">
-            {/* <Holidays /> */}
+            <Holidays />
           </div>
         );
       case "Transport Restrictions":
