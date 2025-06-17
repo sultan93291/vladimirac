@@ -237,3 +237,8 @@ body {
   padding: 10px;
   border-radius: 15px !important;
 }
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+  color: #333;
+  background: none !important;
+  box-shadow: none !important;
+}

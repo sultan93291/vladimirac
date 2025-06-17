@@ -156,7 +156,7 @@ const Page: React.FC = () => {
     <section className="" style={{ backgroundColor: "#13213C" }}>
       <Container>
         <div
-          className="h-[900px] w-full rounded-lg overflow-hidden border border-gray-300"
+          className="h-[900px] w-full rounded-lg overflow-hidden border border-gray-300 relative z-10"
           style={{ backgroundColor: "#FFFFFF" }}
         >
           <MapContainer

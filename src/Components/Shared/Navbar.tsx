@@ -61,7 +61,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center">
           <div className="w-full flex gap-x-5 items-center">
             <IoMenu
-              className="bg-white p-2 rounded-xl font-bold text-5xl cursor-pointer hover:bg-pink-500 hover:text-white duration-300 text-[#32203C]"
+              className="bg-white p-2 lg:rounded-xl rounded-lg font-bold lg:text-5xl text-3xl cursor-pointer hover:bg-pink-500 hover:text-white duration-300 text-[#32203C]"
               onClick={() => setIsMenuOpen(true)}
             />
             <Link href="/">
@@ -80,7 +80,7 @@ const Navbar = () => {
 
       {/* Backdrop */}
       {isMenuOpen && (
-        <div className="fixed inset-0 bg-black/10 bg-opacity-40 z-[998]" />
+        <div className="fixed inset-0 bg-black/10 bg-opacity-40 z-50" />
       )}
 
       {/* Drawer */}

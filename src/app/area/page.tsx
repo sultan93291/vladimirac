@@ -9,9 +9,9 @@ const MapComponent = dynamic(() => import("../../Components/Maps"), {
 
 const Page = () => {
   return (
-    <section className="py-20" style={{ backgroundColor: "#13213C" }}>
+    <section className="lg:py-20 py-8 2xl:px-0 px-5" style={{ backgroundColor: "#13213C" }}>
       <Container>
-        <h2 className="text-center font-bold text-white font-arial text-[64px]">
+        <h2 className="text-center font-bold text-white font-arial lg:text-[64px] text-[30px]">
           Destinations covered
         </h2>
 
