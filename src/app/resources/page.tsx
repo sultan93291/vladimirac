@@ -4,7 +4,6 @@ import Cmr from "./Components/Cmr";
 import Boe from "./Components/Boe";
 import Terms from "./Components/Terms";
 import Privacy from "./Components/Privacy";
-import Holidays from "./Components/Holidays";
 import Container from "@/Components/Shared/Container";
 import Restrictions from "./Components/Restrictions";
 import Regulations from "./Components/Regulations";
@@ -27,7 +26,7 @@ const Page = () => {
       case "Europe Holidays":
         return (
           <div className="">
-            <Holidays />
+            {/* <Holidays /> */}
           </div>
         );
       case "Transport Restrictions":
