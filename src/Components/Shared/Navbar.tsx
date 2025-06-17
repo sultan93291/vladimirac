@@ -61,7 +61,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center">
           <div className="w-full flex gap-x-5 items-center">
             <IoMenu
-              className="bg-white p-2 rounded-xl font-bold text-5xl cursor-pointer text-[#32203C]"
+              className="bg-white p-2 rounded-xl font-bold text-5xl cursor-pointer hover:bg-pink-500 hover:text-white duration-300 text-[#32203C]"
               onClick={() => setIsMenuOpen(true)}
             />
             <Link href="/">

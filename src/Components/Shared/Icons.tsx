@@ -670,7 +670,7 @@ export const Hand = () => {
       viewBox="0 0 32 32"
       fill="none"
     >
-      <g clip-path="url(#clip0_6_22562)">
+      <g clipPath="url(#clip0_6_22562)">
         <path
           fillRule="evenodd"
           clipRule="evenodd"

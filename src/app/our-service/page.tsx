@@ -9,7 +9,7 @@ import { IoArrowForward, IoArrowBack } from "react-icons/io5";
 const Page = () => {
   const [showAll, setShowAll] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
-  const visibleServices = showAll ? services : services.slice(0, 4);
+  const visibleServices = showAll ? services : services.slice(0, 3);
   const selectedService = services[selectedIndex];
 
   const detailEntries = Object.entries(selectedService.details).filter(
