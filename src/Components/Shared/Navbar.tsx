@@ -19,6 +19,7 @@ const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const drawerRef = useRef<HTMLDivElement>(null);
+
   const navItems = [
     { label: "Our services", href: "/our-service" },
     { label: "Company", href: "/about-us" },
@@ -30,10 +31,9 @@ const Navbar = () => {
 
   const isDropdownActive =
     pathname.startsWith("/careers") ||
-    pathname.startsWith("/partners") ||
+    pathname.startsWith("/sector") ||
     pathname.startsWith("/legal");
 
-  // Close on outside click
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -41,6 +41,7 @@ const Navbar = () => {
         !drawerRef.current.contains(event.target as Node)
       ) {
         setIsMenuOpen(false);
+        setShowDropdown(false);
       }
     };
 
@@ -59,9 +60,9 @@ const Navbar = () => {
     <nav className="lg:py-6 py-3 fixed top-0 left-0 w-full z-50 2xl:px-0 px-5 bg-[#32203C]">
       <Container>
         <div className="flex justify-between items-center">
-          <div className="w-full flex gap-x-5 items-center">
+          <div className="flex items-center gap-x-5">
             <IoMenu
-              className="bg-white p-2 lg:rounded-xl rounded-lg font-bold lg:text-5xl text-3xl cursor-pointer hover:bg-pink-500 hover:text-white duration-300 text-[#32203C]"
+              className="xl:hidden bg-white p-2 rounded-lg text-3xl cursor-pointer hover:bg-pink-500 hover:text-white duration-300 text-[#32203C]"
               onClick={() => setIsMenuOpen(true)}
             />
             <Link href="/">
@@ -75,15 +76,90 @@ const Navbar = () => {
               />
             </Link>
           </div>
+
+          {/* Desktop Nav */}
+          <div className="hidden xl:flex items-center justify-center gap-10 ml-5">
+            {navItems.map(item => (
+              <Link
+                key={item.label}
+                href={item.href}
+                className={`text-white font-arial text-[16px] hover:text-[#FAA312] cursor-pointer ${
+                  pathname === item.href ? "text-[#FAA312]" : ""
+                }`}
+              >
+                {item.label}
+              </Link>
+            ))}
+
+            {/* Others Dropdown for desktop */}
+            <div
+              className="relative group"
+              onMouseEnter={() => setShowDropdown(true)}
+              onMouseLeave={() => setShowDropdown(false)}
+            >
+              <div
+                className={`flex items-center gap-1 text-white text-[16px] font-arial cursor-pointer ${
+                  isDropdownActive ? "text-[#FAA312]" : ""
+                }`}
+              >
+                Others
+                <ChevronDown size={14} />
+              </div>
+
+              {showDropdown && (
+                <ul className="absolute top-full left-0 mt-2 bg-[#3b2d46] text-white shadow-lg rounded-md py-2 px-4 z-50">
+                  <li>
+                    <Link
+                      href="/careers"
+                      className="block py-1 hover:text-[#FAA312]"
+                    >
+                      Careers
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/sector"
+                      className="block py-1 hover:text-[#FAA312]"
+                    >
+                      Sectors
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/legal"
+                      className="block py-1 hover:text-[#FAA312]"
+                    >
+                      Legal
+                    </Link>
+                  </li>
+                </ul>
+              )}
+            </div>
+          </div>
+
+          {/* Right section */}
+          <div className="hidden lg:flex items-center gap-4">
+            <LanguageSelect />
+            <Link href="/sign-in">
+              <button className="px-4 py-3 border cursor-pointer font-arial border-[#FAA312] rounded-md text-white text-sm hover:bg-[#FAA312] transition">
+                Log in
+              </button>
+            </Link>
+            <Link href="/sign-up">
+              <button className="px-4 py-3 cursor-pointer font-arial border border-[#FAA312] rounded-md text-white text-sm bg-[#FAA312]/20 hover:bg-[#FAA312] transition">
+                Sign Up
+              </button>
+            </Link>
+          </div>
         </div>
       </Container>
 
       {/* Backdrop */}
       {isMenuOpen && (
-        <div className="fixed inset-0 bg-black/10 bg-opacity-40 z-50" />
+        <div className="fixed inset-0 bg-black/10 bg-opacity-40 z-40" />
       )}
 
-      {/* Drawer */}
+      {/* Mobile Drawer */}
       <div
         ref={drawerRef}
         className={`fixed top-0 left-0 h-full lg:w-[30%] w-[70%] bg-[#32203C] z-[999] transition-transform duration-500 ease-in-out transform ${
@@ -114,10 +190,11 @@ const Navbar = () => {
             </li>
           ))}
 
+          {/* Others in mobile drawer */}
           <li className="font-lucida text-white text-lg">
             <div
               className="flex items-center justify-between cursor-pointer"
-              onClick={() => setShowDropdown(!showDropdown)}
+              onClick={() => setShowDropdown(prev => !prev)}
             >
               <span
                 className={`transition duration-200 ${

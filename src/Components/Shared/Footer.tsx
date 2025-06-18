@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Container from "./Container";
 import { Clock, Home, Phone } from "lucide-react";
@@ -9,73 +11,92 @@ const Footer = () => {
   return (
     <footer className="bg-[#32203C] rounded-t-[36px] border-t-[3px] border-[#C83C7C] py-[60px] 2xl:px-0 px-5">
       <Container>
-        <div className="flex flex-col gap-10 md:flex-row md:justify-between flex-wrap">
-          {/* Logo + Info */}
-          <div className="md:max-w-[300px]">
-            <div className="mb-6 w-full max-w-[220px] md:max-w-[300px]">
-              <Image
-                src="/Logo.png"
-                alt="logo"
-                width={300}
-                height={87}
-                className="w-full h-auto"
-              />
-            </div>
-            <ul className="flex flex-col gap-3 my-4">
-              <li className="flex gap-x-2 font-lucida text-[16px] text-white">
-                <Phone className="text-white" /> +40 264 43 43 98
+        {/* Top Section */}
+        <div className="flex flex-wrap justify-between gap-y-10">
+          {/* Logo + Spain Office */}
+          <div className="flex flex-col lg:gap-10 gap-3">
+            <Image
+              src="/Logo.png"
+              alt="logo"
+              width={220}
+              height={87}
+              className="w-full h-auto"
+            />
+            <ul className="flex flex-col gap-3 text-white text-[14px] font-lucida">
+              <li className="flex gap-2">
+                <Phone size={16} /> Spain Contract : +34 935 16 71 71
               </li>
-              <li className="flex gap-x-2 font-lucida text-[16px] text-white">
-                <Home className="text-white" />
-                Strada Suceava 72, 400394 Cluj-Napoca (CLUJ)
+              <li className="flex gap-2">
+                <Home size={16} /> Carrer del Empordà 1–7, 08211 Castellar del
+                Valles
               </li>
-              <li className="flex gap-x-2 font-lucida text-[16px] text-white">
-                <Clock className="text-white" /> Mon-Fri: 9:00 - 18:00
+              <li className="flex gap-2">
+                <Clock size={16} /> Mon-Fri: 9:00 – 18:00
               </li>
-              <li className="flex gap-x-2 font-lucida text-[16px] text-white">
-                <Clock className="text-white" /> Saturday: 9:00 - 12:00
+              <li className="flex gap-2">
+                <Clock size={16} /> Saturday: 9:00 – 12:00
+              </li>
+            </ul>
+          </div>
+
+          {/* Romania Office */}
+          <div className=" flex flex-col lg:gap-14 gap-3">
+            <div className="invisible md:visible block md:h-[56px] h-10" />{" "}
+            {/* spacing like logo */}
+            <ul className="flex flex-col gap-3 text-white text-[14px] font-lucida">
+              <li className="flex gap-2">
+                <Phone size={16} /> Romania Contract : +40 264 43 43 98
+              </li>
+              <li className="flex gap-2">
+                <Home size={16} /> Strada Suceava 72, 400394 Cluj–Napoca (CLUJ)
+              </li>
+              <li className="flex gap-2">
+                <Clock size={16} /> Mon-Fri: 9:00 – 18:00
+              </li>
+              <li className="flex gap-2">
+                <Clock size={16} /> Saturday: 9:00 – 12:00
               </li>
             </ul>
           </div>
 
           {/* Services */}
-          <ul className="flex flex-col gap-3 min-w-[150px]">
-            <li className="font-jost text-[24px] text-[#C83C7C]">Services</li>
-            {[
-              "FTL Transport",
-              "LTL Transport",
-              "Specilaized Transport",
-              "Werehousing",
-              "Out Of EU",
-            ].map(item => (
-              <li
-                key={item}
-                className="font-lucida text-[16px] text-[#BCBCBC] cursor-pointer hover:underline"
-              >
-                {item}
-              </li>
-            ))}
-          </ul>
-
-          {/* Legal */}
-          <ul className="flex flex-col gap-3 min-w-[150px]">
-            <li className="font-jost text-[24px] text-[#C83C7C]">
-              Legal & Certifications
-            </li>
-            {["Privacy Policy", "Terms of Service", "Certifications"].map(
-              item => (
-                <li
-                  key={item}
-                  className="font-lucida text-[16px] text-[#BCBCBC] cursor-pointer hover:underline"
-                >
+          <div className="min-w-[180px]">
+            <h3 className="font-jost text-[18px] text-[#C83C7C] mb-4">
+              Services
+            </h3>
+            <ul className="flex flex-col gap-6 text-[#BCBCBC] text-[14px] font-lucida">
+              {[
+                "FTL Transport",
+                "LTL Transport",
+                "Specialized Transport",
+                "Werehousing",
+                "Out Of EU",
+              ].map(item => (
+                <li key={item} className="hover:underline cursor-pointer">
                   {item}
                 </li>
-              )
-            )}
-          </ul>
+              ))}
+            </ul>
+          </div>
+
+          {/* Legal & Certifications */}
+          <div className="min-w-[180px]">
+            <h3 className="font-jost text-[18px] text-[#C83C7C] mb-4">
+              Legal & Certifications
+            </h3>
+            <ul className="flex flex-col gap-6 text-[#BCBCBC] text-[14px] font-lucida">
+              {["Privacy Policy", "Terms of Service", "Certifications"].map(
+                item => (
+                  <li key={item} className="hover:underline cursor-pointer">
+                    {item}
+                  </li>
+                )
+              )}
+            </ul>
+          </div>
 
           {/* Social Icons */}
-          <ul className="flex gap-3 flex-wrap">
+          <div className="lg:flex lg:flex-col flex items-center gap-3 mt-2">
             {[
               FaFacebookF,
               RiTwitterXLine,
@@ -84,19 +105,20 @@ const Footer = () => {
               FaMedium,
               FaLinkedinIn,
             ].map((Icon, index) => (
-              <li
+              <div
                 key={index}
-                className="h-8 w-8 rounded-full bg-white flex justify-center items-center group hover:bg-[#C83C7C] transition duration-300 cursor-pointer"
+                className="h-8 w-8 rounded-full bg-white flex items-center justify-center group hover:bg-[#C83C7C] transition duration-300 cursor-pointer"
               >
                 <Icon className="text-[#C83C7C] group-hover:text-white transition duration-300" />
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
 
+        {/* Bottom Copyright */}
         <div className="mt-10 text-center">
           <p className="font-lucida text-white text-sm sm:text-base">
-            © 2025 SAVA. All Rights Reserved.
+            Copyright & Year: © 2025 SAVA. All Rights Reserved.
           </p>
         </div>
       </Container>
