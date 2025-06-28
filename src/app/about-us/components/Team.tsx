@@ -7,61 +7,39 @@ import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { RiTwitterXLine } from "react-icons/ri";
-import { FaLinkedinIn } from "react-icons/fa";
+import { FaLinkedinIn, FaInstagram } from "react-icons/fa";
+import useFetchData from "@/Hooks/UseFetchData";
 
-const teamMembers = [
-  {
-    name: "Vlad Cioca",
-    role: "CEO",
-    description:
-      "Vlad directs SAVA Logistics with a vision to expand exports in Germany, driving growth and excellence in logistics.",
-    image: "/manimage.png",
-  },
-  {
-    name: "Vlad Cioca",
-    role: "CEO",
-    description:
-      "Vlad directs SAVA Logistics with a vision to expand exports in Germany, driving growth and excellence in logistics.",
-    image: "/manimage2.png",
-  },
-  {
-    name: "Vlad Cioca",
-    role: "CEO",
-    description:
-      "Vlad directs SAVA Logistics with a vision to expand exports in Germany, driving growth and excellence in logistics.",
-    image: "/manimage3.png",
-  },
-  {
-    name: "Vlad Cioca",
-    role: "CEO",
-    description:
-      "Vlad directs SAVA Logistics with a vision to expand exports in Germany, driving growth and excellence in logistics.",
-    image: "/manimage.png",
-  },
-  {
-    name: "Vlad Cioca",
-    role: "CEO",
-    description:
-      "Vlad directs SAVA Logistics with a vision to expand exports in Germany, driving growth and excellence in logistics.",
-    image: "/manimage2.png",
-  },
-  {
-    name: "Vlad Cioca",
-    role: "CEO",
-    description:
-      "Vlad directs SAVA Logistics with a vision to expand exports in Germany, driving growth and excellence in logistics.",
-    image: "/manimage.png",
-  },
-  {
-    name: "Vlad Cioca",
-    role: "CEO",
-    description:
-      "Vlad directs SAVA Logistics with a vision to expand exports in Germany, driving growth and excellence in logistics.",
-    image: "/manimage.png",
-  },
-];
+type TeamMember = {
+  name: string;
+  image: string;
+  bio: string;
+  twitter: string | null;
+  instagram: string | null;
+  linkedin: string | null;
+  position: string;
+};
+
+type AboutData = {
+  teams: TeamMember[];
+};
+
+type ApiResponse = {
+  success: boolean;
+  message: string;
+  data: AboutData;
+  code: number;
+};
 
 const Team = () => {
+  const { data: apiResponse } = useFetchData<ApiResponse>("/get_about");
+  const baseURL = process.env.NEXT_PUBLIC_IMG_URL || "";
+
+  const teams = apiResponse?.data?.teams;
+
+  if (!teams)
+    return <p className="text-white text-center">Loading team data...</p>;
+
   return (
     <section className="px-4 relative z-10">
       <h2 className="lg:text-[48px] text-[30px] font-normal text-center font-arial text-white">
@@ -85,7 +63,7 @@ const Team = () => {
             modules={[Pagination]}
             className="teamSwiper !overflow-visible px-10 md:px-20 lg:px-32"
           >
-            {teamMembers.map((member, index) => (
+            {teams.map((member, index) => (
               <SwiperSlide key={index} className="!w-[350px] cursor-pointer">
                 <div className="relative w-full h-[278px] rounded-md overflow-hidden">
                   <button
@@ -93,14 +71,14 @@ const Team = () => {
                     style={{
                       borderRadius: "8px",
                       background:
-                        "linear-gradient(315deg, #C83C7C -148.02%, rgba(13, 13, 13, 0.00) 197.26%)",
+                        "linear-gradient(315deg, #C83C7C -148.02%, rgba(13, 13, 13, 0) 197.26%)",
                     }}
                   >
-                    {member.role}
+                    {member.position}
                   </button>
                   <Image
-                    src={member.image}
-                    alt="Team member"
+                    src={`${baseURL}${member.image}`}
+                    alt={`Photo of ${member.name}`}
                     fill
                     className="object-cover"
                   />
@@ -112,26 +90,59 @@ const Team = () => {
                       {member.name}
                     </h3>
                     <p className="text-[14px] font-lucida font-normal text-white pt-2">
-                      {member.description}
+                      {member.bio}
                     </p>
                   </div>
                   <div className="border-t border-t-[#C83C7C] flex">
-                    {[1, 2, 3].map((_, idx) => (
-                      <div
-                        key={idx}
-                        className="w-1/3 flex justify-center items-center p-4 border-r last:border-r-0 border-[#C83C7C]"
-                      >
-                        {idx === 0 && (
-                          <RiTwitterXLine className="text-white size-[24px]" />
-                        )}
-                        {idx === 1 && (
-                          <FaLinkedinIn className="text-white size-[24px]" />
-                        )}
-                        {idx === 2 && (
-                          <FaLinkedinIn className="text-white size-[24px]" />
-                        )}
-                      </div>
-                    ))}
+                    {/* Twitter */}
+                    <div className="w-1/3 flex justify-center items-center p-4 border-r border-[#C83C7C]">
+                      {member.twitter ? (
+                        <a
+                          href={member.twitter}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-white"
+                          aria-label="Twitter"
+                        >
+                          <RiTwitterXLine size={24} />
+                        </a>
+                      ) : (
+                        <RiTwitterXLine size={24} className="text-gray-600" />
+                      )}
+                    </div>
+
+                    <div className="w-1/3 flex justify-center items-center p-4 border-r border-[#C83C7C]">
+                      {member.instagram ? (
+                        <a
+                          href={member.instagram}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-white"
+                          aria-label="Instagram"
+                        >
+                          <FaInstagram size={24} />
+                        </a>
+                      ) : (
+                        <FaInstagram size={24} className="text-gray-600" />
+                      )}
+                    </div>
+
+         
+                    <div className="w-1/3 flex justify-center items-center p-4 border-r-0 border-[#C83C7C]">
+                      {member.linkedin ? (
+                        <a
+                          href={member.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-white"
+                          aria-label="LinkedIn"
+                        >
+                          <FaLinkedinIn size={24} />
+                        </a>
+                      ) : (
+                        <FaLinkedinIn size={24} className="text-gray-600" />
+                      )}
+                    </div>
                   </div>
                 </div>
               </SwiperSlide>

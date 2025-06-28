@@ -24,7 +24,7 @@ export default function LayoutWrapper({
   return (
     <>
       {!hideLayout && <Navbar />}
-      <div className={hideLayout ? "" : "mt-20"}>{children}</div>
+      <div className={hideLayout ? "" : "my-20"}>{children}</div>
       {!hideLayout && <Footer />}
     </>
   );

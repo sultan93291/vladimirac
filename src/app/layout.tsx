@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Jost, Nunito } from "next/font/google";
 import "./globals.css";
 import LayoutWrapper from "@/Components/Shared/LayoutWrapper";
+import { Toaster } from "react-hot-toast";
 
 const jost = Jost({
   variable: "--font-jost",
@@ -9,6 +10,7 @@ const jost = Jost({
   weight: ["400", "500", "700"],
   display: "swap",
 });
+
 const nunito = Nunito({
   variable: "--font-nunito",
   subsets: ["latin"],
@@ -32,6 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${jost.variable} ${nunito.variable}`}>
       <body className="bg-[#13213C]">
+        <Toaster position="top-right" reverseOrder={false} />{" "}
         <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
