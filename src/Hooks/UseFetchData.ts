@@ -13,7 +13,8 @@ function useFetchData<T>(
   url: string | null,
   token: string | null = null
 ): FetchDataResult<T> {
-  const axiosInstance = useAxios(token);
+  const axiosInstance = useAxios(token); 
+
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -31,7 +32,7 @@ function useFetchData<T>(
         setError(err?.response?.data?.message || "Something went wrong")
       )
       .finally(() => setIsLoading(false));
-  }, [url, token, axiosInstance]);
+  }, [url,token]); 
 
   return { data, error, isLoading };
 }

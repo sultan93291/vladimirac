@@ -36,17 +36,17 @@ export default function Page() {
   const [showAll, setShowAll] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  // Fetch list of services
+
   const {
     data: servicesData,
     error: servicesError,
     isLoading: servicesLoading,
   } = useFetchData<{ success: boolean; data: ServiceListItem[] }>("/services");
 
-  // Get selected service ID safely
+
   const selectedServiceId = servicesData?.data?.[selectedIndex]?.id ?? null;
 
-  // Fetch details of selected service
+
   const {
     data: selectedServiceDetailsData,
     error: detailsError,
@@ -135,8 +135,8 @@ export default function Page() {
                     selectedServiceDetails.image
                   }`}
                   alt={selectedServiceDetails.title}
-                  width={32} // w-8 = 8 * 4 = 32px
-                  height={32} // h-8 = 8 * 4 = 32px
+                  width={32} 
+                  height={32} 
                   className="w-8 h-8 object-contain"
                 />
               </div>
