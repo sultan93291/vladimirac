@@ -48,7 +48,7 @@ const Page = () => {
       setTimeout(() => {
         router.push("/sign-in");
       }, 1000);
-      response;
+  
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       const message = error?.response?.data?.message || "Something went wrong";

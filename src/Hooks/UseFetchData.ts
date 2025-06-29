@@ -31,7 +31,7 @@ function useFetchData<T>(
         setError(err?.response?.data?.message || "Something went wrong")
       )
       .finally(() => setIsLoading(false));
-  }, [url, token]);
+  }, [url, token, axiosInstance]);
 
   return { data, error, isLoading };
 }

@@ -1,7 +1,5 @@
 "use client";
 
-
-
 import Container from "@/Components/Shared/Container";
 import Image from "next/image";
 import Spinner from "@/Components/Shared/Spinner";
@@ -16,7 +14,7 @@ type BlogDetail = {
   long_description: string;
 };
 
-const page = () => {
+const Page = () => {
   const { id } = useParams();
 
 
@@ -77,7 +75,7 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
 
 
 

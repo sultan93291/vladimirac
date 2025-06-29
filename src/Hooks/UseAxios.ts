@@ -3,10 +3,9 @@ import axios, { AxiosInstance } from "axios";
 const useAxios = (token: string | null = null): AxiosInstance => {
   const authToken =
     token ||
-    (typeof window !== "undefined" ? localStorage.getItem("authToken") : null);
+    (typeof window !== "undefined" ? localStorage.getItem("token") : null);
 
   const headers: Record<string, string> = {
-    "Content-Type": "application/json",
     Accept: "application/json",
   };
 
@@ -14,12 +13,10 @@ const useAxios = (token: string | null = null): AxiosInstance => {
     headers["Authorization"] = `Bearer ${authToken}`;
   }
 
-  const axiosInstance = axios.create({
+  return axios.create({
     baseURL: process.env.NEXT_PUBLIC_BASE_URL,
     headers,
   });
-
-  return axiosInstance;
 };
 
 export default useAxios;

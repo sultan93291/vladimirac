@@ -1,62 +1,43 @@
 "use client";
+
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import Container from "@/Components/Shared/Container";
 import Sectorcard from "@/Components/Reusable/Sectorcard";
-import {
-  Chemicals,
-  Consumption,
-  Energy,
-  Fairs,
-  Industrial,
-  Sectoricon,
-  Tech,
-} from "@/Components/Shared/Icons";
+import useFetchData from "@/Hooks/UseFetchData";
+import Spinner from "@/Components/Shared/Spinner";
 
-const sectors = [
-  {
-    icon: <Sectoricon />,
-    title: "Automotive",
-    description: "Secure, on-time delivery of chassis & parts",
-  },
-  {
-    icon: <Sectoricon />,
-    title: "Health",
-    description: "GxP-certified cold chain for medicines & devices",
-  },
-  {
-    icon: <Tech />,
-    title: "Technology",
-    description: "ESD-protected transit for sensitive electronics.",
-  },
-  {
-    icon: <Consumption />,
-    title: "Consumption",
-    description: "Fast, accurate FMCG distribution with shelf-life care",
-  },
-  {
-    icon: <Chemicals />,
-    title: "Chemicals",
-    description: "Fully ADR-compliant handling of your hazardous goods",
-  },
-  {
-    icon: <Industrial />,
-    title: "Industrial",
-    description: "Engineered transport for oversized machinery.",
-  },
-  {
-    icon: <Energy />,
-    title: "Energy",
-    description: "Safe handling & delivery of heavy energy assets",
-  },
-  {
-    icon: <Fairs />,
-    title: "Fairs",
-    description: "Secure, on-time delivery of chassis & parts",
-  },
-];
+interface Sector {
+  id: number;
+  title: string;
+  sub_title: string;
+  icon: string;
+}
+
+interface ApiResponse {
+  success: boolean;
+  message: string;
+  data: Sector[];
+  code: number;
+}
+
+const baseURL = process.env.NEXT_PUBLIC_IMG_URL || "";
 
 const Page = () => {
+  const { data: apiResponse, isLoading } =
+    useFetchData<ApiResponse>("/get_sectors");
+
+  if (isLoading) {
+    return (
+      <Container>
+        <Spinner/>
+      </Container>
+    );
+  }
+
+  const sectors = apiResponse?.data || [];
+
   return (
     <section className="lg:py-20 py-8 2xl:px-0 px-5">
       <Container>
@@ -64,19 +45,27 @@ const Page = () => {
           Sectors We Serve
         </h2>
         <div className="mt-[60px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {sectors.map((sector, index) => (
+          {sectors?.map(sector => (
             <Link
-              key={index}
-              href={`/company-with-work?sector=${encodeURIComponent(
+              key={sector.id}
+              href={`/sector/${sector.id}?title=${encodeURIComponent(
                 sector.title
               )}`}
-              passHref
             >
-              <div>
+              <div className="cursor-pointer">
                 <Sectorcard
-                  icon={sector.icon}
+                  icon={
+                    <Image
+                      src={baseURL + sector.icon}
+                      alt={sector.title}
+                      width={48}
+                      height={48}
+                      className="object-contain"
+                      priority={false}
+                    />
+                  }
                   title={sector.title}
-                  description={sector.description}
+                  description={sector.sub_title}
                 />
               </div>
             </Link>

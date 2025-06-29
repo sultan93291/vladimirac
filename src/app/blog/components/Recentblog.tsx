@@ -99,9 +99,9 @@ const Recentblog = () => {
               }}
               onSwiper={swiper => {
                 setTimeout(() => {
-                  // @ts-ignore
+                  // @ts-expect-error: swiper navigation elements refs assignment
                   swiper.params.navigation.prevEl = prevRef.current;
-                  // @ts-ignore
+                  // @ts-expect-error: swiper navigation elements refs assignment
                   swiper.params.navigation.nextEl = nextRef.current;
                   swiper.navigation.destroy();
                   swiper.navigation.init();
