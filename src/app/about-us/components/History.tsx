@@ -10,75 +10,39 @@ import Image from "next/image";
 import { MdAccessTime } from "react-icons/md";
 import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 
-const timelineData = [
-  {
-    date: "August 2010",
-    status: "Beginnings",
-    title: "SAVA LOGISTIC ROMANIA IS BORN",
-    description:
-      "Alina and Sergio Cioca founded SAVA LOGISTIC after a decade of experience in transport.",
-    image: "/testi.png",
-  },
-  {
-    date: "February 2013",
-    status: "Expansion",
-    title: "SAVA LOGISTIC SPAIN IS BORN",
-    description:
-      "They expanded their services by opening a new branch in Spain, strengthening EU operations.",
-    image: "/testi1.png",
-  },
-  {
-    date: "August 2018",
-    status: "Crossing borders",
-    title: "EORI REGISTRATION",
-    description:
-      "EORI registration enabled seamless cross-border logistics for SAVA throughout Europe.",
-    image: "/testi2.png",
-  },
-  {
-    date: "November 2020",
-    status: "Digitization",
-    title: "Digital Era Integration",
-    description:
-      "SAVA digitized all operations, bringing more transparency, efficiency, and customer satisfaction.",
-    image: "/testi.png",
-  },
-  {
-    date: "December 2022",
-    status: "Awards",
-    title: "Best Logistics Provider",
-    description:
-      "SAVA was awarded 'Best EU Logistics Provider 2022' by the National Freight Union.",
-    image: "/testi1.png",
-  },
-  {
-    date: "January 2022",
-    status: "Growth",
-    title: "New Logistic Hubs",
-    description:
-      "Established new hubs in France and Germany, enhancing rapid delivery capacity.",
-    image: "/testi2.png",
-  },
-  {
-    date: "July 2023",
-    status: "Milestone",
-    title: "Global Outreach",
-    description:
-      "Reached new territories including the Middle East and expanded long-haul services.",
-    image: "/authbg.png",
-  },
-];
+import useFetchData from "@/Hooks/UseFetchData";
+
+type HistoryItem = {
+  type: string;
+  date: string;
+  image: string;
+  description: string;
+  title: string;
+};
+
+type ApiResponse = {
+  data: {
+    histories: HistoryItem[];
+  };
+};
 
 const TimelineSlider = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const timelineBarRef = useRef<SwiperClass | null>(null);
   const swiperRef = useRef<SwiperClass | null>(null);
 
+  const { data } = useFetchData<ApiResponse>("/get_about");
+
+  const histories = data?.data?.histories || [];
+  const baseURL = process.env.NEXT_PUBLIC_IMG_URL || "";
+
   const slideTo = (index: number) => {
     swiperRef.current?.slideToLoop(index);
     timelineBarRef.current?.slideToLoop(index);
     setActiveIndex(index);
   };
+
+
 
   return (
     <section className="text-white pt-10 pb-[128px] relative">
@@ -103,16 +67,19 @@ const TimelineSlider = () => {
           allowTouchMove
           initialSlide={activeIndex}
         >
-          {timelineData.map((item, index) => (
+          {histories.map((item, index) => (
             <SwiperSlide key={index}>
               <div
                 className="flex flex-col items-center justify-center cursor-pointer relative z-20"
                 onClick={() => slideTo(index)}
               >
                 <p className="text-sm md:text-base font-semibold mb-1 whitespace-nowrap">
-                  {item.date}
+                  {new Date(item.date).toLocaleDateString(undefined, {
+                    year: "numeric",
+                    month: "long",
+                  })}
                 </p>
-                <p className="text-xs text-[#BCBCBC] mb-2">{item.status}</p>
+                <p className="text-xs text-[#BCBCBC] mb-2">{item.type}</p>
                 <div
                   className={`h-8 w-8 md:h-9 md:w-9 flex items-center justify-center rounded-full transition-all duration-300 ${
                     index === activeIndex
@@ -126,7 +93,7 @@ const TimelineSlider = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-        <div className="absolute md:top-18 top-16 left-0 right-0 h-[2px] bg-white opacity-20  z-10" />
+        <div className="absolute md:top-18 top-16 left-0 right-0 h-[2px] bg-white opacity-20 z-10" />
       </div>
 
       {/* Content Cards */}
@@ -153,7 +120,7 @@ const TimelineSlider = () => {
           }}
           modules={[Navigation]}
         >
-          {timelineData.map((item, index) => (
+          {histories.map((item, index) => (
             <SwiperSlide key={index}>
               <div
                 className={`p-6 rounded-xl transition-all duration-300 flex flex-col justify-between h-[480px] bg-[#3A2B3C] ${
@@ -164,7 +131,7 @@ const TimelineSlider = () => {
               >
                 <div className="relative w-full h-[220px] mb-4">
                   <Image
-                    src={item.image}
+                    src={`${baseURL}${item.image}`}
                     alt={item.title}
                     fill
                     className="object-cover rounded-xl"

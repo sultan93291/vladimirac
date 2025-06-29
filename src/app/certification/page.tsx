@@ -1,24 +1,74 @@
 "use client";
+
 import Container from "@/Components/Shared/Container";
 import { Download, Verified, View } from "@/Components/Shared/Icons";
-import { certificates, Certificate } from "@/Data/Data";
+import Spinner from "@/Components/Shared/Spinner";
+import useFetchData from "@/Hooks/UseFetchData";
 import Image from "next/image";
 import React, { useState } from "react";
 
-const Page = () => {
-  const [selectedCert, setSelectedCert] = useState<Certificate | null>(null);
-  const [selectedAward, setSelectedAward] = useState<number | null>(null);
 
-  const handleView = (cert: Certificate) => {
+type Certificate = {
+  id: number;
+  title: string;
+  issued_by: string;
+  image: string;
+  is_verified: number;
+  downloadLink?: string; 
+};
+
+type Award = {
+  id: number;
+  name: string;
+  award_subject: string;
+  image: string;
+  year: string;
+};
+
+type ApiResponse = {
+  success: boolean;
+  message: string;
+  data: {
+    certificates: Certificate[];
+    awards: Award[];
+  };
+  code: number;
+};
+
+const Page = () => {
+  const { data, error, isLoading } = useFetchData<ApiResponse>(
+    "/certification_data"
+  );
+  const [selectedCert, setSelectedCert] = useState<Certificate | null>(null);
+  const [selectedAward, setSelectedAward] = useState<Award | null>(null);
+  const baseURL = process.env.NEXT_PUBLIC_IMG_URL || "";
+
+  if (isLoading)
+    return (
+      <div className="flex justify-center py-20">
+        <Spinner />
+      </div>
+    );
+
+  if (error || !data)
+    return (
+      <p className="text-red-500 text-center py-20">
+        Failed to load certification data.
+      </p>
+    );
+
+  const { certificates, awards } = data.data;
+
+  const handleViewCert = (cert: Certificate) => {
     setSelectedCert(cert);
   };
 
-  const closeModal = () => {
+  const closeCertModal = () => {
     setSelectedCert(null);
   };
 
-  const openAwardModal = (index: number) => {
-    setSelectedAward(index);
+  const openAwardModal = (award: Award) => {
+    setSelectedAward(award);
   };
 
   const closeAwardModal = () => {
@@ -39,22 +89,23 @@ const Page = () => {
           </p>
 
           <div className="flex flex-wrap gap-6 justify-center mt-10 z-50 relative">
-            {certificates.map((cert, index) => (
+            {certificates.map(cert => (
               <div
-                key={index}
+                key={cert.id}
                 className="rounded-lg p-4 text-white cursor-pointer w-full sm:w-[300px] md:w-[350px] hover:translate-y-2 transition-all duration-300"
               >
                 <div
                   className="relative w-full h-[230px]"
-                  onClick={() => handleView(cert)}
+                  onClick={() => handleViewCert(cert)}
                 >
                   <Image
-                    src={cert.image}
+                    src={`${baseURL}${cert.image}`}
                     alt={cert.title}
                     fill
                     className="object-cover rounded-t-lg"
+                    sizes="(max-width: 768px) 100vw, 350px"
                   />
-                  {cert.verified && (
+                  {cert.is_verified === 1 && (
                     <span className="absolute top-2 right-2 bg-pink-500 text-white text-xs px-2 py-1 rounded flex gap-x-2 items-center font-lucida">
                       <Verified /> Verified
                     </span>
@@ -62,20 +113,20 @@ const Page = () => {
                 </div>
                 <div className="bg-[#32203C] p-4 rounded-b-lg">
                   <h3 className="font-semibold text-lg">{cert.title}</h3>
-                  <p className="text-sm text-gray-300 mb-4">
-                    Issued by: {cert.issuer}
-                  </p>
+                  <p className="text-sm text-gray-300 mb-4">{cert.issued_by}</p>
                   <div className="flex gap-2 flex-col sm:flex-row">
-                    <a
-                      href={cert.downloadLink}
-                      download
-                      className="flex-1 text-center text-[#C83C7C] border border-pink-500 rounded py-3 px-4 text-sm flex gap-x-4 items-center justify-center"
-                    >
-                      <Download />
-                      Download
-                    </a>
+                    {cert.downloadLink && (
+                      <a
+                        href={cert.downloadLink}
+                        download
+                        className="flex-1 text-center text-[#C83C7C] border border-pink-500 rounded py-3 px-4 text-sm flex gap-x-4 items-center justify-center"
+                      >
+                        <Download />
+                        Download
+                      </a>
+                    )}
                     <button
-                      onClick={() => handleView(cert)}
+                      onClick={() => handleViewCert(cert)}
                       className="flex-1 text-center text-[#C83C7C] border border-pink-500 rounded py-3 px-4 text-sm flex gap-x-4 items-center justify-center"
                     >
                       <View />
@@ -87,10 +138,11 @@ const Page = () => {
             ))}
           </div>
 
+          {/* Certificate Modal */}
           {selectedCert && (
             <div
               className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center"
-              onClick={closeModal}
+              onClick={closeCertModal}
             >
               <div
                 className="bg-white p-4 rounded-lg max-w-4xl w-full relative"
@@ -98,12 +150,13 @@ const Page = () => {
               >
                 <button
                   className="absolute top-2 right-2 text-black text-2xl font-bold"
-                  onClick={closeModal}
+                  onClick={closeCertModal}
+                  aria-label="Close certificate modal"
                 >
                   &times;
                 </button>
                 <Image
-                  src={selectedCert.image}
+                  src={`${baseURL}${selectedCert.image}`}
                   alt={selectedCert.title}
                   width={1000}
                   height={1000}
@@ -118,11 +171,11 @@ const Page = () => {
               Awards & Recognition
             </h2>
             <div className="flex justify-center gap-6 flex-wrap lg:my-[60px] relative z-20">
-              {[1, 2, 3].map((_, idx) => (
+              {awards.map(award => (
                 <div
-                  key={idx}
+                  key={award.id}
                   className="relative w-full sm:w-[320px] md:w-[380px] lg:w-[400px] h-[420px] flex items-end justify-center text-center z-50 cursor-pointer"
-                  onClick={() => openAwardModal(idx)}
+                  onClick={() => openAwardModal(award)}
                 >
                   <Image
                     src="/cframe.png"
@@ -133,8 +186,8 @@ const Page = () => {
                   <div className="absolute top-10 left-1/2 -translate-x-1/2">
                     <div className="bg-white p-2 w-[280px] rounded-lg">
                       <Image
-                        src="/certificate1.png"
-                        alt="Award"
+                        src={`${baseURL}${award.image}`}
+                        alt={award.award_subject}
                         width={308}
                         height={215}
                         className="mx-auto rounded-md shadow-md"
@@ -143,10 +196,10 @@ const Page = () => {
                     <div className="p-4 bg-[#FAA312]/20 rounded-b-sm mr-3">
                       <div className="mt-4 text-white text-center">
                         <div className="text-yellow-400 text-lg mb-1">
-                          🏆 2022
+                          🏆 {award.year}
                         </div>
-                        <div className="text-sm">Best Logistics Partner</div>
-                        <div className="font-bold">Mom Nadia</div>
+                        <div className="text-sm">{award.award_subject}</div>
+                        <div className="font-bold">{award.name}</div>
                       </div>
                     </div>
                   </div>
@@ -155,7 +208,8 @@ const Page = () => {
             </div>
           </div>
 
-          {selectedAward !== null && (
+          {/* Award Modal */}
+          {selectedAward && (
             <div
               className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center"
               onClick={closeAwardModal}
@@ -167,12 +221,13 @@ const Page = () => {
                 <button
                   className="absolute top-2 right-2 text-black text-2xl font-bold"
                   onClick={closeAwardModal}
+                  aria-label="Close award modal"
                 >
                   &times;
                 </button>
                 <Image
-                  src="/certificate1.png"
-                  alt="Award Zoom"
+                  src={`${baseURL}${selectedAward.image}`}
+                  alt={selectedAward.award_subject}
                   width={1000}
                   height={800}
                   className="w-full max-h-[80vh] object-contain rounded shadow-lg"
@@ -183,6 +238,7 @@ const Page = () => {
         </div>
       </Container>
 
+      {/* Decorative lights */}
       <figure className="overflow-hidden absolute -bottom-52 -left-20 z-10">
         <Image
           src="/light.png"

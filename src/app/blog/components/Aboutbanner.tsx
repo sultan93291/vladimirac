@@ -5,6 +5,7 @@ import { FaFacebook, FaLinkedin } from "react-icons/fa";
 import { IoArrowForward } from "react-icons/io5";
 
 const Aboutbanner = () => {
+
   return (
     <div>
       <h2 className="text-[32px] lg:text-[64px] font-bold text-white font-arial text-center leading-tight sm:leading-normal">

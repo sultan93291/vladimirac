@@ -2,52 +2,50 @@
 
 import Link from "next/link";
 import Authbanner from "@/Components/Reusable/Authbanner";
-import { Round1, Round2 } from "@/Components/Shared/Icons";
 import LanguageSelect from "@/Components/Reusable/LanguageSelect";
 import { useForm } from "react-hook-form";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { FaSpinner } from "react-icons/fa";
-import { useRouter } from "next/navigation";
 import useAxios from "@/Hooks/UseAxios";
 
 type FormData = {
-  email: string;
   password: string;
+  password_confirmation: string;
 };
 
-const Page = () => {
+const ResetPassword = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<FormData>();
 
-  const [serverError, setServerError] = useState<string | null>(null);
   const router = useRouter();
   const axiosInstance = useAxios();
+  const searchParams = useSearchParams();
+  const email = searchParams.get("email");
+
+  const [serverError, setServerError] = useState<string | null>(null);
 
   const onSubmit = async (data: FormData) => {
     setServerError(null);
     try {
-      const response = await axiosInstance.post("/users/login", {
-        email: data.email,
+      const res = await axiosInstance.post("/users/login/reset-password", {
+        email,
         password: data.password,
+        password_confirmation: data.password_confirmation,
       });
 
-      const token = response.data.data.token;
-
-      if (token) {
-        localStorage.setItem("token", token);
-        toast.success("Login successful!");
-        router.push("/login-successfull");
-      } else {
-        throw new Error("Token not found in response");
-      }
+      toast.success(res?.data?.message || "Password reset successful!");
+      setTimeout(() => {
+        router.push("/resetpassowrd-succesfull");
+      }, 1000);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      const message =
-        error?.response?.data?.message || error.message || "Login failed!";
+      const message = error?.response?.data?.message || "Something went wrong";
       setServerError(message);
       toast.error(message);
     }
@@ -56,78 +54,39 @@ const Page = () => {
   return (
     <section className="min-h-screen">
       <div className="flex flex-col 2xl:flex-row">
-        {/* Auth Banner: visible on 2xl+ */}
         <div className="hidden 2xl:block 2xl:w-1/2">
           <Authbanner />
         </div>
 
-        {/* Form Section */}
         <div className="w-full 2xl:w-1/2 p-6 sm:p-10">
           <div className="flex justify-end">
             <LanguageSelect />
           </div>
 
-          <div className="w-full max-w-[500px] mx-auto pt-[60px] sm:pt-[100px] relative">
-            {/* Decorative Icons */}
-            <div className="absolute top-24 -right-16 z-20 hidden sm:block">
-              <Round1 />
-            </div>
-            <div className="absolute -bottom-10 -left-10 z-10 hidden sm:block">
-              <Round2 />
-            </div>
-
-            <h2 className="font-bold font-arial text-white text-center lg:text-[32px] text-[24px] relative z-10">
-              Sign In Your Account
+          <div className="w-full max-w-[500px] mx-auto pt-[80px] sm:pt-[150px] relative">
+            <h2 className="font-bold font-arial text-white text-center text-[32px] sm:text-[40px]">
+              Reset Password
             </h2>
 
-            <div className="relative z-50 border border-[#C83C7C] rounded-[12px] p-6 mt-8">
-              <h3 className="font-arial text-[24px] text-white font-bold">
-                SignIn
-              </h3>
-              <p className="text-[#64748B] font-lucida text-[14px] pt-2">
-                Enter your credentials to access your dashboard
-              </p>
-
+            <div className="border border-[#C83C7C] rounded-[12px] p-6 mt-8">
               <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="flex flex-col gap-4 mt-6"
               >
                 <div>
                   <h4 className="font-nunito text-[14px] font-semibold text-white pb-3">
-                    Email
+                    Enter New Password
                   </h4>
                   <input
-                    {...register("email", {
-                      required: "Email is required",
-                      pattern: {
-                        value: /^\S+@\S+$/i,
-                        message: "Invalid email format",
-                      },
-                    })}
-                    type="email"
-                    placeholder="name@company.com"
-                    className="py-3 px-4 font-nunito text-[16px] font-normal outline-0 bg-[#32203C] text-white w-full rounded-[8px] border border-[#C83C7C]"
-                  />
-                  {errors.email && (
-                    <p className="text-red-400 text-sm pt-1">
-                      {errors.email.message}
-                    </p>
-                  )}
-                </div>
-
-                <div>
-                  <h4 className="font-nunito text-[14px] font-semibold text-white pb-3">
-                    Password
-                  </h4>
-                  <input
+                    type="password"
+                    placeholder="New password"
                     {...register("password", {
                       required: "Password is required",
                       minLength: {
                         value: 6,
-                        message: "Minimum 6 characters",
+                        message: "Password must be at least 6 characters",
                       },
                     })}
-                    type="password"
                     className="py-3 px-4 font-nunito text-[16px] font-normal outline-0 bg-[#32203C] text-white w-full rounded-[8px] border border-[#C83C7C]"
                   />
                   {errors.password && (
@@ -135,11 +94,27 @@ const Page = () => {
                       {errors.password.message}
                     </p>
                   )}
-                  <Link href="/forgot-password">
-                    <p className="text-[14px] font-lucida font-normal text-[#fff] pt-3 text-end cursor-pointer hover:underline">
-                      Forget Password
+                </div>
+
+                <div>
+                  <h4 className="font-nunito text-[14px] font-semibold text-white pb-3">
+                    Re-Enter New Password
+                  </h4>
+                  <input
+                    type="password"
+                    placeholder="Confirm password"
+                    {...register("password_confirmation", {
+                      required: "Please confirm your password",
+                      validate: value =>
+                        value === watch("password") || "Passwords do not match",
+                    })}
+                    className="py-3 px-4 font-nunito text-[16px] font-normal outline-0 bg-[#32203C] text-white w-full rounded-[8px] border border-[#C83C7C]"
+                  />
+                  {errors.password_confirmation && (
+                    <p className="text-red-400 text-sm pt-1">
+                      {errors.password_confirmation.message}
                     </p>
-                  </Link>
+                  )}
                 </div>
 
                 {serverError && (
@@ -153,20 +128,15 @@ const Page = () => {
                 >
                   {isSubmitting ? (
                     <>
-                      <FaSpinner className="animate-spin" /> Logging in...
+                      <FaSpinner className="animate-spin" /> Resetting...
                     </>
                   ) : (
-                    "Login"
+                    "Reset Password"
                   )}
                 </button>
 
-                <h3 className="text-center text-[14px] font-lucida font-normal text-white">
-                  Don’t have an account?{" "}
-                  <Link href="/sign-up">
-                    <span className="text-[#C83C7C] cursor-pointer">
-                      Sign Up
-                    </span>
-                  </Link>
+                <h3 className="text-center text-[14px] font-lucida font-normal text-[#C83C7C]">
+                  <Link href="/sign-in">Back to Log in</Link>
                 </h3>
               </form>
             </div>
@@ -177,4 +147,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default ResetPassword;
