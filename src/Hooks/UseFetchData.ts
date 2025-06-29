@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import useAxios from "./UseAxios"; // Your custom axios instance hook
+import useAxios from "./UseAxios";
 
 interface FetchDataResult<T> {
   data: T | null;
@@ -19,7 +19,7 @@ function useFetchData<T>(
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    if (!url) return; // no fetch if url is empty or null
+    if (!url) return;
 
     setIsLoading(true);
     setError(null);

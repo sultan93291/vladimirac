@@ -8,6 +8,7 @@ import Countdown from "./_components/Countdown";
 import Spinner from "@/Components/Shared/Spinner";
 import { IoArrowForward, IoArrowBack } from "react-icons/io5";
 import useFetchData from "@/Hooks/UseFetchData";
+import Image from "next/image";
 
 type ServiceListItem = {
   id: number;
@@ -98,12 +99,14 @@ export default function Page() {
             <div key={service.id} className="h-full">
               <ServiceCard
                 icon={
-                  <img
+                  <Image
                     src={`${process.env.NEXT_PUBLIC_IMG_URL || ""}${
                       service.image
                     }`}
                     alt={service.title}
-                    className="w-12 h-12"
+                    width={48}
+                    height={48}
+                    className="w-12 h-12 object-contain"
                   />
                 }
                 title={service.title}
@@ -127,12 +130,14 @@ export default function Page() {
           <div className="flex flex-col lg:flex-row justify-between gap-10 mt-[80px] lg:mt-[120px]">
             <div className="w-full lg:w-1/3">
               <div className="bg-[#32203C] w-[56px] h-[56px] rounded-full border-[10px] border-white flex justify-center items-center">
-                <img
+                <Image
                   src={`${process.env.NEXT_PUBLIC_IMG_URL || ""}${
                     selectedServiceDetails.image
                   }`}
                   alt={selectedServiceDetails.title}
-                  className="w-8 h-8"
+                  width={32} // w-8 = 8 * 4 = 32px
+                  height={32} // h-8 = 8 * 4 = 32px
+                  className="w-8 h-8 object-contain"
                 />
               </div>
               <h3 className="font-arial text-[20px] md:text-[24px] text-[#FFF] font-normal pt-8 pb-3">
@@ -157,12 +162,14 @@ export default function Page() {
                   className="rounded-[12px] bg-[rgba(200,60,124,0.10)] p-6"
                 >
                   <div className="bg-[#32203C] flex justify-center items-center h-12 w-12 rounded-[10px]">
-                    <img
+                    <Image
                       src={`${process.env.NEXT_PUBLIC_IMG_URL || ""}${
                         feature.feature_image
                       }`}
                       alt={feature.feature_title}
-                      className="w-6 h-6"
+                      width={24}
+                      height={24}
+                      className="w-6 h-6 object-contain"
                     />
                   </div>
                   <h3 className="font-arial text-[20px] md:text-[24px] text-[#FFF] font-bold pt-8 pb-3 capitalize">

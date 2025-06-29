@@ -12,7 +12,7 @@ import "swiper/css/navigation";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import Link from "next/link";
 import useFetchData from "@/Hooks/UseFetchData";
-import Spinner from "@/Components/Shared/Spinner"; // Import your Spinner component
+import Spinner from "@/Components/Shared/Spinner";
 
 type BlogPost = {
   id: number;
@@ -112,7 +112,7 @@ const Recentblog = () => {
             >
               {blogPosts.map((blog, idx) => (
                 <SwiperSlide key={blog.id} className="h-full">
-                  <Link href="/blog-details">
+                  <Link href={`/blog/${blog.id}`}>
                     <div
                       className="bg-[#32203C] px-6 py-8 rounded-[12px] h-full flex flex-col justify-between cursor-pointer"
                       ref={el => {

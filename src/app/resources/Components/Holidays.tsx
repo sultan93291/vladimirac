@@ -1,9 +1,8 @@
 import React from 'react'
 
-function Holidays() {
+export const Holidays = () => {
   return (
     <div>Holidays</div>
   )
 }
-
-export default Holidays
+export default Holidays;

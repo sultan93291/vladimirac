@@ -19,7 +19,7 @@ type ApiResponse = {
 };
 
 const Operations = () => {
-  const { data, error, isLoading } = useFetchData<ApiResponse>("/get_about");
+  const { data } = useFetchData<ApiResponse>("/get_about");
 
   const operation = data?.data?.savaOperation || {
     offices: "",

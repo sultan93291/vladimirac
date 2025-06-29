@@ -1,28 +1,33 @@
 "use client";
 
-import { useParams } from "next/navigation";
+
+
 import Container from "@/Components/Shared/Container";
 import Image from "next/image";
 import Spinner from "@/Components/Shared/Spinner";
 import Recentblog from "@/app/blog/components/Recentblog";
 import useFetchData from "@/Hooks/UseFetchData";
+import { useParams } from "next/navigation";
 
 type BlogDetail = {
   id: number;
   title: string;
   image: string;
-  long_description: string; 
+  long_description: string;
 };
 
-const BlogDetailsPage = () => {
+const page = () => {
   const { id } = useParams();
-  console.log(id);
-  
+
+
 
   const { data, error, isLoading } = useFetchData<{
     success: boolean;
     data: BlogDetail;
   }>(`/blog/details/${id}`);
+
+ 
+  
 
   if (isLoading) return <Spinner />;
 
@@ -37,6 +42,9 @@ const BlogDetailsPage = () => {
     return <div className="text-center text-white">Blog not found</div>;
 
   const blog = data.data;
+
+  console.log(blog);
+  
 
   return (
     <section className="lg:pt-20 pt-8 2xl:px-0 px-5">
@@ -69,4 +77,7 @@ const BlogDetailsPage = () => {
   );
 };
 
-export default BlogDetailsPage;
+export default page;
+
+
+

@@ -44,6 +44,7 @@ const Page = () => {
       } else {
         throw new Error("Token not found in response");
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       const message =
         error?.response?.data?.message || error.message || "Login failed!";

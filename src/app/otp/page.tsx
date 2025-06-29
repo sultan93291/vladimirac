@@ -45,6 +45,7 @@ const VerifyOtpPage = () => {
       });
       toast.success(response.data.message || "OTP verified successfully!");
       router.push(`/reset-password?email=${encodeURIComponent(email)}`);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       const message = error?.response?.data?.message || "Invalid OTP";
       setServerError(message);
@@ -63,6 +64,7 @@ const VerifyOtpPage = () => {
         email,
       });
       toast.success(response.data.message || "OTP resent successfully!");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       const message = error?.response?.data?.message || "Failed to resend OTP";
       setServerError(message);
@@ -116,7 +118,7 @@ const VerifyOtpPage = () => {
             )}
 
             <p className="text-center text-[16px] sm:text-[20px] font-lucida text-white mb-6">
-              Didn't receive the code?
+              Didnt receive the code?
               <button
                 onClick={handleResend}
                 disabled={isResending}
