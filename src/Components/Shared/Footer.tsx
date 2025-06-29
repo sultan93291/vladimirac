@@ -7,6 +7,27 @@ import { FaFacebookF, FaYoutube } from "react-icons/fa";
 import { RiTwitterXLine } from "react-icons/ri";
 import { FaInstagram, FaLinkedinIn, FaMedium } from "react-icons/fa6";
 
+const socialIconMap = {
+  facebook: (
+    <FaFacebookF className="text-[#C83C7C] group-hover:text-white transition duration-300" />
+  ),
+  twitter: (
+    <RiTwitterXLine className="text-[#C83C7C] group-hover:text-white transition duration-300" />
+  ),
+  youtube: (
+    <FaYoutube className="text-[#C83C7C] group-hover:text-white transition duration-300" />
+  ),
+  instagram: (
+    <FaInstagram className="text-[#C83C7C] group-hover:text-white transition duration-300" />
+  ),
+  medium: (
+    <FaMedium className="text-[#C83C7C] group-hover:text-white transition duration-300" />
+  ),
+  linkedin: (
+    <FaLinkedinIn className="text-[#C83C7C] group-hover:text-white transition duration-300" />
+  ),
+};
+
 const Footer = () => {
   return (
     <footer className="bg-[#32203C] rounded-t-[36px] border-t-[3px] border-[#C83C7C] py-[60px] 2xl:px-0 px-5">
@@ -24,7 +45,7 @@ const Footer = () => {
             />
             <ul className="flex flex-col gap-3 text-white text-[14px] font-lucida">
               <li className="flex gap-2">
-                <Phone size={16} /> Spain Contract : +34 935 16 71 71
+                <Phone size={16} /> Spain Contact : +34 935 16 71 71
               </li>
               <li className="flex gap-2">
                 <Home size={16} /> Carrer del Empordà 1–7, 08211 Castellar del
@@ -40,12 +61,11 @@ const Footer = () => {
           </div>
 
           {/* Romania Office */}
-          <div className=" flex flex-col lg:gap-14 gap-3">
-            <div className="invisible md:visible block md:h-[56px] h-10" />{" "}
-            {/* spacing like logo */}
+          <div className="flex flex-col lg:gap-14 gap-3">
+            <div className="invisible md:visible block md:h-[56px] h-10" />
             <ul className="flex flex-col gap-3 text-white text-[14px] font-lucida">
               <li className="flex gap-2">
-                <Phone size={16} /> Romania Contract : +40 264 43 43 98
+                <Phone size={16} /> Romania Contact : +40 264 43 43 98
               </li>
               <li className="flex gap-2">
                 <Home size={16} /> Strada Suceava 72, 400394 Cluj–Napoca (CLUJ)
@@ -71,9 +91,9 @@ const Footer = () => {
                 "Specialized Transport",
                 "Werehousing",
                 "Out Of EU",
-              ].map(item => (
-                <li key={item} className="hover:underline cursor-pointer">
-                  {item}
+              ].map(service => (
+                <li key={service} className="hover:underline cursor-pointer">
+                  {service}
                 </li>
               ))}
             </ul>
@@ -97,19 +117,12 @@ const Footer = () => {
 
           {/* Social Icons */}
           <div className="lg:flex lg:flex-col flex items-center gap-3 mt-2">
-            {[
-              FaFacebookF,
-              RiTwitterXLine,
-              FaYoutube,
-              FaInstagram,
-              FaMedium,
-              FaLinkedinIn,
-            ].map((Icon, index) => (
+            {Object.entries(socialIconMap).map(([key, Icon]) => (
               <div
-                key={index}
+                key={key}
                 className="h-8 w-8 rounded-full bg-white flex items-center justify-center group hover:bg-[#C83C7C] transition duration-300 cursor-pointer"
               >
-                <Icon className="text-[#C83C7C] group-hover:text-white transition duration-300" />
+                {Icon}
               </div>
             ))}
           </div>
