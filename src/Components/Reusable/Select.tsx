@@ -29,7 +29,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   label,
   onChange,
   value,
-  bordered = true, 
+  bordered = true,
 }) => {
   return (
     <ShadSelect value={value} onValueChange={onChange}>

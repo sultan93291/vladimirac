@@ -4,7 +4,6 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import useFetchData from "@/Hooks/UseFetchData";
 import React, { useState, useEffect } from "react";
-import Spinner from "@/Components/Shared/Spinner";
 
 const years = Array.from({ length: 10 }, (_, i) => 2025 - i);
 const months = [
@@ -50,7 +49,6 @@ const Holidays = () => {
     { name: string; date: Date }[]
   >([]);
 
-  // Fetch holidays only when search is triggered
   const [fetchUrl, setFetchUrl] = useState<string | null>(null);
   const { data: holidayData, isLoading: loadingHolidays } = useFetchData<{
     success: boolean;
@@ -63,14 +61,13 @@ const Holidays = () => {
     }[];
   }>(fetchUrl);
 
-  // Set selected country after countries load
   useEffect(() => {
     if (countryData?.data?.length) {
       setCountry(countryData.data[0].code.toLowerCase());
     }
   }, [countryData]);
 
-  // Parse and save holidays when data is returned
+
   useEffect(() => {
     if (holidayData?.success && holidayData.data.length) {
       const parsed = holidayData.data.map(h => ({
@@ -112,7 +109,21 @@ const Holidays = () => {
     ) : null;
   };
 
-  if (isLoading) return <Spinner/>;
+  if (isLoading) return (
+    <div className="flex justify-center items-center p-10">
+      <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-16 w-16"></div>
+      <style>{`
+    .loader {
+      border-top-color: #C83C7C;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
+    }
+  `}</style>
+    </div>
+  );
   if (error) return <p className="text-red-400">Error loading countries</p>;
 
   return (
