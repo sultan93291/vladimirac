@@ -4,6 +4,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import useFetchData from "@/Hooks/UseFetchData";
 import React, { useState, useEffect } from "react";
+import Spinner from "@/Components/Shared/Spinner";
 
 const years = Array.from({ length: 10 }, (_, i) => 2025 - i);
 const months = [
@@ -111,12 +112,11 @@ const Holidays = () => {
     ) : null;
   };
 
-  if (isLoading) return <p className="text-white">Loading countries...</p>;
+  if (isLoading) return <Spinner/>;
   if (error) return <p className="text-red-400">Error loading countries</p>;
 
   return (
     <div className="">
-      {/* Filters */}
       <div className="flex gap-x-6 flex-wrap items-center p-4 rounded-md text-white mx-auto">
         <label className="flex items-center gap-2">
           Country:
@@ -166,13 +166,12 @@ const Holidays = () => {
         <button
           onClick={handleSearch}
           disabled={loadingHolidays}
-          className="bg-[#db2777] hover:bg-[#be185d] px-4 py-1 rounded text-white font-semibold transition disabled:opacity-50"
+          className="bg-[#db2777] hover:bg-[#be185d] px-4 py-1 rounded text-white font-semibold transition disabled:opacity-50 cursor-pointer"
         >
           {loadingHolidays ? "Searching..." : "Search"}
         </button>
       </div>
 
-      {/* Calendar */}
       <div className="mt-4 p-4 bg-white rounded-md w-fit">
         <Calendar
           onChange={date => setCalendarDate(date as Date)}
@@ -182,19 +181,18 @@ const Holidays = () => {
         />
       </div>
 
-      {/* Holiday List */}
-      {/* {holidayInfo.length > 0 && (
-        <div className="mt-4 bg-white p-4 rounded-md max-w-md mx-auto text-sm">
+      {holidayInfo.length > 0 && (
+        <div className="mt-4 bg-white p-4 rounded-md w-[830px] text-sm">
           <h2 className="font-bold mb-2 text-gray-800">Holidays:</h2>
           <ul className="list-disc pl-5 text-gray-700">
-            {holidayInfo.map(h => (
-              <li key={h.name + h.date.toISOString()}>
+            {holidayInfo.map((h, index) => (
+              <li key={`${h.name}${h.date.toISOString()}-${index}`}>
                 {h.name} – {h.date.toDateString()}
               </li>
             ))}
           </ul>
         </div>
-      )} */}
+      )}
     </div>
   );
 };

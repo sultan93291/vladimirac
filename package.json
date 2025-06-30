@@ -19,6 +19,7 @@
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
     "framer-motion": "^12.18.1",
+    "html-react-parser": "^5.2.5",
     "input-otp": "^1.4.2",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.511.0",
