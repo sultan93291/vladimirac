@@ -5,19 +5,97 @@ import Container from "@/Components/Shared/Container";
 import { Budjet } from "@/Components/Shared/Icons";
 import { useState } from "react";
 import { SlArrowDown } from "react-icons/sl";
+import toast from "react-hot-toast";
+import useAxios from "@/Hooks/UseAxios";
+import useFetchData from "@/Hooks/UseFetchData";
+
 
 const Page = () => {
-  const [showEstimateCards, setShowEstimateCards] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const axiosInstance = useAxios();
 
-  const handleEstimateClick = () => {
+  const {
+    data: countryData,
+  } = useFetchData<{
+    success: boolean;
+    message: string;
+    data: { id: number; name: string; code: string }[];
+  }>("/countries");
+
+  const [fromCountry, setFromCountry] = useState("Spain");
+  const [toCountry, setToCountry] = useState("Romania");
+  const [fromPostal, setFromPostal] = useState("");
+  const [toPostal, setToPostal] = useState("");
+  const [merchandise, setMerchandise] = useState("Electronics");
+  const [linearMeters, setLinearMeters] = useState("");
+  const [weight, setWeight] = useState("");
+  const [shippingDate, setShippingDate] = useState("");
+  const [volume, setVolume] = useState("");
+  const [isDangerous, setIsDangerous] = useState("No");
+
+  const [loading, setLoading] = useState(false);
+  const [showEstimateCards, setShowEstimateCards] = useState(false);
+  const [estimatedPrice, setEstimatedPrice] = useState("");
+  const [estimatedTime, setEstimatedTime] = useState("");
+
+  const getCountryId = (name: string) => {
+    return countryData?.data.find(c => c.name === name)?.id || null;
+  };
+
+  const handleEstimateClick = async () => {
+    if (
+      !fromPostal ||
+      !toPostal ||
+      !linearMeters ||
+      !weight ||
+      !volume ||
+      !shippingDate
+    ) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
+
+    const load_country_id = getCountryId(fromCountry);
+    const unload_country_id = getCountryId(toCountry);
+
+    if (!load_country_id || !unload_country_id) {
+      toast.error("Invalid country selection.");
+      return;
+    }
+
     setLoading(true);
     setShowEstimateCards(false);
 
-    setTimeout(() => {
+    const payload = {
+      is_ard: isDangerous === "Yes",
+      shipping_date: shippingDate,
+      ldm: parseFloat(linearMeters),
+      volume: parseFloat(volume),
+      gross_weight: parseFloat(weight),
+      transport_type: "road",
+      unload_postal_code: toPostal,
+      load_postal_code: fromPostal,
+      unload_country_id,
+      load_country_id,
+    };
+
+    try {
+      const res = await axiosInstance.post(
+        "/calculate_shipping_price",
+        payload
+      );
+      setEstimatedPrice(res.data.data.estimated_price + " €");
+      setEstimatedTime(res.data.data.estimated_time);
+      toast.success("Estimate created successfully!");
+
+      setTimeout(() => {
+        setLoading(false);
+        setShowEstimateCards(true);
+      }, 1000);
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to create estimate");
       setLoading(false);
-      setShowEstimateCards(true);
-    }, 1500);
+    }
   };
 
   return (
@@ -45,21 +123,25 @@ const Page = () => {
                 <div className="flex gap-4">
                   <div className="relative w-1/2">
                     <select
-                      name="fromCountry"
+                      value={fromCountry}
+                      onChange={e => setFromCountry(e.target.value)}
                       className="appearance-none w-full py-2 bg-white text-black text-[16px] md:text-[20px] font-arial border-b border-[#BCBCBC] focus:outline-none"
                     >
-                      <option value="Spain">Spain</option>
-                      <option value="Romania">Romania</option>
-                      <option value="Germany">Germany</option>
+                      {countryData?.data.map(c => (
+                        <option key={c.id} value={c.name}>
+                          {c.name}
+                        </option>
+                      ))}
                     </select>
                     <div className="absolute right-3 top-1/2 -translate-y-1/2 text-black text-sm pointer-events-none">
                       <SlArrowDown />
                     </div>
                   </div>
                   <input
-                    type="number"
-                    name="fromPostal"
+                    type="text"
                     placeholder="Postal code"
+                    value={fromPostal}
+                    onChange={e => setFromPostal(e.target.value)}
                     className="w-1/2 py-2 bg-white border-b border-[#BCBCBC] text-[#BCBCBC] font-arial text-[16px] md:text-[20px] focus:outline-none"
                   />
                 </div>
@@ -83,21 +165,25 @@ const Page = () => {
                 <div className="flex gap-4">
                   <div className="relative w-1/2">
                     <select
-                      name="toCountry"
+                      value={toCountry}
+                      onChange={e => setToCountry(e.target.value)}
                       className="appearance-none w-full py-2 bg-white text-black text-[16px] md:text-[20px] font-arial border-b border-[#BCBCBC] focus:outline-none"
                     >
-                      <option value="Spain">Spain</option>
-                      <option value="Romania">Romania</option>
-                      <option value="Germany">Germany</option>
+                      {countryData?.data.map(c => (
+                        <option key={c.id} value={c.name}>
+                          {c.name}
+                        </option>
+                      ))}
                     </select>
                     <div className="absolute right-3 top-1/2 -translate-y-1/2 text-black text-sm pointer-events-none">
                       <SlArrowDown />
                     </div>
                   </div>
                   <input
-                    type="number"
-                    name="toPostal"
+                    type="text"
                     placeholder="Postal code"
+                    value={toPostal}
+                    onChange={e => setToPostal(e.target.value)}
                     className="w-1/2 py-2 bg-white border-b border-[#BCBCBC] text-[#BCBCBC] font-arial text-[16px] md:text-[20px] focus:outline-none"
                   />
                 </div>
@@ -105,76 +191,101 @@ const Page = () => {
             </div>
 
             {/* Cargo Details */}
-            <div className="mt-10">
-              <h3 className="text-[24px] md:text-[32px] font-arial font-bold text-[#13213C] mb-6">
-                Cargo Details
-              </h3>
-
-              <div className="flex flex-col lg:flex-row gap-6">
-                {/* Merchandise */}
-                <div className="relative w-full">
-                  <h5 className="text-[#000] font-arial text-[18px] md:text-[20px] mb-2">
-                    Type of Merchandise *
-                  </h5>
-                  <select
-                    name="merchandise"
-                    className="appearance-none w-full py-2 bg-white text-black text-[16px] md:text-[20px] font-arial border-b border-[#BCBCBC] focus:outline-none"
-                  >
-                    <option value="Electronics">Electronics</option>
-                    <option value="Furniture">Furniture</option>
-                    <option value="Accessories">Accessories</option>
-                  </select>
-                  <div className="absolute right-3 top-[90%] -translate-y-[90%] text-black text-sm pointer-events-none">
-                    <SlArrowDown />
-                  </div>
-                </div>
-
-                {/* Linear Meters */}
-                <div className="relative w-full">
-                  <h5 className="text-[#000] font-arial text-[18px] md:text-[20px] mb-2">
-                    Linear Meters
-                  </h5>
-                  <input
-                    type="number"
-                    placeholder="Enter meter"
-                    className="w-full py-2 bg-white border-b border-[#BCBCBC] text-[#BCBCBC] font-arial text-[16px] md:text-[20px] focus:outline-none"
-                  />
-                  <div className="absolute right-3 top-[90%] -translate-y-[90%] text-black text-sm pointer-events-none">
-                    M
-                  </div>
-                </div>
-
-                {/* Gross Weight */}
-                <div className="relative w-full">
-                  <h5 className="text-[#000] font-arial text-[18px] md:text-[20px] mb-2">
-                    Gross Weight
-                  </h5>
-                  <input
-                    type="number"
-                    placeholder="Enter Weight"
-                    className="w-full py-2 bg-white border-b border-[#BCBCBC] text-[#BCBCBC] font-arial text-[16px] md:text-[20px] focus:outline-none"
-                  />
-                  <div className="absolute right-3 top-[90%] -translate-y-[90%] text-black text-sm pointer-events-none">
-                    KG
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex justify-end mt-6">
-                <button
-                  type="button"
-                  onClick={handleEstimateClick}
-                  className="bg-[#13213C] rounded-[12px] px-5 py-3 font-lucida font-normal text-white"
+            <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div>
+                <label className="block mb-2 font-arial text-[18px] text-[#000]">
+                  Type of Merchandise *
+                </label>
+                <select
+                  value={merchandise}
+                  onChange={e => setMerchandise(e.target.value)}
+                  className="w-full py-2 border-b border-[#BCBCBC] text-black text-[16px] font-arial focus:outline-none"
                 >
-                  Get Estimate
-                </button>
+                  <option value="Electronics">Electronics</option>
+                  <option value="Furniture">Furniture</option>
+                  <option value="Accessories">Accessories</option>
+                </select>
               </div>
+
+              <div>
+                <label className="block mb-2 font-arial text-[18px] text-[#000]">
+                  Linear Meters *
+                </label>
+                <input
+                  type="number"
+                  value={linearMeters}
+                  onChange={e => setLinearMeters(e.target.value)}
+                  placeholder="Enter meter"
+                  className="w-full py-2 border-b border-[#BCBCBC] text-[#BCBCBC] font-arial focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block mb-2 font-arial text-[18px] text-[#000]">
+                  Gross Weight (KG) *
+                </label>
+                <input
+                  type="number"
+                  value={weight}
+                  onChange={e => setWeight(e.target.value)}
+                  placeholder="Enter weight"
+                  className="w-full py-2 border-b border-[#BCBCBC] text-[#BCBCBC] font-arial focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block mb-2 font-arial text-[18px] text-[#000]">
+                  Shipping Date *
+                </label>
+                <input
+                  type="date"
+                  value={shippingDate}
+                  onChange={e => setShippingDate(e.target.value)}
+                  className="w-full py-2 border-b border-[#BCBCBC] text-black font-arial focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block mb-2 font-arial text-[18px] text-[#000]">
+                  Volume (m³) *
+                </label>
+                <input
+                  type="number"
+                  value={volume}
+                  onChange={e => setVolume(e.target.value)}
+                  placeholder="Enter volume"
+                  className="w-full py-2 border-b border-[#BCBCBC] text-[#BCBCBC] font-arial focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block mb-2 font-arial text-[18px] text-[#000]">
+                  Is Dangerous?
+                </label>
+                <select
+                  value={isDangerous}
+                  onChange={e => setIsDangerous(e.target.value)}
+                  className="w-full py-2 border-b border-[#BCBCBC] text-black font-arial focus:outline-none"
+                >
+                  <option value="No">No</option>
+                  <option value="Yes">Yes</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="flex justify-end mt-6">
+              <button
+                type="button"
+                onClick={handleEstimateClick}
+                className="bg-[#13213C] rounded-[12px] px-5 py-3 font-lucida font-normal text-white cursor-pointer"
+              >
+                Get Estimate
+              </button>
             </div>
           </form>
         </div>
 
-        {/* Estimate Cards or Loading Skeletons */}
-
+        {/* Result Cards */}
         <div className="pt-[60px] flex flex-col lg:flex-row gap-6 lg:gap-x-[60px] justify-between">
           {loading ? (
             <>
@@ -187,12 +298,12 @@ const Page = () => {
                 <Istimatecard
                   backgroundImage="/istimate.png"
                   title="Estimate Price"
-                  buttonText="606 €"
+                  buttonText={estimatedPrice}
                 />
                 <Istimatecard
                   backgroundImage="/istimate2.png"
                   title="Average Time"
-                  buttonText="120-168H"
+                  buttonText={estimatedTime}
                   buttonColor="#FFF"
                   textColor="#000"
                 />

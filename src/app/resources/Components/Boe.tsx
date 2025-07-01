@@ -1,46 +1,76 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
+import useFetchData from "@/Hooks/UseFetchData";
 import { HiOutlineNewspaper } from "react-icons/hi2";
 
-const boeNotices = [
-  {
-    title: "Ley 15/2009 - Contract of Land Transport of Goods",
-    description: "Defines conditions for goods transport contracts",
-    code: "BOE-A-2009-18004",
-    date: "2023-09-15",
-  },
-  {
-    title: "Ley 37/2015 - Road Transport Infrastructure Law",
-    description: "Regulates road infrastructure and planning",
-    code: "BOE-A-2015-12644",
-    date: "2023-09-15",
-  },
-  {
-    title: "Real Decreto 2822/1998 - General Vehicle Regulation",
-    description: "Technical and safety standards for vehicles",
-    code: "BOE-A-1998-24742",
-    date: "2023-09-15",
-  },
-  {
-    title: "Ley 6/2024 - [Pending Final Title, recent law]",
-    description: "Most recent transport-related legislation",
-    code: "BOE-A-2024-XXXX",
-    date: "2023-09-15",
-  },
-  {
-    title: "Real Decreto 1737/2010 - Transport Control Document Regulation",
-    description: "Regulates control documents in road transport",
-    code: "BOE-A-2010-18514",
-    date: "2023-09-15",
-  },
-  {
-    title: "Tachograph Use and Driver Records",
-    description: "Covers tachograph usage, driver duty hours",
-    code: "BOE-A-2012-14628",
-    date: "2023-09-15",
-  },
-];
+const baseURL = process.env.NEXT_PUBLIC_IMG_URL || "";
+
+interface Notice {
+  id: number;
+  title: string;
+  sub_title: string;
+  code: string;
+  file: string;
+  date: string;
+}
 
 const Boe = () => {
+  const { data, error, isLoading } = useFetchData<{ data: Notice[] }>(
+    "/transport-notice"
+  );
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [previewFile, setPreviewFile] = useState<string | null>(null);
+  const [previewTitle, setPreviewTitle] = useState<string>("");
+
+  const openPreview = (file: string, title: string) => {
+    setPreviewFile(file);
+    setPreviewTitle(title);
+    setModalOpen(true);
+  };
+
+  const closePreview = () => {
+    setModalOpen(false);
+    setPreviewFile(null);
+    setPreviewTitle("");
+  };
+
+  const handleDownload = (file: string, title: string) => {
+    const link = document.createElement("a");
+    link.href = baseURL + file;
+    link.download = title + ".pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center p-10">
+        <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-16 w-16"></div>
+        <style>{`
+          .loader {
+            border-top-color: #C83C7C;
+            animation: spin 1s linear infinite;
+          }
+          @keyframes spin {
+            0% { transform: rotate(0deg);}
+            100% { transform: rotate(360deg);}
+          }
+        `}</style>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center text-red-500 p-4 font-lucida">
+        Error: {error}
+      </div>
+    );
+  }
+
   return (
     <div className="bg-[#32203C] p-6 rounded-[8px] border border-[#C83C7C] text-white w-full">
       <div className="flex items-center gap-2 mb-2 text-[#fff]">
@@ -67,15 +97,15 @@ const Boe = () => {
       </h4>
 
       <div className="flex flex-col border-l-4 border border-[#C83C7C] rounded-[8px] border-r-[#C83C7C] w-full">
-        {boeNotices.map((notice, index) => (
-          <div key={index} className="p-4 w-full">
+        {data?.data.map(notice => (
+          <div key={notice.id} className="p-4 w-full">
             <div className="flex flex-col sm:flex-row justify-between gap-2">
               <div>
                 <h5 className="text-[15px] font-semibold font-lucida">
                   {notice.title}
                 </h5>
                 <p className="text-[14px] text-[#BCBCBC] font-lucida">
-                  {notice.description}
+                  {notice.sub_title}
                 </p>
                 <span className="text-[12px] text-[#BCBCBC] font-lucida">
                   {notice.code}
@@ -86,10 +116,16 @@ const Boe = () => {
               </span>
             </div>
             <div className="flex gap-2 justify-end flex-wrap mt-2">
-              <button className="text-white text-sm px-3 py-[5px] rounded-md cursor-pointer bg-[#C83C7C] hover:opacity-90 font-lucida">
+              <button
+                onClick={() => openPreview(notice.file, notice.title)}
+                className="text-white text-sm px-3 py-[5px] rounded-md cursor-pointer bg-[#C83C7C] hover:opacity-90 font-lucida"
+              >
                 Preview
               </button>
-              <button className="text-white text-sm px-3 py-[5px] rounded-md cursor-pointer bg-[#FAA312] hover:opacity-90 font-lucida">
+              <button
+                onClick={() => handleDownload(notice.file, notice.title)}
+                className="text-white text-sm px-3 py-[5px] rounded-md cursor-pointer bg-[#FAA312] hover:opacity-90 font-lucida"
+              >
                 Download
               </button>
             </div>
@@ -113,6 +149,27 @@ const Boe = () => {
           relevant notices.
         </p>
       </div>
+      {modalOpen && previewFile && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
+          <div className="bg-[#32203C] p-6 rounded-lg w-[90vw] max-w-4xl max-h-[90vh] overflow-auto relative">
+            <button
+              onClick={() => closePreview()}
+              className="absolute top-3 right-3 text-white text-xl font-bold hover:text-red-500"
+              aria-label="Close preview modal"
+            >
+              ×
+            </button>
+            <h3 className="text-white font-lucida text-lg mb-4">
+              {previewTitle}
+            </h3>
+            <iframe
+              src={baseURL + previewFile}
+              className="w-full h-[70vh] border border-[#C83C7C] rounded-md"
+              title="Document Preview"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

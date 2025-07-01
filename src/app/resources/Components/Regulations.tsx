@@ -1,16 +1,55 @@
-import RegulationsCard from "@/Components/Reusable/Regulationscard";
-import { LuWeight } from "react-icons/lu";
-import { FiPackage } from "react-icons/fi";
+"use client";
+
 import React, { useState } from "react";
 import { FaRegCalendarAlt } from "react-icons/fa";
+import { LuWeight } from "react-icons/lu";
+import { FiPackage } from "react-icons/fi";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import RegulationsCard from "@/Components/Reusable/Regulationscard";
+import useFetchData from "@/Hooks/UseFetchData";
 
 const Regulations = () => {
   const [show, setShow] = useState<string | null>(null);
 
-  const toggleCollapse = (country: string) => {
-    setShow(prev => (prev === country ? null : country));
+  const { data, isLoading, error } = useFetchData<{
+    data: {
+      getTransportRegulationData: { id: number; description: string }[];
+      compliances: { title: string; description: string }[];
+    };
+  }>("/transport-regulation");
+
+  const toggleCollapse = (title: string) => {
+    setShow(prev => (prev === title ? null : title));
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center p-10">
+        <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-16 w-16"></div>
+        <style>{`
+          .loader {
+            border-top-color: #C83C7C;
+            animation: spin 1s linear infinite;
+          }
+          @keyframes spin {
+            0% { transform: rotate(0deg);}
+            100% { transform: rotate(360deg);}
+          }
+        `}</style>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-red-500 text-center mt-10">
+        Failed to load regulations. Please try again.
+      </div>
+    );
+  }
+
+  const cards = data?.data?.getTransportRegulationData || [];
+  const compliances = data?.data?.compliances || [];
 
   return (
     <div className="bg-[#32203C] p-6 rounded-[8px] border border-[#C83C7C] max-w-full mx-auto">
@@ -21,58 +60,40 @@ const Regulations = () => {
         EU & country-specific transport laws and compliance rules
       </p>
 
+      {/* Top Cards */}
       <div className="mt-6 flex flex-col sm:flex-row gap-4 sm:gap-6 justify-between">
-        <RegulationsCard
-          title="Driving Time"
-          icon={FaRegCalendarAlt}
-          points={[
-            "Max. 9 hours daily driving (extendable to 10 hours twice weekly)",
-            "Max. 56 hours weekly driving",
-            "Max. 90 hours fortnightly driving",
-            "45 min break required after 4.5 hours driving",
-          ]}
-        />
-        <RegulationsCard
-          title="Vehicle Weight"
-          icon={LuWeight}
-          points={[
-            "Standard EU limit: 40 tonnes",
-            "Max. 56 hours weekly driving",
-            "Max. 90 hours fortnightly driving",
-            "45 min break required after 4.5 hours driving",
-          ]}
-        />
-        <RegulationsCard
-          title="Customs & Packaging"
-          icon={FiPackage}
-          points={[
-            "Proper documentation for cross-border shipments required",
-            "Max. 56 hours weekly driving",
-            "Max. 90 hours fortnightly driving",
-            "45 min break required after 4.5 hours driving",
-          ]}
-        />
+        {cards.map((item, index) => {
+          const icons = [FaRegCalendarAlt, LuWeight, FiPackage];
+          return (
+            <RegulationsCard
+              key={item.id}
+              title={
+                item.description.match(/<h4>(.*?)<\/h4>/)?.[1] ||
+                `Card ${index + 1}`
+              }
+              icon={icons[index] || FaRegCalendarAlt}
+              html={item.description}
+            />
+          );
+        })}
       </div>
 
+      {/* Collapsible Compliances */}
       <div className="py-[40px] sm:py-[60px] max-w-full">
         <h2 className="text-[18px] sm:text-[20px] font-lucida text-white font-normal">
           EU Logistics Compliance
         </h2>
         <div className="flex flex-col gap-3 mt-6 max-w-full">
-          {[
-            "Regulation (EC) No 561/2006 - Driver's Hours",
-            "Directive 2002/15/EC - Working Time",
-            "Regulation (EU) No 165/2014 - Tachographs",
-          ].map(country => (
-            <div key={country}>
+          {compliances.map(comp => (
+            <div key={comp.title}>
               <div
                 className="flex justify-between items-center py-3 border-b border-[#E2E8F0] cursor-pointer"
-                onClick={() => toggleCollapse(country)}
+                onClick={() => toggleCollapse(comp.title)}
               >
                 <h4 className="text-white font-lucida text-[16px] sm:text-[20px]">
-                  {country}
+                  {comp.title}
                 </h4>
-                {show === country ? (
+                {show === comp.title ? (
                   <IoIosArrowUp className="text-white" />
                 ) : (
                   <IoIosArrowDown className="text-white" />
@@ -80,15 +101,15 @@ const Regulations = () => {
               </div>
               <div
                 className={`transition-all duration-300 ease-in-out overflow-hidden ${
-                  show === country
-                    ? "max-h-[500px] opacity-100 mt-3"
+                  show === comp.title
+                    ? "max-h-[1000px] opacity-100 mt-3"
                     : "max-h-0 opacity-0"
                 }`}
               >
-                <p className="text-[14px] sm:text-[18px] font-lucida text-[#BCBCBC] font-normal">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Voluptatum, ipsum!
-                </p>
+                <div
+                  className="text-[14px] sm:text-[16px] font-lucida text-[#BCBCBC] font-normal prose prose-invert max-w-none"
+                  dangerouslySetInnerHTML={{ __html: comp.description }}
+                />
               </div>
             </div>
           ))}
