@@ -53,12 +53,7 @@ const Holidays = () => {
   const { data: holidayData, isLoading: loadingHolidays } = useFetchData<{
     success: boolean;
     message: string;
-    data: {
-      name: string;
-      date: {
-        iso: string;
-      };
-    }[];
+    data: { name: string; date: { iso: string } }[];
   }>(fetchUrl);
 
   useEffect(() => {
@@ -66,7 +61,6 @@ const Holidays = () => {
       setCountry(countryData.data[0].code.toLowerCase());
     }
   }, [countryData]);
-
 
   useEffect(() => {
     if (holidayData?.success && holidayData.data.length) {
@@ -109,26 +103,30 @@ const Holidays = () => {
     ) : null;
   };
 
-  if (isLoading) return (
-    <div className="flex justify-center items-center p-10">
-      <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-16 w-16"></div>
-      <style>{`
-    .loader {
-      border-top-color: #C83C7C;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg);}
-      100% { transform: rotate(360deg);}
-    }
-  `}</style>
-    </div>
-  );
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center p-10">
+        <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-16 w-16"></div>
+        <style>{`
+        .loader {
+          border-top-color: #C83C7C;
+          animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+          0% { transform: rotate(0deg);}
+          100% { transform: rotate(360deg);}
+        }
+      `}</style>
+      </div>
+    );
+  }
+
   if (error) return <p className="text-red-400">Error loading countries</p>;
 
   return (
-    <div className="">
-      <div className="flex gap-x-6 flex-wrap items-center p-4 rounded-md text-white mx-auto">
+    <div className="p-4">
+      {/* Filters */}
+      <div className="flex flex-wrap gap-x-16 gap-y-3 items-center justify-start text-white mb-4">
         <label className="flex items-center gap-2">
           Country:
           <select
@@ -177,23 +175,27 @@ const Holidays = () => {
         <button
           onClick={handleSearch}
           disabled={loadingHolidays}
-          className="bg-[#db2777] hover:bg-[#be185d] px-4 py-1 rounded text-white font-semibold transition disabled:opacity-50 cursor-pointer"
+          className="bg-[#db2777] hover:bg-[#be185d] px-4 py-1 rounded text-white font-semibold transition disabled:opacity-50"
         >
           {loadingHolidays ? "Searching..." : "Search"}
         </button>
       </div>
 
-      <div className="mt-4 p-4 bg-white rounded-md w-fit">
-        <Calendar
-          onChange={date => setCalendarDate(date as Date)}
-          value={calendarDate}
-          tileClassName={tileClassName}
-          tileContent={tileContent}
-        />
+      {/* Calendar */}
+      <div className="overflow-x-auto">
+        <div className="inline-block bg-white rounded-md p-4">
+          <Calendar
+            onChange={date => setCalendarDate(date as Date)}
+            value={calendarDate}
+            tileClassName={tileClassName}
+            tileContent={tileContent}
+          />
+        </div>
       </div>
 
+      {/* Holiday Info */}
       {holidayInfo.length > 0 && (
-        <div className="mt-4 bg-white p-4 rounded-md w-[830px] text-sm">
+        <div className="mt-4 bg-white p-4 rounded-md w-full max-w-3xl text-sm overflow-x-auto">
           <h2 className="font-bold mb-2 text-gray-800">Holidays:</h2>
           <ul className="list-disc pl-5 text-gray-700">
             {holidayInfo.map((h, index) => (

@@ -7,10 +7,7 @@ import { Clock, Home, Phone } from "lucide-react";
 import useFetchData from "@/Hooks/UseFetchData";
 
 const Footer = () => {
-  // Fetch social links
-  const {
-    data: socialData,
-  } = useFetchData<{
+  const { data: socialData } = useFetchData<{
     success: boolean;
     data: {
       id: number;
@@ -21,10 +18,7 @@ const Footer = () => {
     }[];
   }>("/social-links");
 
-  // Fetch site settings
-  const {
-    data: siteData,
-  } = useFetchData<{
+  const { data: siteData } = useFetchData<{
     success: boolean;
     data: {
       logo: string;
@@ -76,8 +70,9 @@ const Footer = () => {
           </div>
 
           {/* Romania Office */}
-          <div className="flex flex-col lg:gap-14 gap-3 max-w-sm ">
-            <div className="invisible md:visible block md:h-[56px] h-10" />
+          <div className="flex flex-col lg:gap-14 gap-3 max-w-sm">
+            <div className="invisible md:visible block md:h-[65px]" />
+            {/* <div className="invisible md:visible block" /> */}
             <ul className="flex flex-col gap-3 text-white text-[14px] font-lucida">
               <li className="flex gap-2">
                 <Phone size={16} /> {settings?.phone2 || "Romania Contact"}
