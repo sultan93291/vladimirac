@@ -29,7 +29,6 @@ export default function Home() {
         </section>
       </Container>
 
-    
       <Container>
         <section className="lg:py-16 py-8">
           <h2 className="lg:text-4xl text-3xl font-semibold text-center mb-6">
@@ -80,7 +79,6 @@ export default function Home() {
         </section>
       </Container>
 
-     
       <Container>
         <section className="lg:p-20 p-5 bg-[#0F172A] rounded-t-3xl">
           <h2 className="lg:text-4xl md:text-3xl text-2xl font-bold text-center mb-12">
@@ -117,4 +115,4 @@ export default function Home() {
       </Container>
     </section>
   );
-}
+};
