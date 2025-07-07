@@ -1,6 +1,25 @@
 {
   "HomePage": {
     "welcomeHeading": "Welcome to Sava Logistic",
-    "welcomeSubtext": "Reliable, fast, and secure courier services for all your shipping needs."
+    "welcomeSubtext": "Reliable, fast, and secure courier services for all your shipping needs.",
+    "innovationTitle": "Experience Innovation in Logistics",
+    "innovationText": "Our 3D cube showcases our rotating capabilities and multi-faceted services.",
+    "servicesTitle": "Our Services",
+    "servicesText": "From documents to large shipments, we provide customized delivery solutions.",
+    "services": {
+      "sameDay": "Same Day Delivery",
+      "international": "International Shipping",
+      "ecommerce": "E-commerce Fulfillment"
+    },
+    "whyTitle": "Why Choose Us",
+    "why": {
+      "support": "24/7 Support",
+      "tracking": "Real-time Tracking",
+      "pricing": "Affordable Pricing",
+      "packaging": "Secure Packaging"
+    },
+    "ctaTitle": "Ready to Ship?",
+    "ctaText": "Get started with Sava Logistic today and experience hassle-free delivery.",
+    "ctaButton": "Book a Shipment"
   }
 }

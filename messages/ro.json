@@ -1,6 +1,25 @@
 {
   "HomePage": {
     "welcomeHeading": "Bun venit la Sava Logistic",
-    "welcomeSubtext": "Servicii de curierat de încredere, rapide și sigure pentru toate nevoile tale de expediere."
+    "welcomeSubtext": "Servicii de curierat fiabile, rapide și sigure pentru toate nevoile tale de expediere.",
+    "innovationTitle": "Experimentează inovația în logistică",
+    "innovationText": "Cubiul nostru 3D prezintă capabilitățile noastre de rotație și serviciile noastre multifuncționale.",
+    "servicesTitle": "Serviciile Noastre",
+    "servicesText": "De la documente la livrări mari, oferim soluții de livrare personalizate.",
+    "services": {
+      "sameDay": "Livrare în aceeași zi",
+      "international": "Transport internațional",
+      "ecommerce": "Îndeplinirea comerțului electronic"
+    },
+    "whyTitle": "De ce să ne alegi",
+    "why": {
+      "support": "Asistență 24/7",
+      "tracking": "Urmărire în timp real",
+      "pricing": "Prețuri accesibile",
+      "packaging": "Ambalare sigură"
+    },
+    "ctaTitle": "Gata de expediere?",
+    "ctaText": "Începe cu Sava Logistic astăzi și experimentează o livrare fără griji.",
+    "ctaButton": "Rezervă o livrare"
   }
 }

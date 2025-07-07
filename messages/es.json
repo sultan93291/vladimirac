@@ -1,6 +1,25 @@
 {
   "HomePage": {
     "welcomeHeading": "Bienvenido a Sava Logistic",
-    "welcomeSubtext": "Servicios de mensajería confiables, rápidos y seguros para todas tus necesidades de envío."
+    "welcomeSubtext": "Servicios de mensajería confiables, rápidos y seguros para todas tus necesidades de envío.",
+    "innovationTitle": "Experimenta la innovación en logística",
+    "innovationText": "Nuestro cubo 3D muestra nuestras capacidades rotativas y servicios multifacéticos.",
+    "servicesTitle": "Nuestros Servicios",
+    "servicesText": "Desde documentos hasta grandes envíos, ofrecemos soluciones de entrega personalizadas.",
+    "services": {
+      "sameDay": "Entrega el mismo día",
+      "international": "Envío internacional",
+      "ecommerce": "Cumplimiento de comercio electrónico"
+    },
+    "whyTitle": "Por qué elegirnos",
+    "why": {
+      "support": "Soporte 24/7",
+      "tracking": "Seguimiento en tiempo real",
+      "pricing": "Precios asequibles",
+      "packaging": "Embalaje seguro"
+    },
+    "ctaTitle": "¿Listo para enviar?",
+    "ctaText": "Comienza con Sava Logistic hoy y experimenta una entrega sin complicaciones.",
+    "ctaButton": "Reservar un envío"
   }
 }
