@@ -4,6 +4,7 @@
 import { usePathname } from "next/navigation";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import SmoothScrollProvider from "@/providers/smooth-scroll-provider";
 
 export default function LayoutWrapper({
   children,
@@ -24,8 +25,10 @@ export default function LayoutWrapper({
   return (
     <>
       {!hideLayout && <Navbar />}
-      <div className={hideLayout ? "" : "my-20"}>{children}</div>
-      {!hideLayout && <Footer />}
+      <SmoothScrollProvider>
+        <div className={hideLayout ? "" : "my-20"}>{children}</div>
+        {!hideLayout && <Footer />}
+      </SmoothScrollProvider>
     </>
   );
 }

@@ -37,6 +37,10 @@ export default function Page() {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
 
+
+
+
+
   const {
     data: servicesData,
     error: servicesError,
@@ -87,7 +91,10 @@ export default function Page() {
     <section className="lg:pt-40 pt-10 lg:pb-20 2xl:px-0 px-5">
       <Container>
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-y-6">
-          <h2 className="text-[40px] md:text-[48px] lg:text-[64px] font-arial font-semibold text-[#FFF]">
+          <h2
+
+            className="text-[40px] md:text-[48px] lg:text-[64px] font-arial font-semibold text-[#FFF] text-center md:text-left overflow-hidden"
+          >
             Our Services
           </h2>
           <button
@@ -145,8 +152,8 @@ export default function Page() {
                     selectedServiceDetails.image
                   }`}
                   alt={selectedServiceDetails.title}
-                  width={32} 
-                  height={32} 
+                  width={32}
+                  height={32}
                   className="w-8 h-8 object-contain"
                 />
               </div>

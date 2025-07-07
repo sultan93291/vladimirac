@@ -1,20 +1,21 @@
 "use client";
 import Cube from "@/Components/Cube/Cube";
 import Container from "@/Components/Shared/Container";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 export default function Home() {
+  const t = useTranslations("HomePage");
   return (
     <section className="bg-[#13213C] text-white 2xl:px-0 px-5">
       {/* Hero Section */}
       <Container>
         <section className="lg:py-20 py-8">
           <h1 className="lg:text-5xl text-3xl font-bold mb-6 text-center">
-            Welcome to Sava Logistic
+            {t("welcomeHeading")}
           </h1>
           <p className="lg:text-lg text-sm text-center max-w-2xl mx-auto">
-            Reliable, fast, and secure courier services for all your shipping
-            needs.
+           {t("welcomeSubtext")}
           </p>
           <div className="mt-10 rounded-lg overflow-hidden shadow-xl">
             <Image
@@ -115,4 +116,4 @@ export default function Home() {
       </Container>
     </section>
   );
-};
+}
