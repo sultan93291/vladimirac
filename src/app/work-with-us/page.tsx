@@ -6,6 +6,7 @@ import Workwithuscard from "@/Components/Reusable/Workwithuscard";
 import useFetchData from "@/Hooks/UseFetchData";
 import Spinner from "@/Components/Shared/Spinner";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 type Job = {
   id: number;
@@ -26,16 +27,17 @@ const Page = () => {
 
   const jobs = data?.data || [];
   console.log(jobs);
-  
+  const t = useTranslations("WorkWithUsPage");
+
   return (
     <section className="lg:py-20 py-8 2xl:px-0 px-5">
       <Container>
         <h2 className="lg:text-[64px] text-[30px] font-bold text-white font-arial text-center">
-          Work With Us
+          {t("pageTitle")}
         </h2>
         <div className="lg:mt-[60px] mt-5">
           <h4 className="text-center text-white font-arial lg:text-[32px] text-[24px] font-normal">
-            Find your perfect position
+            {t("subtitle")}
           </h4>
 
           {isLoading ? (

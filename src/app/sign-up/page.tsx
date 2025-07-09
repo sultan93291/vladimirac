@@ -11,7 +11,7 @@ import useAxios from "@/Hooks/UseAxios";
 import toast from "react-hot-toast";
 import { FaSpinner } from "react-icons/fa";
 import { useRouter } from "next/navigation";
-
+import { useTranslations } from "next-intl";
 
 type FormData = {
   name: string;
@@ -20,6 +20,7 @@ type FormData = {
 };
 
 const Page = () => {
+  const t = useTranslations("RegisterPage");
   const {
     register,
     handleSubmit,
@@ -40,23 +41,19 @@ const Page = () => {
         password: data.password,
         role: "user",
       });
-      console.log(response);
 
-      toast.success("Registration successful!");
+      toast.success(t("success"));
       reset();
 
       setTimeout(() => {
         router.push("/sign-in");
       }, 1000);
-  
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       const message = error?.response?.data?.message || "Something went wrong";
       setServerError(message);
       toast.error(message);
     }
   };
-  
 
   return (
     <section className="min-h-screen">
@@ -80,22 +77,22 @@ const Page = () => {
 
             <div className="relative z-50 border border-[#C83C7C] rounded-[12px] p-6 mt-8">
               <h3 className="font-arial text-[24px] text-white font-bold">
-                Register
+                {t("title")}
               </h3>
               <p className="text-[#64748B] font-lucida text-[14px] pt-2">
-                Fill in your details to request an account
+                {t("subtitle")}
               </p>
 
               <div className="mt-6">
                 <Tabs defaultValue="User">
                   <TabsList className="flex justify-between gap-x-4 w-full bg-transparent border border-[#C83C7C] py-4 px-2 sm:py-6 sm:px-4">
-                    {["User", "Supplier", "Driver"].map(role => (
+                    {["user", "supplier", "driver"].map(role => (
                       <TabsTrigger
                         key={role}
-                        value={role}
+                        value={role.charAt(0).toUpperCase() + role.slice(1)}
                         className="border border-[#C83C7C] text-[#C83C7C] cursor-pointer p-3 sm:p-4 rounded-[12px] data-[state=active]:bg-[#C83C7C] data-[state=active]:text-white"
                       >
-                        {role}
+                        {t(`tabs.${role}`)}
                       </TabsTrigger>
                     ))}
                   </TabsList>
@@ -107,14 +104,14 @@ const Page = () => {
                     >
                       <div>
                         <h4 className="font-nunito text-[14px] font-semibold text-white pb-3">
-                          Full Name
+                          {t("name")}
                         </h4>
                         <input
                           {...register("name", {
-                            required: "Full name is required",
+                            required: t("error.name"),
                           })}
                           type="text"
-                          placeholder="John Doe"
+                          placeholder={t("placeholder.name")}
                           className="py-3 px-4 font-nunito text-[16px] font-normal outline-0 bg-[#32203C] text-white w-full rounded-[8px] border border-[#C83C7C]"
                         />
                         {errors.name && (
@@ -126,18 +123,18 @@ const Page = () => {
 
                       <div>
                         <h4 className="font-nunito text-[14px] font-semibold text-white pb-3">
-                          Email
+                          {t("email")}
                         </h4>
                         <input
                           {...register("email", {
-                            required: "Email is required",
+                            required: t("error.emailRequired"),
                             pattern: {
                               value: /^\S+@\S+$/i,
-                              message: "Invalid email format",
+                              message: t("error.emailInvalid"),
                             },
                           })}
                           type="email"
-                          placeholder="name@company.com"
+                          placeholder={t("placeholder.email")}
                           className="py-3 px-4 font-nunito text-[16px] font-normal outline-0 bg-[#32203C] text-white w-full rounded-[8px] border border-[#C83C7C]"
                         />
                         {errors.email && (
@@ -149,14 +146,14 @@ const Page = () => {
 
                       <div>
                         <h4 className="font-nunito text-[14px] font-semibold text-white pb-3">
-                          Password
+                          {t("password")}
                         </h4>
                         <input
                           {...register("password", {
-                            required: "Password is required",
+                            required: t("error.passwordRequired"),
                             minLength: {
                               value: 6,
-                              message: "Minimum 6 characters",
+                              message: t("error.passwordMin"),
                             },
                           })}
                           type="password"
@@ -168,7 +165,7 @@ const Page = () => {
                           </p>
                         )}
                         <p className="text-[12px] font-lucida font-normal text-[#6B7280] pt-3">
-                          Your account will require approval by an administrator
+                          {t("note")}
                         </p>
                       </div>
 
@@ -184,17 +181,17 @@ const Page = () => {
                         {isSubmitting ? (
                           <>
                             <FaSpinner className="animate-spin" />{" "}
-                            Registering...
+                            {t("registering")}
                           </>
                         ) : (
-                          "Register"
+                          t("register")
                         )}
                       </button>
 
                       <h3 className="text-center text-[14px] font-lucida font-normal text-white">
-                        Already have an account?{" "}
+                        {t("haveAccount")}{" "}
                         <Link href="/sign-in">
-                          <span className="text-[#C83C7C]">Log in</span>
+                          <span className="text-[#C83C7C]">{t("login")}</span>
                         </Link>
                       </h3>
                     </form>
@@ -202,13 +199,13 @@ const Page = () => {
 
                   <TabsContent value="Supplier">
                     <p className="text-white mt-6 text-sm italic text-center">
-                      Registration is only available for users.
+                      {t("supplierNote")}
                     </p>
                   </TabsContent>
 
                   <TabsContent value="Driver">
                     <p className="text-white mt-6 text-sm italic text-center">
-                      Registration is only available for users.
+                      {t("driverNote")}
                     </p>
                   </TabsContent>
                 </Tabs>
