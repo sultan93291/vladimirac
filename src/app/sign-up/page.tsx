@@ -46,7 +46,6 @@ const Page = () => {
       });
       console.log(response);
       
-
       toast.success(t("success"));
       reset();
 
