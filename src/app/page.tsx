@@ -1,20 +1,23 @@
 "use client";
+
 import Cube from "@/Components/Cube/Cube";
 import Container from "@/Components/Shared/Container";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 export default function Home() {
+  const t = useTranslations("HomePage");
+
   return (
     <section className="bg-[#13213C] text-white 2xl:px-0 px-5">
       {/* Hero Section */}
       <Container>
         <section className="lg:py-20 py-8">
           <h1 className="lg:text-5xl text-3xl font-bold mb-6 text-center">
-            Welcome to Sava Logistic
+            {t("welcomeHeading")}
           </h1>
           <p className="lg:text-lg text-sm text-center max-w-2xl mx-auto">
-            Reliable, fast, and secure courier services for all your shipping
-            needs.
+            {t("welcomeSubtext")}
           </p>
           <div className="mt-10 rounded-lg overflow-hidden shadow-xl">
             <Image
@@ -29,38 +32,31 @@ export default function Home() {
         </section>
       </Container>
 
-    
+      {/* Innovation Section */}
       <Container>
         <section className="lg:py-16 py-8">
           <h2 className="lg:text-4xl text-3xl font-semibold text-center mb-6">
-            Experience Innovation in Logistics
+            {t("innovationTitle")}
           </h2>
           <p className="text-center mb-20 text-[#BCBCBC]">
-            Our 3D cube showcases our rotating capabilities and multi-faceted
-            services.
+            {t("innovationText")}
           </p>
           <Cube />
         </section>
       </Container>
 
+      {/* Services Section */}
       <Container>
         <section className="py-20 text-center">
-          <h2 className="text-4xl font-bold mb-6">Our Services</h2>
+          <h2 className="text-4xl font-bold mb-6">{t("servicesTitle")}</h2>
           <p className="mb-10 text-[#BCBCBC] max-w-2xl mx-auto">
-            From documents to large shipments, we provide customized delivery
-            solutions.
+            {t("servicesText")}
           </p>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { title: "Same Day Delivery", img: "/aboutbanner.png" },
-              {
-                title: "International Shipping",
-                img: "/aboutbanner.png",
-              },
-              {
-                title: "E-commerce Fulfillment",
-                img: "/aboutbanner.png",
-              },
+              { title: t("services.sameDay"), img: "/aboutbanner.png" },
+              { title: t("services.international"), img: "/aboutbanner.png" },
+              { title: t("services.ecommerce"), img: "/aboutbanner.png" },
             ].map((item, index) => (
               <div
                 key={index}
@@ -80,18 +76,18 @@ export default function Home() {
         </section>
       </Container>
 
-     
+      {/* Why Choose Us Section */}
       <Container>
         <section className="lg:p-20 p-5 bg-[#0F172A] rounded-t-3xl">
           <h2 className="lg:text-4xl md:text-3xl text-2xl font-bold text-center mb-12">
-            Why Choose Us
+            {t("whyTitle")}
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 text-center">
             {[
-              { title: "24/7 Support", icon: "💬" },
-              { title: "Real-time Tracking", icon: "📍" },
-              { title: "Affordable Pricing", icon: "💰" },
-              { title: "Secure Packaging", icon: "📦" },
+              { title: t("why.support"), icon: "💬" },
+              { title: t("why.tracking"), icon: "📍" },
+              { title: t("why.pricing"), icon: "💰" },
+              { title: t("why.packaging"), icon: "📦" },
             ].map((item, idx) => (
               <div key={idx} className="bg-[#1E293B] p-6 rounded-xl">
                 <div className="text-4xl mb-4">{item.icon}</div>
@@ -105,13 +101,10 @@ export default function Home() {
       {/* Call to Action Section */}
       <Container>
         <section className="py-20 text-center">
-          <h2 className="text-4xl font-bold mb-4">Ready to Ship?</h2>
-          <p className="mb-8 text-[#BCBCBC]">
-            Get started with Sava Logistic today and experience hassle-free
-            delivery.
-          </p>
+          <h2 className="text-4xl font-bold mb-4">{t("ctaTitle")}</h2>
+          <p className="mb-8 text-[#BCBCBC]">{t("ctaText")}</p>
           <button className="bg-[#C83C7C] hover:bg-white hover:text-black hover:border-[#C83C7C] text-white px-8 py-3 rounded-full font-semibold transition duration-300 border border-transparent">
-            Book a Shipment
+            {t("ctaButton")}
           </button>
         </section>
       </Container>

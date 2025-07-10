@@ -31,7 +31,7 @@ const Page = () => {
   if (isLoading) {
     return (
       <Container>
-        <Spinner/>
+        <Spinner />
       </Container>
     );
   }
@@ -44,8 +44,9 @@ const Page = () => {
         <h2 className="text-[30px] md:text-[48px] lg:text-[64px] font-bold text-[#FFF] font-arial text-center leading-tight">
           Sectors We Serve
         </h2>
+
         <div className="mt-[60px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {sectors?.map(sector => (
+          {sectors.map((sector, index) => (
             <Link
               key={sector.id}
               href={`/sector/${sector.id}?title=${encodeURIComponent(
@@ -54,6 +55,7 @@ const Page = () => {
             >
               <div className="cursor-pointer">
                 <Sectorcard
+                  index={index} // ✅ fixed: pass index here
                   icon={
                     <Image
                       src={baseURL + sector.icon}
@@ -61,7 +63,6 @@ const Page = () => {
                       width={48}
                       height={48}
                       className="object-contain"
-                      priority={false}
                     />
                   }
                   title={sector.title}

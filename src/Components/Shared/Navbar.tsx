@@ -110,7 +110,7 @@ const Navbar = () => {
                 <ul className="absolute top-full left-0 mt-2 bg-[#3b2d46] text-white shadow-lg rounded-md py-2 px-4 z-50">
                   <li>
                     <Link
-                      href="/careers"
+                      href="/work-with-us"
                       className="block py-1 hover:text-[#FAA312]"
                     >
                       Careers

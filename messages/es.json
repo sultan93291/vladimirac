@@ -1,0 +1,160 @@
+{
+  "HomePage": {
+    "welcomeHeading": "Bienvenido a Sava Logistic",
+    "welcomeSubtext": "Servicios de mensajería confiables, rápidos y seguros para todas tus necesidades de envío.",
+    "innovationTitle": "Experimenta la innovación en logística",
+    "innovationText": "Nuestro cubo 3D muestra nuestras capacidades rotativas y servicios multifacéticos.",
+    "servicesTitle": "Nuestros Servicios",
+    "servicesText": "Desde documentos hasta grandes envíos, ofrecemos soluciones de entrega personalizadas.",
+    "services": {
+      "sameDay": "Entrega el mismo día",
+      "international": "Envío internacional",
+      "ecommerce": "Cumplimiento de comercio electrónico"
+    },
+    "whyTitle": "Por qué elegirnos",
+    "why": {
+      "support": "Soporte 24/7",
+      "tracking": "Seguimiento en tiempo real",
+      "pricing": "Precios asequibles",
+      "packaging": "Embalaje seguro"
+    },
+    "ctaTitle": "¿Listo para enviar?",
+    "ctaText": "Comienza con Sava Logistic hoy y experimenta una entrega sin complicaciones.",
+    "ctaButton": "Reservar un envío"
+  },
+  "Services": {
+    "heading": "Nuestros Servicios",
+    "seeAll": "Ver Todo",
+    "showLess": "Mostrar Menos",
+    "goToMap": "Ir al mapa",
+    "loadingError": "Error al cargar los servicios:",
+    "detailsError": "Error al cargar los detalles del servicio:"
+  },
+  "Budget": {
+    "pageTitle": "Presupuesto",
+    "whereShipping": "¿A dónde está enviando?",
+    "shipFrom": "Enviar desde",
+    "shipTo": "Enviar a",
+    "country": "País *",
+    "postalCode": "Código postal",
+    "typeMerchandise": "Tipo de mercancía *",
+    "linearMeters": "Metros lineales *",
+    "grossWeight": "Peso bruto (KG) *",
+    "shippingDate": "Fecha de envío *",
+    "volume": "Volumen (m³) *",
+    "isDangerous": "¿Es peligroso?",
+    "getEstimate": "Obtener estimación",
+    "estimateSuccess": "¡Estimación creada con éxito!",
+    "estimateFail": "Error al crear la estimación",
+    "fillAllFields": "Por favor complete todos los campos requeridos.",
+    "invalidCountry": "Selección de país inválida.",
+    "estimatePrice": "Precio estimado",
+    "averageTime": "Tiempo promedio"
+  },
+  "ContactPage": {
+    "headingMain": "¿Necesitas transportar algo?",
+    "headingSub": "Nos encargamos de ello. Contáctanos",
+    "spainTitle": "Dirección en España",
+    "spain": {
+      "email": "administracion@savaexpress.com",
+      "phone": "+34 935 16 71 71",
+      "location": "Carrer del Empordá 1-7, 08211 Castellar del Valles"
+    },
+    "romaniaTitle": "Dirección en Rumanía",
+    "romania": {
+      "email": "administracion@savaexpress.com",
+      "phone": "+40 264 43 43 98",
+      "location": "Strada Suceava 72, 400394 Cluj-Napoca (CLUJ)"
+    },
+    "form": {
+      "name": "Tu nombre",
+      "email": "Tu correo electrónico",
+      "message": "Tu mensaje",
+      "submit": "Enviar mensaje",
+      "sending": "Enviando...",
+      "placeholderName": "Juan Pérez",
+      "placeholderEmail": "correo@ejemplo.com",
+      "validationError": "Por favor completa todos los campos.",
+      "successMessage": "¡Mensaje enviado con éxito!",
+      "failMessage": "No se pudo enviar el mensaje. Inténtalo de nuevo.",
+      "errorMessage": "Error al enviar el mensaje, por favor intenta más tarde."
+    }
+  },
+  "WorkWithUsPage": {
+    "pageTitle": "Trabaja con Nosotros",
+    "subtitle": "Encuentra tu posición perfecta"
+  },
+  "AuthBanner": {
+    "heading": "Logística y Soluciones de Cadena de Suministro Confiables",
+    "subheading": "Entregamos sus bienes de forma segura, rápida y eficiente — en toda Europa."
+  },
+  "RegisterPage": {
+    "title": "Registro",
+    "subtitle": "Rellena tus datos para solicitar una cuenta",
+    "tabs": {
+      "user": "Usuario",
+      "supplier": "Proveedor",
+      "driver": "Conductor"
+    },
+    "name": "Nombre completo",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "placeholder": {
+      "name": "Juan Pérez",
+      "email": "nombre@empresa.com"
+    },
+    "note": "Tu cuenta requerirá aprobación de un administrador",
+    "register": "Registrarse",
+    "registering": "Registrando...",
+    "haveAccount": "¿Ya tienes una cuenta?",
+    "login": "Iniciar sesión",
+    "supplierNote": "El registro solo está disponible para usuarios.",
+    "driverNote": "El registro solo está disponible para usuarios.",
+    "success": "¡Registro exitoso!",
+    "error": {
+      "name": "El nombre completo es obligatorio",
+      "emailRequired": "El correo electrónico es obligatorio",
+      "emailInvalid": "Formato de correo electrónico no válido",
+      "passwordRequired": "La contraseña es obligatoria",
+      "passwordMin": "Mínimo 6 caracteres"
+    }
+  },
+  "SignInPage": {
+    "title": "Inicia sesión en tu cuenta",
+    "cardTitle": "Iniciar Sesión",
+    "subtitle": "Ingresa tus credenciales para acceder a tu panel",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "placeholder": {
+      "email": "nombre@empresa.com"
+    },
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "login": "Iniciar sesión",
+    "loggingIn": "Iniciando sesión...",
+    "noAccount": "¿No tienes una cuenta?",
+    "signup": "Regístrate",
+    "success": "¡Inicio de sesión exitoso!",
+    "error": {
+      "emailRequired": "El correo electrónico es obligatorio",
+      "emailInvalid": "Formato de correo electrónico no válido",
+      "passwordRequired": "La contraseña es obligatoria",
+      "passwordMin": "Mínimo 6 caracteres"
+    }
+  },
+  "ForgotPasswordPage": {
+    "title": "Olvidé mi contraseña",
+    "email": "Correo electrónico",
+    "placeholder": {
+      "email": "nombre@empresa.com"
+    },
+    "sendReset": "Enviar correo de restablecimiento",
+    "sending": "Enviando...",
+    "backToLogin": "Volver al inicio de sesión",
+    "otpSent": "Revisa tu correo electrónico para el código OTP.",
+    "error": {
+      "emailRequired": "El correo electrónico es obligatorio",
+      "emailInvalid": "Formato de correo electrónico inválido",
+      "generic": "Algo salió mal"
+    }
+  }
+}

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-
 import Container from "@/Components/Shared/Container";
 import ServiceCard from "@/Components/Reusable/Servicecard";
 import Countdown from "./_components/Countdown";
@@ -9,6 +8,7 @@ import Spinner from "@/Components/Shared/Spinner";
 import { IoArrowForward, IoArrowBack } from "react-icons/io5";
 import useFetchData from "@/Hooks/UseFetchData";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 type ServiceListItem = {
   id: number;
@@ -33,9 +33,10 @@ type ServiceDetail = {
 };
 
 export default function Page() {
+  const t = useTranslations("Services");
+
   const [showAll, setShowAll] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
-
 
   const {
     data: servicesData,
@@ -43,9 +44,9 @@ export default function Page() {
     isLoading: servicesLoading,
   } = useFetchData<{ success: boolean; data: ServiceListItem[] }>("/services");
 
-
-  const selectedServiceId = servicesData?.data?.[selectedIndex]?.id ?? null;
-
+  const services = servicesData?.data || [];
+  const visibleServices = showAll ? services : services.slice(0, 3);
+  const selectedServiceId = services[selectedIndex]?.id ?? null;
 
   const {
     data: selectedServiceDetailsData,
@@ -54,6 +55,8 @@ export default function Page() {
   } = useFetchData<{ success: boolean; data: ServiceDetail }>(
     selectedServiceId ? `/services/feature/${selectedServiceId}` : null
   );
+
+  const selectedServiceDetails = selectedServiceDetailsData?.data || null;
 
   if (servicesLoading)
     return (
@@ -75,27 +78,23 @@ export default function Page() {
   if (servicesError)
     return (
       <p className="text-center text-red-500 py-20">
-        Error loading services: {servicesError}
+        {t("loadingError")} {servicesError}
       </p>
     );
-
-  const services = servicesData?.data || [];
-  const visibleServices = showAll ? services : services.slice(0, 3);
-  const selectedServiceDetails = selectedServiceDetailsData?.data || null;
 
   return (
     <section className="lg:pt-40 pt-10 lg:pb-20 2xl:px-0 px-5">
       <Container>
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-y-6">
-          <h2 className="text-[40px] md:text-[48px] lg:text-[64px] font-arial font-semibold text-[#FFF]">
-            Our Services
+          <h2 className="text-[40px] md:text-[48px] lg:text-[64px] font-arial font-semibold text-[#FFF] text-center md:text-left overflow-hidden">
+            {t("heading")}
           </h2>
           <button
             onClick={() => setShowAll(!showAll)}
             className="flex gap-x-3 justify-center items-center border border-transparent px-5 py-3 rounded-[12px] bg-[#C83C7C] w-fit text-[16px] md:text-[18px] text-[#F9F9F9]
               font-normal cursor-pointer hover:bg-[#13213C] hover:border hover:border-[#C83C7C] font-lucida duration-300 ease-in-out group"
           >
-            {showAll ? "Show Less" : "See All"}
+            {showAll ? t("showLess") : t("seeAll")}
             {showAll ? (
               <IoArrowBack className="text-[#FFF] group-hover:-ml-2 duration-300 ease-in-out" />
             ) : (
@@ -134,7 +133,7 @@ export default function Page() {
           </div>
         ) : detailsError ? (
           <p className="text-red-500 text-center mt-10">
-            Error loading service details: {detailsError}
+            {t("detailsError")} {detailsError}
           </p>
         ) : selectedServiceDetails ? (
           <div className="flex flex-col lg:flex-row justify-between gap-10 mt-[80px] lg:mt-[120px]">
@@ -145,8 +144,8 @@ export default function Page() {
                     selectedServiceDetails.image
                   }`}
                   alt={selectedServiceDetails.title}
-                  width={32} 
-                  height={32} 
+                  width={32}
+                  height={32}
                   className="w-8 h-8 object-contain"
                 />
               </div>
@@ -158,9 +157,9 @@ export default function Page() {
               </p>
               <button
                 className="flex gap-x-3 justify-center items-center border border-transparent px-5 py-3 rounded-[12px] bg-[#C83C7C] w-fit text-[16px] md:text-[18px] text-[#F9F9F9]
-              font-normal cursor-pointer hover:bg-[#13213C] hover:border hover:border-[#C83C7C] font-lucida duration-300 ease-in-out group mt-10"
+                font-normal cursor-pointer hover:bg-[#13213C] hover:border hover:border-[#C83C7C] font-lucida duration-300 ease-in-out group mt-10"
               >
-                Go To map
+                {t("goToMap")}
                 <IoArrowForward className="text-[#FFF] group-hover:ml-2 duration-300 ease-in-out" />
               </button>
             </div>

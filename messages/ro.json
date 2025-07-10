@@ -1,0 +1,160 @@
+{
+  "HomePage": {
+    "welcomeHeading": "Bun venit la Sava Logistic",
+    "welcomeSubtext": "Servicii de curierat fiabile, rapide și sigure pentru toate nevoile tale de expediere.",
+    "innovationTitle": "Experimentează inovația în logistică",
+    "innovationText": "Cubiul nostru 3D prezintă capabilitățile noastre de rotație și serviciile noastre multifuncționale.",
+    "servicesTitle": "Serviciile Noastre",
+    "servicesText": "De la documente la livrări mari, oferim soluții de livrare personalizate.",
+    "services": {
+      "sameDay": "Livrare în aceeași zi",
+      "international": "Transport internațional",
+      "ecommerce": "Îndeplinirea comerțului electronic"
+    },
+    "whyTitle": "De ce să ne alegi",
+    "why": {
+      "support": "Asistență 24/7",
+      "tracking": "Urmărire în timp real",
+      "pricing": "Prețuri accesibile",
+      "packaging": "Ambalare sigură"
+    },
+    "ctaTitle": "Gata de expediere?",
+    "ctaText": "Începe cu Sava Logistic astăzi și experimentează o livrare fără griji.",
+    "ctaButton": "Rezervă o livrare"
+  },
+  "Services": {
+    "heading": "Serviciile Noastre",
+    "seeAll": "Vezi Tot",
+    "showLess": "Arată Mai Puțin",
+    "goToMap": "Mergi la hartă",
+    "loadingError": "Eroare la încărcarea serviciilor:",
+    "detailsError": "Eroare la încărcarea detaliilor serviciului:"
+  },
+  "Budget": {
+    "pageTitle": "Buget",
+    "whereShipping": "Unde trimiteți?",
+    "shipFrom": "Expediere din",
+    "shipTo": "Expediere către",
+    "country": "Țară *",
+    "postalCode": "Cod poștal",
+    "typeMerchandise": "Tipul de marfă *",
+    "linearMeters": "Metri liniari *",
+    "grossWeight": "Greutate brută (KG) *",
+    "shippingDate": "Data livrării *",
+    "volume": "Volum (m³) *",
+    "isDangerous": "Este periculos?",
+    "getEstimate": "Obține estimare",
+    "estimateSuccess": "Estimarea a fost creată cu succes!",
+    "estimateFail": "Estimarea a eșuat",
+    "fillAllFields": "Vă rugăm să completați toate câmpurile obligatorii.",
+    "invalidCountry": "Selecție de țară nevalidă.",
+    "estimatePrice": "Preț estimativ",
+    "averageTime": "Timp mediu"
+  },
+  "ContactPage": {
+    "headingMain": "Ai nevoie să transporți ceva?",
+    "headingSub": "Ne ocupăm noi. Contactează-ne",
+    "spainTitle": "Adresă Spania",
+    "spain": {
+      "email": "administracion@savaexpress.com",
+      "phone": "+34 935 16 71 71",
+      "location": "Carrer del Empordá 1-7, 08211 Castellar del Valles"
+    },
+    "romaniaTitle": "Adresă România",
+    "romania": {
+      "email": "administracion@savaexpress.com",
+      "phone": "+40 264 43 43 98",
+      "location": "Strada Suceava 72, 400394 Cluj-Napoca (CLUJ)"
+    },
+    "form": {
+      "name": "Numele tău",
+      "email": "Adresa ta de email",
+      "message": "Mesajul tău",
+      "submit": "Trimite mesajul",
+      "sending": "Se trimite...",
+      "placeholderName": "Ion Popescu",
+      "placeholderEmail": "email@exemplu.com",
+      "validationError": "Te rugăm să completezi toate câmpurile.",
+      "successMessage": "Mesajul a fost trimis cu succes!",
+      "failMessage": "Trimiterea mesajului a eșuat. Încearcă din nou.",
+      "errorMessage": "Eroare la trimiterea mesajului, încearcă din nou mai târziu."
+    }
+  },
+  "WorkWithUsPage": {
+    "pageTitle": "Lucrează cu Noi",
+    "subtitle": "Găsește poziția perfectă pentru tine"
+  },
+  "AuthBanner": {
+    "heading": "Soluții Fiabile de Logistică și Lanț de Aprovizionare",
+    "subheading": "Livrăm bunurile tale în siguranță, rapid și eficient — în toată Europa."
+  },
+  "RegisterPage": {
+    "title": "Înregistrare",
+    "subtitle": "Completează detaliile pentru a solicita un cont",
+    "tabs": {
+      "user": "Utilizator",
+      "supplier": "Furnizor",
+      "driver": "Șofer"
+    },
+    "name": "Nume complet",
+    "email": "Email",
+    "password": "Parolă",
+    "placeholder": {
+      "name": "Ion Popescu",
+      "email": "nume@companie.com"
+    },
+    "note": "Contul tău va necesita aprobarea unui administrator",
+    "register": "Înregistrează-te",
+    "registering": "Se înregistrează...",
+    "haveAccount": "Ai deja un cont?",
+    "login": "Autentificare",
+    "supplierNote": "Înregistrarea este disponibilă doar pentru utilizatori.",
+    "driverNote": "Înregistrarea este disponibilă doar pentru utilizatori.",
+    "success": "Înregistrare reușită!",
+    "error": {
+      "name": "Numele complet este obligatoriu",
+      "emailRequired": "Emailul este obligatoriu",
+      "emailInvalid": "Format de email invalid",
+      "passwordRequired": "Parola este obligatorie",
+      "passwordMin": "Minim 6 caractere"
+    }
+  },
+  "SignInPage": {
+    "title": "Autentifică-te în contul tău",
+    "cardTitle": "Autentificare",
+    "subtitle": "Introdu datele tale pentru a accesa tabloul de bord",
+    "email": "Email",
+    "password": "Parolă",
+    "placeholder": {
+      "email": "nume@companie.com"
+    },
+    "forgotPassword": "Ai uitat parola?",
+    "login": "Autentificare",
+    "loggingIn": "Se autentifică...",
+    "noAccount": "Nu ai un cont?",
+    "signup": "Înregistrează-te",
+    "success": "Autentificare reușită!",
+    "error": {
+      "emailRequired": "Emailul este obligatoriu",
+      "emailInvalid": "Format de email invalid",
+      "passwordRequired": "Parola este obligatorie",
+      "passwordMin": "Minim 6 caractere"
+    }
+  },
+  "ForgotPasswordPage": {
+    "title": "Parolă uitată",
+    "email": "Email",
+    "placeholder": {
+      "email": "nume@companie.com"
+    },
+    "sendReset": "Trimite email de resetare",
+    "sending": "Se trimite...",
+    "backToLogin": "Înapoi la autentificare",
+    "otpSent": "Verifică emailul pentru codul OTP.",
+    "error": {
+      "emailRequired": "Emailul este obligatoriu",
+      "emailInvalid": "Format de email invalid",
+      "generic": "Ceva nu a mers bine"
+    }
+  }
+}

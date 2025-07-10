@@ -17,6 +17,7 @@ export default function Page() {
               altText="Team Photo"
               height={180}
               width={280}
+              
             />
             <Workcard
               imageSrc="/logo2.png"

@@ -10,6 +10,8 @@ import toast from "react-hot-toast";
 import { FaSpinner } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import useAxios from "@/Hooks/UseAxios";
+import { useTranslations } from "next-intl";
+import { AxiosError } from "axios"; // ✅ Add this
 
 type FormData = {
   email: string;
@@ -26,6 +28,7 @@ const Page = () => {
   const [serverError, setServerError] = useState<string | null>(null);
   const router = useRouter();
   const axiosInstance = useAxios();
+  const t = useTranslations("SignInPage");
 
   const onSubmit = async (data: FormData) => {
     setServerError(null);
@@ -39,15 +42,19 @@ const Page = () => {
 
       if (token) {
         localStorage.setItem("token", token);
-        toast.success("Login successful!");
+        toast.success(t("success"));
         router.push("/login-successfull");
       } else {
         throw new Error("Token not found in response");
       }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      const message =
-        error?.response?.data?.message || error.message || "Login failed!";
+    } catch (error: unknown) {
+      let message = t("error.generic");
+
+      // ✅ Use AxiosError to narrow and safely access response
+      if (error instanceof AxiosError && error.response?.data?.message) {
+        message = error.response.data.message;
+      }
+
       setServerError(message);
       toast.error(message);
     }
@@ -56,19 +63,16 @@ const Page = () => {
   return (
     <section className="min-h-screen">
       <div className="flex flex-col 2xl:flex-row">
-        {/* Auth Banner: visible on 2xl+ */}
         <div className="hidden 2xl:block 2xl:w-1/2">
           <Authbanner />
         </div>
 
-        {/* Form Section */}
         <div className="w-full 2xl:w-1/2 p-6 sm:p-10">
           <div className="flex justify-end">
             <LanguageSelect />
           </div>
 
           <div className="w-full max-w-[500px] mx-auto pt-[60px] sm:pt-[100px] relative">
-            {/* Decorative Icons */}
             <div className="absolute top-24 -right-16 z-20 hidden sm:block">
               <Round1 />
             </div>
@@ -77,15 +81,15 @@ const Page = () => {
             </div>
 
             <h2 className="font-bold font-arial text-white text-center lg:text-[32px] text-[24px] relative z-10">
-              Sign In Your Account
+              {t("title")}
             </h2>
 
             <div className="relative z-50 border border-[#C83C7C] rounded-[12px] p-6 mt-8">
               <h3 className="font-arial text-[24px] text-white font-bold">
-                SignIn
+                {t("cardTitle")}
               </h3>
               <p className="text-[#64748B] font-lucida text-[14px] pt-2">
-                Enter your credentials to access your dashboard
+                {t("subtitle")}
               </p>
 
               <form
@@ -94,18 +98,18 @@ const Page = () => {
               >
                 <div>
                   <h4 className="font-nunito text-[14px] font-semibold text-white pb-3">
-                    Email
+                    {t("email")}
                   </h4>
                   <input
                     {...register("email", {
-                      required: "Email is required",
+                      required: t("error.emailRequired"),
                       pattern: {
                         value: /^\S+@\S+$/i,
-                        message: "Invalid email format",
+                        message: t("error.emailInvalid"),
                       },
                     })}
                     type="email"
-                    placeholder="name@company.com"
+                    placeholder={t("placeholder.email")}
                     className="py-3 px-4 font-nunito text-[16px] font-normal outline-0 bg-[#32203C] text-white w-full rounded-[8px] border border-[#C83C7C]"
                   />
                   {errors.email && (
@@ -117,14 +121,14 @@ const Page = () => {
 
                 <div>
                   <h4 className="font-nunito text-[14px] font-semibold text-white pb-3">
-                    Password
+                    {t("password")}
                   </h4>
                   <input
                     {...register("password", {
-                      required: "Password is required",
+                      required: t("error.passwordRequired"),
                       minLength: {
                         value: 6,
-                        message: "Minimum 6 characters",
+                        message: t("error.passwordMin"),
                       },
                     })}
                     type="password"
@@ -137,7 +141,7 @@ const Page = () => {
                   )}
                   <Link href="/forgot-password">
                     <p className="text-[14px] font-lucida font-normal text-[#fff] pt-3 text-end cursor-pointer hover:underline">
-                      Forget Password
+                      {t("forgotPassword")}
                     </p>
                   </Link>
                 </div>
@@ -153,18 +157,18 @@ const Page = () => {
                 >
                   {isSubmitting ? (
                     <>
-                      <FaSpinner className="animate-spin" /> Logging in...
+                      <FaSpinner className="animate-spin" /> {t("loggingIn")}
                     </>
                   ) : (
-                    "Login"
+                    t("login")
                   )}
                 </button>
 
                 <h3 className="text-center text-[14px] font-lucida font-normal text-white">
-                  Don’t have an account?{" "}
+                  {t("noAccount")}{" "}
                   <Link href="/sign-up">
                     <span className="text-[#C83C7C] cursor-pointer">
-                      Sign Up
+                      {t("signup")}
                     </span>
                   </Link>
                 </h3>

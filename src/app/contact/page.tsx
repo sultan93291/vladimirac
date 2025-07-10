@@ -7,6 +7,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FiMail } from "react-icons/fi";
 import useAxios from "@/Hooks/UseAxios";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 const Page = () => {
   const [form, setForm] = useState({
@@ -19,6 +20,8 @@ const Page = () => {
 
   const axiosInstance = useAxios();
 
+  const t = useTranslations("ContactPage");
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -30,7 +33,7 @@ const Page = () => {
     e.preventDefault();
 
     if (!form.name || !form.email || !form.message) {
-      toast.error("Please fill all the fields.");
+      toast.error(t("form.validationError"));
       return;
     }
 
@@ -39,14 +42,14 @@ const Page = () => {
     try {
       const response = await axiosInstance.post("/contact", form);
       if (response.data.success) {
-        toast.success("Message sent successfully!");
+        toast.success(t("form.successMessage"));
         setForm({ name: "", email: "", message: "" });
       } else {
-        toast.error("Failed to send message. Please try again.");
+        toast.error(t("form.failMessage"));
       }
     } catch (error) {
       console.error(error);
-      toast.error("Error sending message, please try again later.");
+      toast.error(t("form.errorMessage"));
     } finally {
       setLoading(false);
     }
@@ -56,28 +59,28 @@ const Page = () => {
     <section className="lg:pt-20 pt-8 pb-[60px] min-h-[600px] 2xl:px-0 px-5">
       <Container>
         <h2 className="lg:text-[48px] text-[30px] font-bold text-white font-arial text-center leading-tight">
-          <span className="text-[#FAA312]">Need to transport something?</span>
-          <br /> We take care of it. Contact Us
+          <span className="text-[#FAA312]">{t("headingMain")}</span>
+          <br /> {t("headingSub")}
         </h2>
 
         <div className="flex flex-col lg:flex-row justify-between w-full gap-8 mt-[60px] min-h-[400px]">
           {/* Spain Address */}
           <div className="flex-1 flex flex-col justify-end">
             <h5 className="text-[28px] sm:text-[32px] font-bold font-arial text-white mb-6">
-              Spain Address
+              {t("spainTitle")}
             </h5>
             <ul className="flex flex-col gap-4 text-white text-[18px] sm:text-[20px] font-lucida">
               <li className="flex gap-4 items-start">
                 <FiMail className="mt-1" />
-                administracion@savaexpress.com
+                {t("spain.email")}
               </li>
               <li className="flex gap-4 items-start">
                 <Phone className="mt-1" />
-                +34 935 16 71 71
+                {t("spain.phone")}
               </li>
               <li className="flex gap-4 items-start">
                 <FaLocationDot className="mt-1" />
-                Carrer del Empordá 1-7, 08211 Castellar del Valles
+                {t("spain.location")}
               </li>
             </ul>
           </div>
@@ -91,12 +94,12 @@ const Page = () => {
                     htmlFor="name"
                     className="font-nunito text-[18px] font-semibold text-[#C83C7C]"
                   >
-                    Your name
+                    {t("form.name")}
                   </label>
                   <input
                     type="text"
                     id="name"
-                    placeholder="Jhon Smith"
+                    placeholder={t("form.placeholderName")}
                     className="mt-2 py-3 px-4 font-nunito text-[16px] font-normal outline-0 border-b-2 border-[#b62b69]/30 text-[#787878] w-full"
                     value={form.name}
                     onChange={handleChange}
@@ -109,12 +112,12 @@ const Page = () => {
                     htmlFor="email"
                     className="font-nunito text-[18px] font-semibold text-[#C83C7C]"
                   >
-                    Your email
+                    {t("form.email")}
                   </label>
                   <input
                     type="email"
                     id="email"
-                    placeholder="email@example.com"
+                    placeholder={t("form.placeholderEmail")}
                     className="mt-2 py-3 px-4 font-nunito text-[16px] font-normal outline-0 border-b-2 border-[#b62b69]/30 text-[#787878] w-full"
                     value={form.email}
                     onChange={handleChange}
@@ -127,7 +130,7 @@ const Page = () => {
                     htmlFor="message"
                     className="font-nunito text-[18px] font-semibold text-[#C83C7C]"
                   >
-                    Your message
+                    {t("form.message")}
                   </label>
                   <textarea
                     id="message"
@@ -165,7 +168,7 @@ const Page = () => {
                       ></path>
                     </svg>
                   )}
-                  {loading ? "Sending..." : "Send message"}
+                  {loading ? t("form.sending") : t("form.submit")}
                 </button>
               </div>
             </form>
@@ -174,20 +177,20 @@ const Page = () => {
           {/* Romania Address */}
           <div className="flex-1 flex flex-col justify-end">
             <h5 className="text-[28px] sm:text-[32px] font-bold font-arial text-white mb-6">
-              Romania Address
+              {t("romaniaTitle")}
             </h5>
             <ul className="flex flex-col gap-4 text-white text-[18px] sm:text-[20px] font-lucida">
               <li className="flex gap-4 items-start">
                 <FiMail className="mt-1" />
-                administracion@savaexpress.com
+                {t("romania.email")}
               </li>
               <li className="flex gap-4 items-start">
                 <Phone className="mt-1" />
-                +40 264 43 43 98
+                {t("romania.phone")}
               </li>
               <li className="flex gap-4 items-start">
                 <FaLocationDot className="mt-1" />
-                Strada Suceava 72, 400394 Cluj-Napoca (CLUJ)
+                {t("romania.location")}
               </li>
             </ul>
           </div>

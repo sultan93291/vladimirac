@@ -8,6 +8,7 @@ import { SlArrowDown } from "react-icons/sl";
 import toast from "react-hot-toast";
 import useAxios from "@/Hooks/UseAxios";
 import useFetchData from "@/Hooks/UseFetchData";
+import { useTranslations } from "next-intl";
 
 
 const Page = () => {
@@ -97,17 +98,19 @@ const Page = () => {
       setLoading(false);
     }
   };
+  const t = useTranslations("Budget");
+
 
   return (
     <section className="pt-10 pb-16 px-4 sm:px-6 lg:px-10 xl:px-0">
       <Container>
         <h1 className="text-[30px] sm:text-[40px] md:text-[48px] xl:text-[64px] font-bold text-center font-arial text-white">
-          Budget
+          {t("pageTitle")}
         </h1>
 
         <div className="mt-10 bg-white px-5 sm:px-10 md:px-16 xl:px-[120px] pt-10 pb-6 rounded-[20px]">
           <h3 className="text-[24px] sm:text-[28px] md:text-[32px] font-arial font-bold text-[#13213C] mb-6">
-            Where are you shipping?
+            {t("whereShipping")}
           </h3>
 
           <form>
@@ -115,10 +118,10 @@ const Page = () => {
               {/* Ship From */}
               <div className="w-full md:w-2/5">
                 <h4 className="text-[#000] font-arial text-[20px] md:text-[24px]">
-                  Ship From
+                  {t("shipFrom")}
                 </h4>
                 <h5 className="text-[#000] font-arial text-[18px] md:text-[20px] my-2">
-                  Country *
+                  {t("country")}
                 </h5>
                 <div className="flex gap-4">
                   <div className="relative w-1/2">
@@ -157,10 +160,10 @@ const Page = () => {
               {/* Ship To */}
               <div className="w-full md:w-2/5">
                 <h4 className="text-[#000] font-arial text-[20px] md:text-[24px]">
-                  Ship To
+                  {t("shipTo")}
                 </h4>
                 <h5 className="text-[#000] font-arial text-[18px] md:text-[20px] my-2">
-                  Country *
+                  {t("country")}
                 </h5>
                 <div className="flex gap-4">
                   <div className="relative w-1/2">
@@ -194,7 +197,7 @@ const Page = () => {
             <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div>
                 <label className="block mb-2 font-arial text-[18px] text-[#000]">
-                  Type of Merchandise *
+                  {t("typeMerchandise")}
                 </label>
                 <select
                   value={merchandise}
@@ -209,7 +212,7 @@ const Page = () => {
 
               <div>
                 <label className="block mb-2 font-arial text-[18px] text-[#000]">
-                  Linear Meters *
+                  {t("linearMeters")}
                 </label>
                 <input
                   type="number"
@@ -222,7 +225,7 @@ const Page = () => {
 
               <div>
                 <label className="block mb-2 font-arial text-[18px] text-[#000]">
-                  Gross Weight (KG) *
+                  {t("grossWeight")}
                 </label>
                 <input
                   type="number"
@@ -235,7 +238,7 @@ const Page = () => {
 
               <div>
                 <label className="block mb-2 font-arial text-[18px] text-[#000]">
-                  Shipping Date *
+                  {t("shippingDate")}
                 </label>
                 <input
                   type="date"
@@ -247,7 +250,7 @@ const Page = () => {
 
               <div>
                 <label className="block mb-2 font-arial text-[18px] text-[#000]">
-                  Volume (m³) *
+                  {t("volume")}
                 </label>
                 <input
                   type="number"
@@ -260,7 +263,7 @@ const Page = () => {
 
               <div>
                 <label className="block mb-2 font-arial text-[18px] text-[#000]">
-                  Is Dangerous?
+                  {t("isDangerous")}
                 </label>
                 <select
                   value={isDangerous}
@@ -279,7 +282,7 @@ const Page = () => {
                 onClick={handleEstimateClick}
                 className="bg-[#13213C] rounded-[12px] px-5 py-3 font-lucida font-normal text-white cursor-pointer"
               >
-                Get Estimate
+                {t("getEstimate")}
               </button>
             </div>
           </form>

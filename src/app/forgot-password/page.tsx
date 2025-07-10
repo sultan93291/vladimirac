@@ -9,6 +9,8 @@ import toast from "react-hot-toast";
 import { FaSpinner } from "react-icons/fa";
 import useAxios from "@/Hooks/UseAxios";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { AxiosError } from "axios"; // ✅ Import AxiosError
 
 type FormData = {
   email: string;
@@ -26,23 +28,33 @@ const Page = () => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const axiosInstance = useAxios();
   const router = useRouter();
+  const t = useTranslations("ForgotPasswordPage");
 
   const onSubmit = async (data: FormData) => {
     setServerError(null);
     setSuccessMessage(null);
+
     try {
       const response = await axiosInstance.post("/users/login/email-verify", {
         email: data.email,
       });
-      setSuccessMessage(response.data.message || "Check your email for OTP.");
-      toast.success(response.data.message || "Check your email for OTP.");
+
+      const message = response.data.message || t("otpSent");
+      setSuccessMessage(message);
+      toast.success(message);
       reset();
+
       setTimeout(() => {
         router.push(`/otp?email=${encodeURIComponent(data.email)}`);
       }, 1000);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      const message = error?.response?.data?.message || "Something went wrong";
+    } catch (error: unknown) {
+      let message = t("error.generic");
+
+      // ✅ Type-safe error handling
+      if (error instanceof AxiosError && error.response?.data?.message) {
+        message = error.response.data.message;
+      }
+
       setServerError(message);
       toast.error(message);
     }
@@ -64,7 +76,7 @@ const Page = () => {
 
           <div className="w-full max-w-[500px] mx-auto pt-[80px] sm:pt-[150px] relative z-10">
             <h2 className="font-bold font-arial text-white text-center text-[32px] sm:text-[40px]">
-              Forget Password
+              {t("title")}
             </h2>
 
             <div className="border border-[#C83C7C] rounded-[12px] p-6 mt-8 relative z-20">
@@ -74,18 +86,18 @@ const Page = () => {
               >
                 <div>
                   <h4 className="font-nunito text-[14px] font-semibold text-white pb-3">
-                    Email
+                    {t("email")}
                   </h4>
                   <input
                     {...register("email", {
-                      required: "Email is required",
+                      required: t("error.emailRequired"),
                       pattern: {
                         value: /^\S+@\S+$/i,
-                        message: "Invalid email format",
+                        message: t("error.emailInvalid"),
                       },
                     })}
                     type="email"
-                    placeholder="name@company.com"
+                    placeholder={t("placeholder.email")}
                     className="py-3 px-4 font-nunito text-[16px] font-normal outline-0 bg-[#32203C] text-white w-full rounded-[8px] border border-[#C83C7C]"
                   />
                   {errors.email && (
@@ -109,15 +121,15 @@ const Page = () => {
                 >
                   {isSubmitting ? (
                     <>
-                      <FaSpinner className="animate-spin" /> Sending...
+                      <FaSpinner className="animate-spin" /> {t("sending")}
                     </>
                   ) : (
-                    "Send Reset Email"
+                    t("sendReset")
                   )}
                 </button>
 
                 <h3 className="text-center text-[14px] font-lucida font-normal text-[#C83C7C]">
-                  <Link href="/sign-in">Back to Log in</Link>
+                  <Link href="/sign-in">{t("backToLogin")}</Link>
                 </h3>
               </form>
             </div>

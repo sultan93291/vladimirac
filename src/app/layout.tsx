@@ -1,9 +1,12 @@
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
 import type { Metadata } from "next";
 import { Jost, Nunito } from "next/font/google";
 import "./globals.css";
 import LayoutWrapper from "@/Components/Shared/LayoutWrapper";
 import { Toaster } from "react-hot-toast";
 
+// Google fonts
 const jost = Jost({
   variable: "--font-jost",
   subsets: ["latin"],
@@ -26,16 +29,21 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
-    <html lang="en" className={`${jost.variable} ${nunito.variable}`}>
+    <html lang={locale} className={`${jost.variable} ${nunito.variable}`}>
       <body className="bg-[#13213C]">
-        <Toaster position="top-right" reverseOrder={false} />{" "}
-        <LayoutWrapper>{children}</LayoutWrapper>
+        <Toaster position="top-right" reverseOrder={false} />
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <LayoutWrapper>{children}</LayoutWrapper>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

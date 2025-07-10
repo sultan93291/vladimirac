@@ -1,0 +1,160 @@
+{
+  "HomePage": {
+    "welcomeHeading": "Welcome to Sava Logistic",
+    "welcomeSubtext": "Reliable, fast, and secure courier services for all your shipping needs.",
+    "innovationTitle": "Experience Innovation in Logistics",
+    "innovationText": "Our 3D cube showcases our rotating capabilities and multi-faceted services.",
+    "servicesTitle": "Our Services",
+    "servicesText": "From documents to large shipments, we provide customized delivery solutions.",
+    "services": {
+      "sameDay": "Same Day Delivery",
+      "international": "International Shipping",
+      "ecommerce": "E-commerce Fulfillment"
+    },
+    "whyTitle": "Why Choose Us",
+    "why": {
+      "support": "24/7 Support",
+      "tracking": "Real-time Tracking",
+      "pricing": "Affordable Pricing",
+      "packaging": "Secure Packaging"
+    },
+    "ctaTitle": "Ready to Ship?",
+    "ctaText": "Get started with Sava Logistic today and experience hassle-free delivery.",
+    "ctaButton": "Book a Shipment"
+  },
+  "Services": {
+    "heading": "Our Services",
+    "seeAll": "See All",
+    "showLess": "Show Less",
+    "goToMap": "Go To map",
+    "loadingError": "Error loading services:",
+    "detailsError": "Error loading service details:"
+  },
+  "Budget": {
+    "pageTitle": "Budget",
+    "whereShipping": "Where are you shipping?",
+    "shipFrom": "Ship From",
+    "shipTo": "Ship To",
+    "country": "Country *",
+    "postalCode": "Postal code",
+    "typeMerchandise": "Type of Merchandise *",
+    "linearMeters": "Linear Meters *",
+    "grossWeight": "Gross Weight (KG) *",
+    "shippingDate": "Shipping Date *",
+    "volume": "Volume (m³) *",
+    "isDangerous": "Is Dangerous?",
+    "getEstimate": "Get Estimate",
+    "estimateSuccess": "Estimate created successfully!",
+    "estimateFail": "Failed to create estimate",
+    "fillAllFields": "Please fill in all required fields.",
+    "invalidCountry": "Invalid country selection.",
+    "estimatePrice": "Estimate Price",
+    "averageTime": "Average Time"
+  },
+  "ContactPage": {
+    "headingMain": "Need to transport something?",
+    "headingSub": "We take care of it. Contact Us",
+    "spainTitle": "Spain Address",
+    "spain": {
+      "email": "administracion@savaexpress.com",
+      "phone": "+34 935 16 71 71",
+      "location": "Carrer del Empordá 1-7, 08211 Castellar del Valles"
+    },
+    "romaniaTitle": "Romania Address",
+    "romania": {
+      "email": "administracion@savaexpress.com",
+      "phone": "+40 264 43 43 98",
+      "location": "Strada Suceava 72, 400394 Cluj-Napoca (CLUJ)"
+    },
+    "form": {
+      "name": "Your name",
+      "email": "Your email",
+      "message": "Your message",
+      "submit": "Send message",
+      "sending": "Sending...",
+      "placeholderName": "Jhon Smith",
+      "placeholderEmail": "email@example.com",
+      "validationError": "Please fill all the fields.",
+      "successMessage": "Message sent successfully!",
+      "failMessage": "Failed to send message. Please try again.",
+      "errorMessage": "Error sending message, please try again later."
+    }
+  },
+  "WorkWithUsPage": {
+    "pageTitle": "Work With Us",
+    "subtitle": "Find your perfect position"
+  },
+  "AuthBanner": {
+    "heading": "Reliable Logistics & Supply Chain Solutions",
+    "subheading": "We deliver your goods safely, quickly, and efficiently — across the Europe."
+  },
+  "RegisterPage": {
+    "title": "Register",
+    "subtitle": "Fill in your details to request an account",
+    "tabs": {
+      "user": "User",
+      "supplier": "Supplier",
+      "driver": "Driver"
+    },
+    "name": "Full Name",
+    "email": "Email",
+    "password": "Password",
+    "placeholder": {
+      "name": "John Doe",
+      "email": "name@company.com"
+    },
+    "note": "Your account will require approval by an administrator",
+    "register": "Register",
+    "registering": "Registering...",
+    "haveAccount": "Already have an account?",
+    "login": "Log in",
+    "supplierNote": "Registration is only available for users.",
+    "driverNote": "Registration is only available for users.",
+    "success": "Registration successful!",
+    "error": {
+      "name": "Full name is required",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Invalid email format",
+      "passwordRequired": "Password is required",
+      "passwordMin": "Minimum 6 characters"
+    }
+  },
+  "SignInPage": {
+    "title": "Sign In to Your Account",
+    "cardTitle": "Sign In",
+    "subtitle": "Enter your credentials to access your dashboard",
+    "email": "Email",
+    "password": "Password",
+    "placeholder": {
+      "email": "name@company.com"
+    },
+    "forgotPassword": "Forgot Password?",
+    "login": "Login",
+    "loggingIn": "Logging in...",
+    "noAccount": "Don’t have an account?",
+    "signup": "Sign Up",
+    "success": "Login successful!",
+    "error": {
+      "emailRequired": "Email is required",
+      "emailInvalid": "Invalid email format",
+      "passwordRequired": "Password is required",
+      "passwordMin": "Minimum 6 characters"
+    }
+  },
+  "ForgotPasswordPage": {
+    "title": "Forget Password",
+    "email": "Email",
+    "placeholder": {
+      "email": "name@company.com"
+    },
+    "sendReset": "Send Reset Email",
+    "sending": "Sending...",
+    "backToLogin": "Back to Log in",
+    "otpSent": "Check your email for OTP.",
+    "error": {
+      "emailRequired": "Email is required",
+      "emailInvalid": "Invalid email format",
+      "generic": "Something went wrong"
+    }
+  }
+}
