@@ -11,6 +11,7 @@ import { FaSpinner } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import useAxios from "@/Hooks/UseAxios";
 import { useTranslations } from "next-intl";
+import { AxiosError } from "axios"; // ✅ Add this
 
 type FormData = {
   email: string;
@@ -46,9 +47,14 @@ const Page = () => {
       } else {
         throw new Error("Token not found in response");
       }
-    } catch (error: any) {
-      const message =
-        error?.response?.data?.message || error.message || "Login failed!";
+    } catch (error: unknown) {
+      let message = t("error.generic");
+
+      // ✅ Use AxiosError to narrow and safely access response
+      if (error instanceof AxiosError && error.response?.data?.message) {
+        message = error.response.data.message;
+      }
+
       setServerError(message);
       toast.error(message);
     }

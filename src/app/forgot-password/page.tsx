@@ -10,6 +10,7 @@ import { FaSpinner } from "react-icons/fa";
 import useAxios from "@/Hooks/UseAxios";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { AxiosError } from "axios"; // ✅ Import AxiosError
 
 type FormData = {
   email: string;
@@ -32,19 +33,28 @@ const Page = () => {
   const onSubmit = async (data: FormData) => {
     setServerError(null);
     setSuccessMessage(null);
+
     try {
       const response = await axiosInstance.post("/users/login/email-verify", {
         email: data.email,
       });
+
       const message = response.data.message || t("otpSent");
       setSuccessMessage(message);
       toast.success(message);
       reset();
+
       setTimeout(() => {
         router.push(`/otp?email=${encodeURIComponent(data.email)}`);
       }, 1000);
-    } catch (error: any) {
-      const message = error?.response?.data?.message || t("error.generic");
+    } catch (error: unknown) {
+      let message = t("error.generic");
+
+      // ✅ Type-safe error handling
+      if (error instanceof AxiosError && error.response?.data?.message) {
+        message = error.response.data.message;
+      }
+
       setServerError(message);
       toast.error(message);
     }

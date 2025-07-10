@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import { FaSpinner } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { AxiosError } from "axios";
 
 type FormData = {
   name: string;
@@ -21,6 +22,7 @@ type FormData = {
 
 const Page = () => {
   const t = useTranslations("RegisterPage");
+
   const {
     register,
     handleSubmit,
@@ -29,18 +31,21 @@ const Page = () => {
   } = useForm<FormData>();
 
   const [serverError, setServerError] = useState<string | null>(null);
-  const Axiosinstance = useAxios();
+  const axiosInstance = useAxios();
   const router = useRouter();
 
   const onSubmit = async (data: FormData) => {
     try {
       setServerError(null);
-      const response = await Axiosinstance.post("/users/register", {
+
+      const response = await axiosInstance.post("/users/register", {
         name: data.name,
         email: data.email,
         password: data.password,
         role: "user",
       });
+      console.log(response);
+      
 
       toast.success(t("success"));
       reset();
@@ -48,8 +53,13 @@ const Page = () => {
       setTimeout(() => {
         router.push("/sign-in");
       }, 1000);
-    } catch (error: any) {
-      const message = error?.response?.data?.message || "Something went wrong";
+    } catch (error: unknown) {
+      let message = t("error.generic");
+
+      if (error instanceof AxiosError && error.response?.data?.message) {
+        message = error.response.data.message;
+      }
+
       setServerError(message);
       toast.error(message);
     }
@@ -180,7 +190,7 @@ const Page = () => {
                       >
                         {isSubmitting ? (
                           <>
-                            <FaSpinner className="animate-spin" />{" "}
+                            <FaSpinner className="animate-spin" />
                             {t("registering")}
                           </>
                         ) : (

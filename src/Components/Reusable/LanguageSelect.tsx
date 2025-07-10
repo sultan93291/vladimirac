@@ -11,7 +11,19 @@ interface LanguageSelectProps {
   showBorder?: boolean;
 }
 
-const rawFlagOptions = [
+interface RawOption {
+  value: string;
+  icon: string;
+  name: string;
+}
+
+interface FormattedOption {
+  value: string;
+  label: React.ReactNode;
+}
+
+// Original language data
+const rawFlagOptions: RawOption[] = [
   {
     value: "en",
     icon: "/flag.png",
@@ -29,8 +41,8 @@ const rawFlagOptions = [
   },
 ];
 
-// ✅ Memoized outside to prevent useEffect loop
-const formattedOptions = rawFlagOptions.map(option => ({
+// Formatted options for react-select
+const formattedOptions: FormattedOption[] = rawFlagOptions.map(option => ({
   value: option.value,
   label: (
     <div className="flex items-center gap-2">
@@ -50,7 +62,9 @@ const formattedOptions = rawFlagOptions.map(option => ({
 
 const LanguageSelect = ({ showBorder = false }: LanguageSelectProps) => {
   const router = useRouter();
-  const [selectedOption, setSelectedOption] = useState<any>(null);
+  const [selectedOption, setSelectedOption] = useState<FormattedOption | null>(
+    null
+  );
 
   useEffect(() => {
     const lang = Cookies.get("lang") || "en";
@@ -58,7 +72,8 @@ const LanguageSelect = ({ showBorder = false }: LanguageSelectProps) => {
     if (found) setSelectedOption(found);
   }, []);
 
-  const handleChange = (option: any) => {
+  const handleChange = (option: FormattedOption | null) => {
+    if (!option) return;
     setSelectedOption(option);
     Cookies.set("lang", option.value, { path: "/" });
     router.refresh();
