@@ -10,13 +10,11 @@ import useAxios from "@/Hooks/UseAxios";
 import useFetchData from "@/Hooks/UseFetchData";
 import { useTranslations } from "next-intl";
 
-
 const Page = () => {
   const axiosInstance = useAxios();
+  const t = useTranslations("Budget");
 
-  const {
-    data: countryData,
-  } = useFetchData<{
+  const { data: countryData } = useFetchData<{
     success: boolean;
     message: string;
     data: { id: number; name: string; code: string }[];
@@ -42,6 +40,19 @@ const Page = () => {
     return countryData?.data.find(c => c.name === name)?.id || null;
   };
 
+  const resetForm = () => {
+    setFromCountry("Spain");
+    setToCountry("Romania");
+    setFromPostal("");
+    setToPostal("");
+    setMerchandise("Electronics");
+    setLinearMeters("");
+    setWeight("");
+    setShippingDate("");
+    setVolume("");
+    setIsDangerous("No");
+  };
+
   const handleEstimateClick = async () => {
     if (
       !fromPostal ||
@@ -55,10 +66,10 @@ const Page = () => {
       return;
     }
 
-    const load_country_id = getCountryId(fromCountry);
-    const unload_country_id = getCountryId(toCountry);
+    const loading_country_id = getCountryId(fromCountry);
+    const unloading_country_id = getCountryId(toCountry);
 
-    if (!load_country_id || !unload_country_id) {
+    if (!loading_country_id || !unloading_country_id) {
       toast.error("Invalid country selection.");
       return;
     }
@@ -70,13 +81,12 @@ const Page = () => {
       is_ard: isDangerous === "Yes",
       shipping_date: shippingDate,
       ldm: parseFloat(linearMeters),
-      volume: parseFloat(volume),
       gross_weight: parseFloat(weight),
-      transport_type: "road",
-      unload_postal_code: toPostal,
-      load_postal_code: fromPostal,
-      unload_country_id,
-      load_country_id,
+      cargo_type: merchandise,
+      unloading_postal_code: toPostal,
+      unloading_country_id,
+      loading_postal_code: fromPostal,
+      loading_country_id,
     };
 
     try {
@@ -84,9 +94,22 @@ const Page = () => {
         "/calculate_shipping_price",
         payload
       );
-      setEstimatedPrice(res.data.data.estimated_price + " €");
-      setEstimatedTime(res.data.data.estimated_time);
+      const estimatedValue = res.data?.data;
+
+      if (
+        estimatedValue &&
+        typeof estimatedValue.total_cost === "number" &&
+        typeof estimatedValue.estimated_time === "string"
+      ) {
+        setEstimatedPrice(`${estimatedValue.total_cost.toFixed(2)} €`);
+        setEstimatedTime(estimatedValue.estimated_time);
+      } else {
+        setEstimatedPrice("N/A");
+        setEstimatedTime("N/A");
+      }
+
       toast.success("Estimate created successfully!");
+      resetForm();
 
       setTimeout(() => {
         setLoading(false);
@@ -98,8 +121,6 @@ const Page = () => {
       setLoading(false);
     }
   };
-  const t = useTranslations("Budget");
-
 
   return (
     <section className="pt-10 pb-16 px-4 sm:px-6 lg:px-10 xl:px-0">
@@ -115,7 +136,7 @@ const Page = () => {
 
           <form>
             <div className="flex flex-col md:flex-row justify-between gap-6">
-              {/* Ship From */}
+              {/* From */}
               <div className="w-full md:w-2/5">
                 <h4 className="text-[#000] font-arial text-[20px] md:text-[24px]">
                   {t("shipFrom")}
@@ -145,7 +166,7 @@ const Page = () => {
                     placeholder="Postal code"
                     value={fromPostal}
                     onChange={e => setFromPostal(e.target.value)}
-                    className="w-1/2 py-2 bg-white border-b border-[#BCBCBC] text-[#BCBCBC] font-arial text-[16px] md:text-[20px] focus:outline-none"
+                    className="w-1/2 py-2 border-b border-[#BCBCBC] text-[#BCBCBC] font-arial text-[16px] md:text-[20px] focus:outline-none"
                   />
                 </div>
               </div>
@@ -157,7 +178,7 @@ const Page = () => {
                 </div>
               </div>
 
-              {/* Ship To */}
+              {/* To */}
               <div className="w-full md:w-2/5">
                 <h4 className="text-[#000] font-arial text-[20px] md:text-[24px]">
                   {t("shipTo")}
@@ -187,13 +208,13 @@ const Page = () => {
                     placeholder="Postal code"
                     value={toPostal}
                     onChange={e => setToPostal(e.target.value)}
-                    className="w-1/2 py-2 bg-white border-b border-[#BCBCBC] text-[#BCBCBC] font-arial text-[16px] md:text-[20px] focus:outline-none"
+                    className="w-1/2 py-2 border-b border-[#BCBCBC] text-[#BCBCBC] font-arial text-[16px] md:text-[20px] focus:outline-none"
                   />
                 </div>
               </div>
             </div>
 
-            {/* Cargo Details */}
+            {/* Cargo Inputs */}
             <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div>
                 <label className="block mb-2 font-arial text-[18px] text-[#000]">
