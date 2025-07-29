@@ -9,6 +9,8 @@ import toast from "react-hot-toast";
 import useAxios from "@/Hooks/UseAxios";
 import useFetchData from "@/Hooks/UseFetchData";
 import { useTranslations } from "next-intl";
+import { AxiosError, isAxiosError } from "axios";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
   const axiosInstance = useAxios();
@@ -52,8 +54,16 @@ const Page = () => {
     setVolume("");
     setIsDangerous("No");
   };
+  const router = useRouter();
 
   const handleEstimateClick = async () => {
+     const token = localStorage.getItem("token");
+
+     if (!token) {
+       toast.error("Please log in to get an estimate");
+       router.push(`/sign-in?redirect=/budget`);
+       return;
+     }
     if (
       !fromPostal ||
       !toPostal ||
@@ -115,10 +125,27 @@ const Page = () => {
         setLoading(false);
         setShowEstimateCards(true);
       }, 1000);
-    } catch (err) {
-      console.error(err);
-      toast.error("Failed to create estimate");
+    } catch (error) {
       setLoading(false);
+
+      if (isAxiosError(error)) {
+        const axiosError = error as AxiosError<{
+          success: boolean;
+          message: string;
+        }>;
+        const backendMessage = axiosError.response?.data?.message;
+
+        if (backendMessage) {
+          toast.error(backendMessage);
+        } else {
+          toast.error("Failed to create estimate.");
+        }
+
+        console.log("Response:", axiosError.response?.data);
+      } else {
+        toast.error("An unexpected error occurred.");
+        console.error("Unknown error:", error);
+      }
     }
   };
 

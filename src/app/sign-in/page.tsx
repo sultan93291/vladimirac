@@ -8,10 +8,10 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { FaSpinner } from "react-icons/fa";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import useAxios from "@/Hooks/UseAxios";
 import { useTranslations } from "next-intl";
-import { AxiosError } from "axios"; // ✅ Add this
+import { AxiosError } from "axios";
 
 type FormData = {
   email: string;
@@ -27,6 +27,7 @@ const Page = () => {
 
   const [serverError, setServerError] = useState<string | null>(null);
   const router = useRouter();
+  const searchParams = useSearchParams(); // <-- get query params here
   const axiosInstance = useAxios();
   const t = useTranslations("SignInPage");
 
@@ -43,14 +44,17 @@ const Page = () => {
       if (token) {
         localStorage.setItem("token", token);
         toast.success(t("success"));
-        router.push("/login-successfull");
+
+        // Get redirect path from query param or fallback to default
+        const redirectPath =
+          searchParams.get("redirect") || "/login-successfull";
+        router.push(redirectPath);
       } else {
         throw new Error("Token not found in response");
       }
     } catch (error: unknown) {
       let message = t("error.generic");
 
-      // ✅ Use AxiosError to narrow and safely access response
       if (error instanceof AxiosError && error.response?.data?.message) {
         message = error.response.data.message;
       }
