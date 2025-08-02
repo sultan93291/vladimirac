@@ -30,7 +30,6 @@ const Page = () => {
   const [linearMeters, setLinearMeters] = useState("");
   const [weight, setWeight] = useState("");
   const [shippingDate, setShippingDate] = useState("");
-  const [volume, setVolume] = useState("");
   const [isDangerous, setIsDangerous] = useState("No");
 
   const [loading, setLoading] = useState(false);
@@ -51,7 +50,7 @@ const Page = () => {
     setLinearMeters("");
     setWeight("");
     setShippingDate("");
-    setVolume("");
+    
     setIsDangerous("No");
   };
   const router = useRouter();
@@ -69,7 +68,7 @@ const Page = () => {
       !toPostal ||
       !linearMeters ||
       !weight ||
-      !volume ||
+    
       !shippingDate
     ) {
       toast.error("Please fill in all required fields.");
@@ -296,18 +295,6 @@ const Page = () => {
                 />
               </div>
 
-              <div>
-                <label className="block mb-2 font-arial text-[18px] text-[#000]">
-                  {t("volume")}
-                </label>
-                <input
-                  type="number"
-                  value={volume}
-                  onChange={e => setVolume(e.target.value)}
-                  placeholder="Enter volume"
-                  className="w-full py-2 border-b border-[#BCBCBC] text-[#BCBCBC] font-arial focus:outline-none"
-                />
-              </div>
 
               <div>
                 <label className="block mb-2 font-arial text-[18px] text-[#000]">
