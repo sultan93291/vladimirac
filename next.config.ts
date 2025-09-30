@@ -4,7 +4,10 @@ import createNextIntlPlugin from "next-intl/plugin";
 // Your existing config
 const nextConfig: NextConfig = {
   images: {
-    domains: ["vladimirac.softvencefsd.xyz"],
+    domains: [
+      "vladimirac.softvencefsd.xyz",
+      "savalogistic.admin.savalogistic.net",
+    ],
   },
 };
 

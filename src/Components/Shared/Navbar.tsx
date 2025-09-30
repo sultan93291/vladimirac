@@ -8,7 +8,7 @@ import { ChevronDown } from "lucide-react";
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import { IoMenu } from "react-icons/io5";
-import { GiCrossedSabres } from "react-icons/gi";
+import { RxCross2 } from "react-icons/rx";
 
 const LanguageSelect = dynamic(() => import("../Reusable/LanguageSelect"), {
   ssr: false,
@@ -22,7 +22,7 @@ const Navbar = () => {
 
   const navItems = [
     { label: "Our services", href: "/our-service" },
-    { label: "Company", href: "/about-us" },
+    { label: "Company", href: "" },
     { label: "Resources", href: "/resources" },
     { label: "Budget", href: "/budget" },
     { label: "About us", href: "/about-us" },
@@ -171,7 +171,7 @@ const Navbar = () => {
             className="text-white text-2xl cursor-pointer"
             onClick={() => setIsMenuOpen(false)}
           >
-            <GiCrossedSabres />
+            <RxCross2 />
           </button>
         </div>
 
