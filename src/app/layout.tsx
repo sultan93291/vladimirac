@@ -6,7 +6,6 @@ import "./globals.css";
 import LayoutWrapper from "@/Components/Shared/LayoutWrapper";
 import { Toaster } from "react-hot-toast";
 
-// Google fonts
 const jost = Jost({
   variable: "--font-jost",
   subsets: ["latin"],
