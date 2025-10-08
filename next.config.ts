@@ -1,18 +1,18 @@
 import { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
-// Your existing config
 const nextConfig: NextConfig = {
   images: {
-    domains: [
-      "vladimirac.softvencefsd.xyz",
-      "savalogistic.admin.savalogistic.net",
+    domains: ["vladimirac.softvencefsd.xyz", "www.dashboard.savalogistic.net"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "www.dashboard.savalogistic.net",
+        pathname: "**",
+      },
     ],
   },
 };
 
-// Wrap with next-intl plugin
 const withNextIntl = createNextIntlPlugin();
-
-// Export the enhanced config
 export default withNextIntl(nextConfig);
