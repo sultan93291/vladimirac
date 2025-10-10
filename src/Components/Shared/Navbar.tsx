@@ -18,11 +18,11 @@ const Navbar = () => {
   const pathname = usePathname();
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
 
   const navItems = [
     { label: "Our services", href: "/our-service" },
-    { label: "Company", href: "" },
     { label: "Resources", href: "/resources" },
     { label: "Budget", href: "/budget" },
     { label: "About us", href: "/about-us" },
@@ -30,31 +30,24 @@ const Navbar = () => {
   ];
 
   const isDropdownActive =
-    pathname.startsWith("/careers") ||
+    pathname.startsWith("/work-with-us") ||
     pathname.startsWith("/sector") ||
     pathname.startsWith("/legal");
 
+  // Outside click handler for desktop dropdown only
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleOutsideClick = (event: MouseEvent) => {
       if (
-        drawerRef.current &&
-        !drawerRef.current.contains(event.target as Node)
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
       ) {
-        setIsMenuOpen(false);
         setShowDropdown(false);
       }
     };
 
-    if (isMenuOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isMenuOpen]);
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, []);
 
   return (
     <nav className="lg:py-6 py-3 fixed top-0 left-0 w-full z-50 2xl:px-0 px-5 bg-[#32203C]">
@@ -93,9 +86,9 @@ const Navbar = () => {
 
             {/* Others Dropdown for desktop */}
             <div
-              className="relative group"
-              onMouseEnter={() => setShowDropdown(true)}
-              onMouseLeave={() => setShowDropdown(false)}
+              ref={dropdownRef}
+              className="relative"
+              onMouseEnter={() => setShowDropdown(true)} // Open on hover over trigger
             >
               <div
                 className={`flex items-center gap-1 text-white text-[16px] font-arial cursor-pointer ${
@@ -107,11 +100,16 @@ const Navbar = () => {
               </div>
 
               {showDropdown && (
-                <ul className="absolute top-full left-0 mt-2 bg-[#3b2d46] text-white shadow-lg rounded-md py-2 px-4 z-50">
+                <ul
+                  className="absolute top-full left-0 mt-1 bg-[#3b2d46] text-white shadow-lg rounded-md py-2 px-4 z-50" // Reduced mt-2 to mt-1 for less gap
+                  onMouseEnter={() => setShowDropdown(true)} // Keep open when hovering over dropdown
+                  onMouseLeave={() => setShowDropdown(false)} // Close when leaving dropdown
+                >
                   <li>
                     <Link
                       href="/work-with-us"
                       className="block py-1 hover:text-[#FAA312]"
+                      onClick={() => setShowDropdown(false)} // Closes on click before navigation
                     >
                       Careers
                     </Link>
@@ -120,17 +118,16 @@ const Navbar = () => {
                     <Link
                       href="/sector"
                       className="block py-1 hover:text-[#FAA312]"
+                      onClick={() => setShowDropdown(false)} // Closes on click before navigation
                     >
                       Sectors
                     </Link>
                   </li>
-                  <li>
-                    <Link
-                      href="/legal"
-                      className="block py-1 hover:text-[#FAA312]"
-                    >
-                      Legal
-                    </Link>
+                  <li
+                    className="block py-1 hover:text-[#FAA312]"
+                    onClick={() => setShowDropdown(false)}
+                  >
+                    Legal
                   </li>
                 </ul>
               )}
@@ -156,7 +153,10 @@ const Navbar = () => {
 
       {/* Backdrop */}
       {isMenuOpen && (
-        <div className="fixed inset-0 bg-black/10 bg-opacity-40 z-40" />
+        <div
+          className="fixed inset-0 bg-black/10 bg-opacity-40 z-40"
+          onClick={() => setIsMenuOpen(false)} // Close on backdrop click
+        />
       )}
 
       {/* Mobile Drawer */}
@@ -210,8 +210,11 @@ const Navbar = () => {
               <ul className="mt-2 ml-4 space-y-2">
                 <li>
                   <Link
-                    href="/careers"
-                    onClick={() => setIsMenuOpen(false)}
+                    href="/work-with-us"
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      setShowDropdown(false);
+                    }}
                     className="text-white opacity-80 hover:opacity-100"
                   >
                     Careers
@@ -220,20 +223,23 @@ const Navbar = () => {
                 <li>
                   <Link
                     href="/sector"
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      setShowDropdown(false);
+                    }}
                     className="text-white opacity-80 hover:opacity-100"
                   >
                     Sectors
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    href="/legal"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="text-white opacity-80 hover:opacity-100"
-                  >
-                    Legal
-                  </Link>
+                <li
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    setShowDropdown(false);
+                  }}
+                  className="text-white opacity-80 hover:opacity-100"
+                >
+                  Legal
                 </li>
               </ul>
             )}
