@@ -4,6 +4,7 @@ import Cube from "@/Components/Cube/Cube";
 import Container from "@/Components/Shared/Container";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   const t = useTranslations("HomePage");
@@ -103,9 +104,12 @@ export default function Home() {
         <section className="py-20 text-center">
           <h2 className="text-4xl font-bold mb-4">{t("ctaTitle")}</h2>
           <p className="mb-8 text-[#BCBCBC]">{t("ctaText")}</p>
-          <button className="bg-[#C83C7C] hover:bg-white hover:text-black hover:border-[#C83C7C] text-white px-8 py-3 rounded-full font-semibold transition duration-300 border border-transparent">
+          <Link
+            href="/budget"
+            className="bg-[#C83C7C] hover:bg-white hover:text-black hover:border-[#C83C7C] text-white px-8 py-3 rounded-full font-semibold transition duration-300 border border-transparent cursor-pointer"
+          >
             {t("ctaButton")}
-          </button>
+          </Link>
         </section>
       </Container>
     </section>

@@ -23,7 +23,6 @@ const Navbar = () => {
 
   const navItems = [
     { label: "Our services", href: "/our-service" },
-    { label: "Company", href: "" },
     { label: "Resources", href: "/resources" },
     { label: "Budget", href: "/budget" },
     { label: "About us", href: "/about-us" },
