@@ -88,7 +88,7 @@ const Navbar = () => {
             <div
               ref={dropdownRef}
               className="relative"
-              onMouseEnter={() => setShowDropdown(true)} // Open on hover over trigger
+              onMouseEnter={() => setShowDropdown(true)} 
             >
               <div
                 className={`flex items-center gap-1 text-white text-[16px] font-arial cursor-pointer ${
@@ -98,18 +98,17 @@ const Navbar = () => {
                 Others
                 <ChevronDown size={14} />
               </div>
-
               {showDropdown && (
                 <ul
-                  className="absolute top-full left-0 mt-1 bg-[#3b2d46] text-white shadow-lg rounded-md py-2 px-4 z-50" // Reduced mt-2 to mt-1 for less gap
-                  onMouseEnter={() => setShowDropdown(true)} // Keep open when hovering over dropdown
-                  onMouseLeave={() => setShowDropdown(false)} // Close when leaving dropdown
+                  className="absolute top-full left-0 mt-1 bg-[#3b2d46] text-white shadow-lg rounded-md py-2 px-4 z-50" 
+                  onMouseEnter={() => setShowDropdown(true)} 
+                  onMouseLeave={() => setShowDropdown(false)} 
                 >
                   <li>
                     <Link
                       href="/work-with-us"
                       className="block py-1 hover:text-[#FAA312]"
-                      onClick={() => setShowDropdown(false)} // Closes on click before navigation
+                      onClick={() => setShowDropdown(false)}
                     >
                       Careers
                     </Link>
@@ -118,7 +117,7 @@ const Navbar = () => {
                     <Link
                       href="/sector"
                       className="block py-1 hover:text-[#FAA312]"
-                      onClick={() => setShowDropdown(false)} // Closes on click before navigation
+                      onClick={() => setShowDropdown(false)} 
                     >
                       Sectors
                     </Link>
@@ -155,7 +154,7 @@ const Navbar = () => {
       {isMenuOpen && (
         <div
           className="fixed inset-0 bg-black/10 bg-opacity-40 z-40"
-          onClick={() => setIsMenuOpen(false)} // Close on backdrop click
+          onClick={() => setIsMenuOpen(false)} 
         />
       )}
 
