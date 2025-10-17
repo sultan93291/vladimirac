@@ -34,35 +34,38 @@ const Page = () => {
   const axiosInstance = useAxios();
   const router = useRouter();
 
-  const onSubmit = async (data: FormData) => {
-    try {
-      setServerError(null);
+const onSubmit = async (data: FormData) => {
+  try {
+    setServerError(null);
 
-      const response = await axiosInstance.post("/users/register", {
-        name: data.name,
-        email: data.email,
-        password: data.password,
-        role: "user",
-      });
-      console.log(response);
-      
-      toast.success(t("success"));
-      reset();
+    const response = await axiosInstance.post("/users/register", {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      role: "user",
+    });
 
-      setTimeout(() => {
-        router.push("/sign-in");
-      }, 1000);
-    } catch (error: unknown) {
-      let message = t("error.generic");
+    console.log(response);
+    toast.success("Registration successful");
+    reset();
 
-      if (error instanceof AxiosError && error.response?.data?.message) {
-        message = error.response.data.message;
-      }
+    setTimeout(() => router.push("/sign-in"), 1000);
+  } catch (error) {
+    let message = "Something went wrong. Please try again.";
 
-      setServerError(message);
-      toast.error(message);
+    if (error instanceof AxiosError) {
+      const err = error.response?.data;
+
+      message =
+        err?.errors?.email?.[0] || 
+        err?.message || 
+        message;
     }
-  };
+
+    setServerError(message);
+    toast.error(message);
+  }
+};
 
   return (
     <section className="min-h-screen">
